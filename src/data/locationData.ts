@@ -1,6 +1,6 @@
-import { LocationData } from "@/types/locationTypes";
+import { LocationDataType } from "@/types/locationDataTypes";
 
-export const locationData : LocationData[] = [
+export const locationData : LocationDataType[] = [
     {
         id: 0,
         name: "Darechikgre",
@@ -68,7 +68,7 @@ export const locationData : LocationData[] = [
                 link:"https://maps.app.goo.gl/t8tt3HAd77UhS91DA",
             }
         ],
-        others:[1,0,0]
+        others:[1,2,3]
     },
     {
         id: 1,
@@ -141,7 +141,7 @@ export const locationData : LocationData[] = [
                 link:"https://maps.app.goo.gl/zxhKtWxbbqo4pHPz8",
             }
         ],
-        others:[0,1,0]
+        others:[0,2,3]
     },
     {
         id: 2,
@@ -210,82 +210,13 @@ export const locationData : LocationData[] = [
                 link:"https://maps.app.goo.gl/S5w2ZPGLSmH28axz5",
             }
         ],
-        others:[0,1,2]
+        others:[0,1,3]
     },
     {
         id: 3,
         name: "Daribokgre",
         description: "Unmatched hilltop views with strict rules to preserve natural beauty.",
         about: "Daribokgre offers a breathtaking escape into the heart of Meghalaya's natural beauty, with stunning views, vibrant plantations, and a gateway to the Nokrek Biosphere Reserve. As the starting point for the famous Nokrek Peak trek, Daribokgre immerses visitors in the rich traditions and diverse ecosystems of the Garo Hills. While exploring the area, it's essential to follow the rules set by the Daribokgre Management Society. Visitors are urged to respect the environment by not littering, refraining from picking the precious orchids and Memang Narang oranges, and maintaining the tranquility of the forest by keeping noise to a minimum. A local guide is required for mountain treks, ensuring both safety and a deeper understanding of the area. While Daribokgre is a place of unparalleled beauty, it's also a place of respect—both for nature and the local community. Failure to adhere to these guidelines can result in a fine, so visitors are encouraged to enjoy the serenity and splendor of Daribokgre while preserving its pristine condition for future generations.",
-        location:"West Garo Hills",
-        category: "Viewpoint",
-        images: [
-            "/daribokgre.webp",
-        ],
-        address: "F8M9+RX, Daribokgre, Meghalaya 794001",
-        addressGLink:"https://maps.app.goo.gl/mi5YVP9xfwP7D7zJ9",
-        embedMapLink: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2774.739867179277!2d90.31795090604147!3d25.484563727612944!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x37578d6c6d944de1%3A0x8476f040f0faa6cd!2sThe%20Viewing%20Deck%2C%20Daribokgre!5e0!3m2!1sen!2sin!4v1725371527856!5m2!1sen!2sin",
-        lastUpdated: "2024-09-03T13:26:36.336Z",
-        tags: ["Forest", "Wildlife", "Hiking", "Village"],
-        timing: [
-            {
-                day: "Monday",
-                time: "05:00 AM - 07:00 PM",
-            },
-            {
-                day: "Tuesday",
-                time: "05:00 AM - 07:00 PM",
-            },
-            {
-                day: "Wednesday",
-                time: "05:00 AM - 07:00 PM",
-            },
-            {
-                day: "Thursday",
-                time: "05:00 AM - 07:00 PM",
-            },
-            {
-                day: "Friday",
-                time: "05:00 AM - 07:00 PM",
-            },
-            {
-                day: "Saturday",
-                time: "05:00 AM - 07:00 PM",
-            },
-            {
-                day: "Sunday",
-                time: "05:00 AM - 07:00 PM",
-            },
-        ],
-        ticket:[
-            {
-                type: "Ticket",
-                price:"₹ 10"
-            }
-        ],
-        parking:[
-            {
-                type: "Parking",
-                price:"Nil"
-            },
-        ],
-        distance: [
-            {
-                distance:"38.1 KM from Tura",
-                link:"https://maps.app.goo.gl/W2vM2JaxVF5zmqRx5",
-            },
-            {
-                distance:"313 KM from Shillong",
-                link:"https://maps.app.goo.gl/M1ibDSGLN7yZhQ2J8",
-            }
-        ],
-        others:[0,1,2]
-    },
-    {
-        id: 4,
-        name: "Nokrek National Park",
-        description: "Unmatched hilltop views with strict rules to preserve natural beauty.",
-        about: "Daribokgre is a breathtaking destination high up among the clouds, offering unmatched views that make the effort to reach it well worth it. The journey involves parking some distance away and walking to the top, where you'll find yourself surrounded by the natural beauty that Meghalaya is known for. However, it’s important to respect the rules set by the Daribokgre Management Society. Visitors are strictly prohibited from littering, disturbing the peace, or removing the precious orchids and Memang Narang (Citrus indica) found in the forest. A local guide is required for those exploring the mountain and forest, and a nominal fee is to be paid to the guide and at the village gate. Please remember that alcohol consumption is not allowed, and all visitors must enter the village before 7 PM, as the gate is closed overnight. Following these guidelines ensures that everyone can enjoy the serenity and beauty of Daribokgre while preserving its natural and cultural heritage.",
         location:"West Garo Hills",
         category: "Viewpoint",
         images: [

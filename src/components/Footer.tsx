@@ -1,6 +1,7 @@
 import React from 'react'
 import { Input } from './ui/input'
 import { Button } from './ui/button'
+import Link from 'next/link'
 
 const Footer = () => {
   return (
@@ -25,7 +26,7 @@ const Footer = () => {
                     </div>
                 </div>
                 <div className="flex gap-10 justify-start sm:justify-end">
-                    <div>
+                    {/* <div>
                         <div className="py-5 text-xl font-bold" >Sections</div>
                         <div className="flex flex-col gap-5 text-sm text-gray-400">
                             <div className="">About</div>
@@ -40,13 +41,15 @@ const Footer = () => {
                             <div className="">Destination</div>
                             <div className="">Festival</div>
                         </div>
-                    </div>
+                    </div> */}
                     <div>
                         <div className="py-5 text-xl font-bold" >Link</div>
                         <div className="flex flex-col gap-5 text-sm text-gray-400">
-                            <div className="">Explore</div>
-                            <div className="">Experiences</div>
-                            <div className="">Gallery</div>
+                            <Link href={"/destinations"} className='hover:underline'>
+                                    Destinations
+                            </Link>
+                            <Link href={"/"}>About</Link>
+                            <Link href={"/"}>Mission</Link>
                         </div>
                     </div>
                 </div>

@@ -1,5 +1,5 @@
-import { Position } from "@/types/locationTypes";
-import { Distance } from "@/types/locationTypes";
+import { Position } from "@/types/locationDataTypes";
+import { Distance } from "@/types/locationDataTypes";
 
 const locations: Position[] = [
     { name: "LocationA", x: 1, y: 2, z: 3 },

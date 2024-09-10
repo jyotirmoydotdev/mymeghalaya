@@ -52,13 +52,13 @@ const itineraryList: { title: string; href: string; description: string }[] = [
 const destinationList: { title: string; href: string; description: string }[] = [
   {
     title: "West Garo Hills",
-    href: "destinations?location=west+garo+hills",
+    href: "/destinations?location=West+Garo+Hills",
     description:
       "Gateway to Garo Hills' natural beauty, culture, and adventure."
   },
   {
     title: "East Khasi Hills",
-    href: "/destinations?location=east+khasi+hills",
+    href: "/destinations?location=East+Khasi+Hills",
     description:
       "The vibrant heart of Khasi Hills, rich in culture and scenery."
   },
@@ -113,12 +113,12 @@ ListItem.displayName = "ListItem"
 const ListItem2 = (({ href, title, children, ...props }: { href: string, title: string, children: React.ReactNode }) => {
   return (
     <>
-      <Link href={href} {...props} className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+      <a href={href} {...props} className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
         <div className="text-sm font-medium leading-none">{title}</div>
         <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
           {children}
         </p>
-      </Link>
+      </a>
     </>
   )
 })
@@ -181,7 +181,7 @@ const Navbar = () => {
                   Destinations
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
-                  <ul className="grid w-[300px] gap-3 p-4 md:w-[350px] md:grid-cols-1 ">
+                  <ul className="grid w-[300px] gap-3 p-4 md:w-[300px] md:grid-cols-1 ">
                     {destinationList.map((destination) => (
                       <ListItem2
                         key={destination.title}
@@ -223,11 +223,12 @@ const Navbar = () => {
                 </NavigationMenuContent>
               </NavigationMenuItem> */}
 
-              <NavigationMenuItem>
+              {/* Gallery */}
+              {/* <NavigationMenuItem>
                 <Link href={'/gallery'} className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50">
                   Gallery
                 </Link>
-              </NavigationMenuItem>
+              </NavigationMenuItem> */}
 
               {/* <NavigationMenuItem>
                 <Button variant={'default'}>
@@ -276,7 +277,7 @@ const Navbar = () => {
                     Destinations
                   </Button>
                 </Link>
-                <Link href={'/experiences'} className="w-full">
+                {/* <Link href={'/experiences'} className="w-full">
                   <Button variant={'link'} >
                     Experiences
                   </Button>
@@ -285,7 +286,7 @@ const Navbar = () => {
                   <Button variant={'link'}>
                     Gallery
                   </Button>
-                </Link>
+                </Link> */}
               </div>
             </SheetContent>
           </Sheet>

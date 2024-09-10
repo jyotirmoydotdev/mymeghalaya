@@ -1,6 +1,5 @@
 'use client'
 
-import Footer from '@/components/Footer'
 import { Button } from '@/components/ui/button'
 import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { DirectionAwareHover1 } from '@/components/ui/direction-aware-hover1'
@@ -33,19 +32,19 @@ import {
 import { FiSearch } from 'react-icons/fi'
 import { Input } from '@/components/ui/input'
 import Link from 'next/link'
-import { LocationData } from '@/types/locationTypes'
+import { LocationDataType } from '@/types/locationDataTypes'
 import { FaSpinner } from 'react-icons/fa6'
 import { useMediaQuery } from 'usehooks-ts'
 import { CaretSortIcon } from '@radix-ui/react-icons'
-import { Skeleton } from "@/components/ui/skeleton"
 import { useSearchParams } from 'next/navigation'
+import Loading from './loading'
 
 const Page = () => {
   const searchParams = useSearchParams()
-  const searchDistrict = searchParams.get('district')
-  
+  const locationQuery = searchParams.get('location')
+
   const [search, setSearch] = useState("");
-  const [destinationList, setDestinationList] = useState<LocationData[]>([]);
+  const [destinationList, setDestinationList] = useState<LocationDataType[]>([]);
   type locationType = {
     value: string
     label: string
@@ -129,7 +128,12 @@ const Page = () => {
   const [openCategory, setOpenCategory] = React.useState(false)
   const [openLocation, setOpenLocation] = React.useState(false)
   const isDesktop = useMediaQuery("(min-width: 768px)")
-  const [selectedLocation, setSelectedLocation] = React.useState<locationType | null>(null)
+  const [selectedLocation, setSelectedLocation] = React.useState<locationType | null>(
+  locationQuery?
+  {
+    value: locationQuery.toLowerCase(),
+    label: locationQuery,
+  }:null)
   const [selectedCategory, setSelectedCategory] = React.useState<categoryType | null>(null)
 
   function CategoryList({
@@ -199,8 +203,8 @@ const Page = () => {
 
   const destinations = useQuery({
     queryKey: ['data'],
-    queryFn: async (): Promise<LocationData[]> => {
-      const response = await axios.get('/api/destination', {
+    queryFn: async (): Promise<LocationDataType[]> => {
+      const response = await axios.get('/api/destinations', {
         params: {
           search: search,
           location: selectedLocation ? selectedLocation.value : "all",
@@ -211,53 +215,6 @@ const Page = () => {
       return response.data.destination
     },
   })
-
-  if (destinations.isLoading || destinations.isRefetching || destinations.isPending || destinations.isFetching) {
-    return (
-      <div>
-        <div className="py-5">
-          <div className='w-full justify-center flex px-5'>
-            <div className="w-full max-w-5xl">
-              <Skeleton className='w-full h-32'></Skeleton>
-            </div>
-          </div>
-          <div className="flex justify-center px-5">
-            <div className="py-3 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 w-full max-w-5xl">
-              <div className="flex flex-col gap-3">
-                <Skeleton className='w-full h-60'></Skeleton>
-                <Skeleton className='w-1/2 h-9'></Skeleton>
-                <Skeleton className=' h-9'></Skeleton>
-                <div className="flex justify-between">
-                  <Skeleton className='w-1/3 h-9'></Skeleton>
-                  <Skeleton className='w-1/3 h-9'></Skeleton>
-                </div>
-              </div>
-              <div className="flex flex-col gap-3">
-                <Skeleton className='w-full h-60'></Skeleton>
-                <Skeleton className='w-1/2 h-9'></Skeleton>
-                <Skeleton className=' h-9'></Skeleton>
-                <div className="flex justify-between">
-                  <Skeleton className='w-1/3 h-9'></Skeleton>
-                  <Skeleton className='w-1/3 h-9'></Skeleton>
-                </div>
-              </div>
-              <div className="flex flex-col gap-3">
-                <Skeleton className='w-full h-60'></Skeleton>
-                <Skeleton className='w-1/2 h-9'></Skeleton>
-                <Skeleton className=' h-9'></Skeleton>
-                <div className="flex justify-between">
-                  <Skeleton className='w-1/3 h-9'></Skeleton>
-                  <Skeleton className='w-1/3 h-9'></Skeleton>
-                </div>
-              </div>
-              <Skeleton className='w-full h-10 col-span-3'></Skeleton>
-            </div>
-          </div>
-        </div>
-        <Footer/>
-      </div>
-    )
-  }
 
   return (
     <div>
@@ -271,7 +228,7 @@ const Page = () => {
                 <Popover open={openLocation} onOpenChange={setOpenLocation}>
                   <PopoverTrigger asChild>
                     <Button variant="outline" className="font-normal w-full sm:w-1/3 justify-between">
-                      {selectedLocation ? <>{selectedLocation.label}</> : <>Location</>}
+                      {selectedLocation ? selectedLocation.label : "Location"}
                       <CaretSortIcon className="h-4 w-4 opacity-50" />
                     </Button>
                   </PopoverTrigger>
@@ -341,31 +298,37 @@ const Page = () => {
           </div>
         </div>
         <div className="flex justify-center px-5">
-          <div className="py-3 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 w-full max-w-5xl">
-            {destinationList.length > 0 ? destinationList.map((item: LocationData, i: number) => (
-              <Link href={`/destinations/${item.id}`} key={i}>
-                <Card className='overflow-hidden h-full' >
-                  <div className="relative flex items-center justify-center">
-                    <DirectionAwareHover1 imageUrl={item.images ? item.images[0] : ""}>
-                      <p className="flex gap-3 items-center text-xl">Visit<HiArrowLongRight /></p>
-                    </DirectionAwareHover1>
-                  </div>
-                  <CardHeader>
-                    <CardTitle className='flex items-center gap-2 mb-2'><CiLocationOn />{item.name}</CardTitle>
-                    <CardDescription>{item.description}</CardDescription>
-                  </CardHeader>
-                </Card>
-              </Link>
-            )) : (
-              <div className="h-[80vh] col-span-3  flex justify-center items-center text-4xl">
-                No Destination !!
-              </div>
-            )}
-            <Button variant={'outline'} disabled className=' hidden col-span-1 sm:col-span-2 md:col-span-3'>Load More</Button>
-          </div>
+          {
+            (destinations.isLoading || destinations.isRefetching || destinations.isPending || destinations.isFetching ) ?
+              <Loading />
+              :
+              <>
+                <div className="py-3 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 w-full max-w-5xl">
+                  {destinationList.length > 0 ? destinationList.map((item: LocationDataType, i: number) => (
+                    <Link href={`/destinations/${item.id}`} key={i}>
+                      <Card className='overflow-hidden h-full' >
+                        <div className="relative flex items-center justify-center">
+                          <DirectionAwareHover1 imageUrl={item.images ? item.images[0] : ""}>
+                            <p className="flex gap-3 items-center text-xl">Visit<HiArrowLongRight /></p>
+                          </DirectionAwareHover1>
+                        </div>
+                        <CardHeader>
+                          <CardTitle className='flex items-center gap-2 mb-2'><CiLocationOn />{item.name}</CardTitle>
+                          <CardDescription>{item.description}</CardDescription>
+                        </CardHeader>
+                      </Card>
+                    </Link>
+                  )) : (
+                    <div className="h-[80vh] col-span-3  flex justify-center items-center text-4xl">
+                      No Destination !!
+                    </div>
+                  )}
+                </div>
+              </>
+          }
+          <Button variant={'outline'} disabled className=' hidden col-span-1 sm:col-span-2 md:col-span-3'>Load More</Button>
         </div>
       </div>
-      <Footer />
     </div>
   )
 }

@@ -9,7 +9,6 @@ import Footer from '@/components/Footer'
 const Page = () => {
   return (
     <div>
-      <Navbar />
       <div className="p-5">
         <div className="flex justify-center py-5 sm:p-5 sm:pb-0 " >
           <div className="max-w-5xl w-full border-b pb-5">
@@ -214,7 +213,6 @@ const Page = () => {
           </Tabs>
         </div>
       </div>
-      <Footer/>
     </div>
   )
 }

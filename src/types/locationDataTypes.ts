@@ -1,26 +1,20 @@
-export interface Position {
-    name: string;
-    x: number;
-    y: number;
-    z: number;
-}
-
-export interface Distance {
-    from: string;
-    to: string;
-    distance: number;
-}
-
-export interface LocationData {
+export interface LocationDataType {
     id?: number;
-    url?:string,
     name?: string;
     description?: string;
     about?: string;
+    transport?:{
+        road: boolean;
+        airport: boolean;
+        water: boolean;
+    }
     location?:string;
     category?: string;
-    subcategory?: string;
     images?: string[];
+    coordinate?: {
+        longitude: string,
+        latitude: string,
+    }[];
     address?: string;
     addressGLink?:string;
     embedMapLink?: string;

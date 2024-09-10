@@ -1,13 +1,13 @@
 import { locationData } from "@/data/locationData";
-import { LocationData } from "@/types/locationTypes";
+import { LocationDataType } from "@/types/locationDataTypes";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request:NextRequest) {
-    const search = request.nextUrl.searchParams.get("search")
-    const location = request.nextUrl.searchParams.get("location")
-    const category = request.nextUrl.searchParams.get("category")
+    const search = request.nextUrl.searchParams.get("search") || ""
+    const location = request.nextUrl.searchParams.get("location") || "all"
+    const category = request.nextUrl.searchParams.get("category") || "all"
 
-    const destination: LocationData[] = [];
+    const destination: LocationDataType[] = [];
 
     if (search || category){
         for (let i=0 ; i<locationData.length;i++){

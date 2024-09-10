@@ -7,40 +7,22 @@ import { DirectionAwareHover } from './ui/direction-aware-hover'
 const Destination = () => {
     const data = [
         {
-            name: "Tepota",
-            des: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam, quidem.",
-            img: "/tepota.webp",
-            link: "/tepota"
-        },
-        {
             name: "Pelga Waterfalls",
-            des: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam, quidem.",
+            des: "Pelga waterfall offering a peaceful escape for nature lovers.",
             img: "/pelga.webp",
-            link: "/pelga"
+            link: "/destinations/1"
         },
         {
             name: "Darechikgre",
-            des: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam, quidem.",
+            des: "Darechikgre is a beautiful sunset and viewpoint of Tura.",
             img: "/darechikgre.webp",
-            link: "/darechikgre"
+            link: "/destinations/0"
         },
         {
             name: "Tura Peak",
-            des: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam, quidem.",
+            des: "Challenging trail to Tura Peak with rich biodiversity and views.",
             img: "/tura-peak.webp",
-            link: "/gandrak-dare"
-        },
-        {
-            name: "Daribokgre",
-            des: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam, quidem.",
-            img: "/daribokgre.webp",
-            link: "/chibragre"
-        },
-        {
-            name: "Kynrem Falls",
-            des: "Lorem ipsum dolor sit amet consectetur adipisicing.",
-            img: "/KynremFalls.webp",
-            link: "/ganol-eco-park"
+            link: "/destinations/2"
         }
     ]
   return (

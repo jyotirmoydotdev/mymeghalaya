@@ -1,60 +1,54 @@
 'use client'
 
-import Footer from '@/components/Footer'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { DirectionAwareHover1 } from '@/components/ui/direction-aware-hover1'
-import { locationData } from '@/data/locationData'
-import { LocationData } from '@/types/locationTypes'
+import { LocationDataType } from '@/types/locationDataTypes'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { CiLocationOn } from 'react-icons/ci'
-import { FaOtter, FaShare } from 'react-icons/fa6'
+import { FaShare } from 'react-icons/fa6'
 import { HiArrowLongRight } from 'react-icons/hi2'
 import { CiParking1 } from "react-icons/ci";
 import { PiTicketThin } from "react-icons/pi";
 import { CiImageOn } from "react-icons/ci";
+import { useQuery } from '@tanstack/react-query'
+import axios from 'axios'
+import { Skeleton } from '@/components/ui/skeleton'
+import Loading from './loading'
 
 const Pages = () => {
   const { id } = useParams()
-  const [loading, setLoading] = useState(false);
-  const [data, setData] = useState<LocationData>();
-  const [others, setOthers] = useState<LocationData[]>()
-  function fetch() {
-    try {
-      setLoading(true);
-      const idNumber = Number(id);
-      const fetchedData = locationData[idNumber];
-      setData(fetchedData);
-      if (fetchedData && fetchedData.others) {
-        const othersArray: LocationData[] = [];
-        for (let i = 0; i < 3; i++) {
-          const temp = locationData[fetchedData.others[i]];
-          if (temp) {
-            othersArray.push(temp);
-          }
-        }
-        setOthers(othersArray);
-      }
-    } catch (e) {
-      console.log(e);
-    } finally {
-      setLoading(false)
+
+  const [data, setData] = useState<LocationDataType>();
+  const [others, setOthers] = useState<LocationDataType[]>([]);
+
+  const fetchData = useQuery({
+    queryKey: ['destination'],
+    queryFn: async (): Promise<{destination:LocationDataType, nearby: LocationDataType[]}> => {
+      const response = await axios.get(`/api/destinations/${id}`)
+      setData(response.data.data.destination)
+      setOthers(response.data.data.nearby)
+      return response.data.data
     }
-  }
-  useEffect(() => {
-    fetch()
-  }, [])
-  if (loading) {
+  })
+  
+  if (
+    fetchData.isLoading || 
+    fetchData.isFetching || 
+    fetchData.isLoading ||
+    fetchData.isPending ||
+    fetchData.isRefetching
+  ) {
     return (
-      <div className="flex justify-center items-center h-[80vh] text-4xl">
-        Loading...
-      </div>
+      <Loading/>
     )
-  } else if (data === undefined) {
+  }
+
+  if (data === undefined ) {
     return (
       <>
         <div className="flex flex-col gap-3 justify-center items-center h-[90vh] text-4xl">
@@ -63,10 +57,10 @@ const Pages = () => {
             <Button>Back to Home</Button>
           </Link>
         </div>
-        <Footer />
       </>
     )
   }
+  
   return (
     <div className="">
       <div className="flex justify-center px-5 sm:p-5">
@@ -181,7 +175,6 @@ const Pages = () => {
         </div>
       </div>
       <iframe src={data.embedMapLink} className='w-full' height="450" loading="lazy" ></iframe>
-      <Footer />
     </div>
   )
 }
