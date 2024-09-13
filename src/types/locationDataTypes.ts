@@ -1,5 +1,6 @@
 export interface LocationDataType {
     id?: number;
+    slug: string;
     name?: string;
     description?: string;
     about?: string;
@@ -12,12 +13,11 @@ export interface LocationDataType {
     category?: string;
     images?: string[];
     coordinate?: {
-        longitude: string,
         latitude: string,
-    }[];
+        longitude: string,
+    };
     address?: string;
     addressGLink?:string;
-    embedMapLink?: string;
     lastUpdated?: string;
     tags?: string[];
     timing?:{
@@ -36,5 +36,5 @@ export interface LocationDataType {
         distance:string,
         link:string
     }[];
-    others: number[];
+    others: string[];
 }

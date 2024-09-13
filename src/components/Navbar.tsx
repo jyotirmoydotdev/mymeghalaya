@@ -243,7 +243,9 @@ const Navbar = () => {
         <div className="py-5 px-5 md:px-12 lg:px-28 flex justify-between items-center border-b">
           <Link href={'/'}>
             <div className="flex items-start text-xl font-light text-right font-sans">
-              <div className="text-xs">MY</div>
+              <div className="text-xs">
+                MY
+              </div>
               MEGHALAYA
             </div>
           </Link>
@@ -256,7 +258,7 @@ const Navbar = () => {
                 <SheetTitle className="text-left">
                   <Link href={'/'}>
                     <div className="flex items-start font-light">
-                      <div className="text-xs font-thin">
+                      <div className="text-xs">
                         MY
                       </div>
                       MEGHALAYA

@@ -38,6 +38,7 @@ import { useMediaQuery } from 'usehooks-ts'
 import { CaretSortIcon } from '@radix-ui/react-icons'
 import { useSearchParams } from 'next/navigation'
 import Loading from './loading'
+import ResponsiveCard from '@/components/ResponsiveCard'
 
 const Page = () => {
   const searchParams = useSearchParams()
@@ -224,72 +225,74 @@ const Page = () => {
             <div className="text-4xl py-3 uppercase text-left font-sans font-bold">Destinatons</div>
             <div className="flex flex-col sm:flex-row gap-3 py-5 border-t">
               <Input className='text-[16.1px] bg-white' placeholder='Search destination' value={search} onChange={(e) => setSearch(e.target.value)} />
-              {isDesktop ?
-                <Popover open={openLocation} onOpenChange={setOpenLocation}>
-                  <PopoverTrigger asChild>
-                    <Button variant="outline" className="font-normal w-full sm:w-1/3 justify-between">
-                      {selectedLocation ? selectedLocation.label : "Location"}
-                      <CaretSortIcon className="h-4 w-4 opacity-50" />
-                    </Button>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-[200px] p-0" align="start">
-                    <LocationList setOpen={setOpenLocation} setSelectedLocation={setSelectedLocation} />
-                  </PopoverContent>
-                </Popover>
-                :
-                <Drawer open={openLocation} onOpenChange={setOpenLocation}>
-                  <DrawerTrigger asChild>
-                    <Button variant="outline" className="font-normal w-full sm:w-1/3 justify-between">
-                      {selectedLocation ? <>{selectedLocation.label}</> : <>Location</>}
-                      <CaretSortIcon className="h-4 w-4 opacity-50" />
-                    </Button>
-                  </DrawerTrigger>
-                  <DrawerContent className=' rounded-t-none'>
-                    <DrawerHeader className="text-left pb-0">
-                      <DrawerTitle>Location</DrawerTitle>
-                      <DrawerDescription>
-                        Select location of your choose.
-                      </DrawerDescription>
-                    </DrawerHeader>
-                    <div className="mt-4 border-t">
+              <div className=" flex flex-row w-full gap-3">
+                {isDesktop ?
+                  <Popover open={openLocation} onOpenChange={setOpenLocation}>
+                    <PopoverTrigger asChild>
+                      <Button variant="outline" className="font-normal w-full justify-between">
+                        {selectedLocation ? selectedLocation.label : "Location"}
+                        <CaretSortIcon className="h-4 w-4 opacity-50" />
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-[200px] p-0" align="start">
                       <LocationList setOpen={setOpenLocation} setSelectedLocation={setSelectedLocation} />
-                    </div>
-                  </DrawerContent>
-                </Drawer>
-              }
-              {isDesktop ?
-                <Popover open={openCategory} onOpenChange={setOpenCategory}>
-                  <PopoverTrigger asChild>
-                    <Button variant="outline" className="font-normal w-full sm:w-1/3 justify-between">
-                      {selectedCategory ? <>{selectedCategory.label}</> : <>Category</>}
-                      <CaretSortIcon className="h-4 w-4 opacity-50" />
-                    </Button>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-[200px] p-0" align="start">
-                    <CategoryList setOpen={setOpenCategory} setSelectedCategory={setSelectedCategory} />
-                  </PopoverContent>
-                </Popover>
-                :
-                <Drawer open={openCategory} onOpenChange={setOpenCategory}>
-                  <DrawerTrigger asChild>
-                    <Button variant="outline" className="font-normal w-full sm:w-1/3 justify-between">
-                      {selectedCategory ? <>{selectedCategory.label}</> : <>Category</>}
-                      <CaretSortIcon className="h-4 w-4 opacity-50" />
-                    </Button>
-                  </DrawerTrigger>
-                  <DrawerContent className=' rounded-t-none'>
-                    <DrawerHeader className="text-left pb-0">
-                      <DrawerTitle>Category</DrawerTitle>
-                      <DrawerDescription>
-                        Select category of your choose.
-                      </DrawerDescription>
-                    </DrawerHeader>
-                    <div className="mt-4 border-t">
+                    </PopoverContent>
+                  </Popover>
+                  :
+                  <Drawer open={openLocation} onOpenChange={setOpenLocation}>
+                    <DrawerTrigger asChild>
+                      <Button variant="outline" className="font-normal w-full justify-between">
+                        {selectedLocation ? <>{selectedLocation.label}</> : <>Location</>}
+                        <CaretSortIcon className="h-4 w-4 opacity-50" />
+                      </Button>
+                    </DrawerTrigger>
+                    <DrawerContent className=' rounded-t-none'>
+                      <DrawerHeader className="text-left pb-0">
+                        <DrawerTitle>Location</DrawerTitle>
+                        <DrawerDescription>
+                          Select location of your choose.
+                        </DrawerDescription>
+                      </DrawerHeader>
+                      <div className="mt-4 border-t">
+                        <LocationList setOpen={setOpenLocation} setSelectedLocation={setSelectedLocation} />
+                      </div>
+                    </DrawerContent>
+                  </Drawer>
+                }
+                {isDesktop ?
+                  <Popover open={openCategory} onOpenChange={setOpenCategory}>
+                    <PopoverTrigger asChild>
+                      <Button variant="outline" className="font-normal w-full justify-between">
+                        {selectedCategory ? <>{selectedCategory.label}</> : <>Category</>}
+                        <CaretSortIcon className="h-4 w-4 opacity-50" />
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-[200px] p-0" align="start">
                       <CategoryList setOpen={setOpenCategory} setSelectedCategory={setSelectedCategory} />
-                    </div>
-                  </DrawerContent>
-                </Drawer>
-              }
+                    </PopoverContent>
+                  </Popover>
+                  :
+                  <Drawer open={openCategory} onOpenChange={setOpenCategory}>
+                    <DrawerTrigger asChild>
+                      <Button variant="outline" className="font-normal w-full justify-between">
+                        {selectedCategory ? <>{selectedCategory.label}</> : <>Category</>}
+                        <CaretSortIcon className="h-4 w-4 opacity-50" />
+                      </Button>
+                    </DrawerTrigger>
+                    <DrawerContent className=' rounded-t-none'>
+                      <DrawerHeader className="text-left pb-0">
+                        <DrawerTitle>Category</DrawerTitle>
+                        <DrawerDescription>
+                          Select category of your choose.
+                        </DrawerDescription>
+                      </DrawerHeader>
+                      <div className="mt-4 border-t">
+                        <CategoryList setOpen={setOpenCategory} setSelectedCategory={setSelectedCategory} />
+                      </div>
+                    </DrawerContent>
+                  </Drawer>
+                }
+              </div>
               <Button className='text-sm flex gap-2' onClick={() => destinations.refetch()}>
                 {destinations.isRefetching ? <FaSpinner className='animate-spin' /> : <FiSearch />}
                 Search
@@ -297,7 +300,7 @@ const Page = () => {
             </div>
           </div>
         </div>
-        <div className="flex justify-center px-5">
+        <div className="flex justify-center items-center px-5">
           {
             (destinations.isLoading || destinations.isRefetching || destinations.isPending || destinations.isFetching ) ?
               <Loading />
@@ -305,19 +308,14 @@ const Page = () => {
               <>
                 <div className="py-3 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 w-full max-w-5xl">
                   {destinationList.length > 0 ? destinationList.map((item: LocationDataType, i: number) => (
-                    <Link href={`/destinations/${item.id}`} key={i}>
-                      <Card className='overflow-hidden h-full' >
-                        <div className="relative flex items-center justify-center">
-                          <DirectionAwareHover1 imageUrl={item.images ? item.images[0] : ""}>
-                            <p className="flex gap-3 items-center text-xl">Visit<HiArrowLongRight /></p>
-                          </DirectionAwareHover1>
-                        </div>
-                        <CardHeader>
-                          <CardTitle className='flex items-center gap-2 mb-2'><CiLocationOn />{item.name}</CardTitle>
-                          <CardDescription>{item.description}</CardDescription>
-                        </CardHeader>
-                      </Card>
-                    </Link>
+                    <ResponsiveCard
+                    i={i}
+                    key={i}
+                    url={`/destinations/${item.slug}`}
+                    imgUrl={item.images ? item.images[0] : ""}
+                    name={item.name as string}
+                    des={item.description as string}
+                    />
                   )) : (
                     <div className="h-[80vh] col-span-3  flex justify-center items-center text-4xl">
                       No Destination !!

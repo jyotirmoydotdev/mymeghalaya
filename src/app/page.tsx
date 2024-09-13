@@ -1,7 +1,6 @@
 import About from "@/components/About";
 import Adventure from "@/components/Adventure";
 import Destination from "@/components/Destination";
-import FeaturedImg from "@/components/FeaturedImg";
 import Festival from "@/components/Festival";
 import Food from "@/components/Food";
 import Footer from "@/components/Footer";

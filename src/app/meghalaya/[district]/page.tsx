@@ -16,8 +16,10 @@ import { CiLocationOn } from 'react-icons/ci'
 import { HiArrowLongRight } from 'react-icons/hi2'
 import Loading from './loading'
 import NotFound from './not-found'
+import Markdown from 'react-markdown'
+import ResponsiveCard from '@/components/ResponsiveCard'
 
-const page = () => {
+const Page = () => {
   const {district} = useParams();
   const fetchDistrictData = useQuery({
     queryKey: ['district'],
@@ -37,13 +39,7 @@ const page = () => {
     },
   })
 
-  if (
-    fetchDistrictData.isLoading || 
-    fetchDistrictData.isFetching || 
-    fetchDistrictData.isLoading ||
-    fetchDistrictData.isPending ||
-    fetchDistrictData.isRefetching
-  ){
+  if (fetchDistrictData.isLoading || fetchDistrictData.isFetching){
     return (<Loading/>)
   }
 
@@ -67,7 +63,9 @@ const page = () => {
         <div className="flex justify-center pb-5 sm:p-10">
           <div className="max-w-5xl grid grid-cols-1 sm:grid-cols-2 w-full gap-10">
             <div className="text-sm flex flex-col gap-3 order-2 sm:order-1">
-              {fetchDistrictData.data?.data.districtData.about}
+              <Markdown>
+                {fetchDistrictData.data?.data.districtData.about}
+              </Markdown>
             </div>
             <DirectionAwareHover imageUrl={fetchDistrictData.data?.data.districtData.img?.url || ""} className=' h-[516px] rounded-md order-1 sm:order-2'>
               <div className="flex flex-col gap-2">
@@ -88,19 +86,14 @@ const page = () => {
           <div className="flex justify-center px-5 pb-5">
             <div className="py-3 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 w-full max-w-5xl">
               {fetchDistrictData.data?.data.destinationData.length ? fetchDistrictData.data?.data.destinationData.map((item: LocationDataType, i: number) => (
-                <Link href={`/destinations/${item.id}`} key={i}>
-                  <Card className='overflow-hidden h-full' >
-                    <div className="relative flex items-center justify-center">
-                      <DirectionAwareHover1 imageUrl={item.images ? item.images[0] : ""}>
-                        <p className="flex gap-3 items-center text-xl">Visit<HiArrowLongRight /></p>
-                      </DirectionAwareHover1>
-                    </div>
-                    <CardHeader>
-                      <CardTitle className='flex items-center gap-2 mb-2'><CiLocationOn />{item.name}</CardTitle>
-                      <CardDescription>{item.description}</CardDescription>
-                    </CardHeader>
-                  </Card>
-                </Link>
+                <ResponsiveCard
+                key={i}
+                i={i}
+                url={`/destinations/${item.slug}`}
+                imgUrl={item.images ? item.images[0] : ""}
+                name={item.name as string}
+                des={item.description as string}
+                />
               )) : (
                 <div className="h-[40vh] col-span-3 flex justify-center items-center text-2xl">
                   No Destination !!
@@ -113,4 +106,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page

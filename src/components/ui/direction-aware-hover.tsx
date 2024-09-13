@@ -9,7 +9,6 @@ import { useMediaQuery } from 'usehooks-ts'
 export const DirectionAwareHover = ({
   imageUrl,
   children,
-  hover,
   childrenClassName,
   imageClassName,
   className,
@@ -21,10 +20,9 @@ export const DirectionAwareHover = ({
   imageClassName?: string;
   className?: string;
 }) => {
-
   const isDesktop = useMediaQuery("(min-width: 768px)")
-  const ref = useRef<HTMLDivElement>(null);
 
+  const ref = useRef<HTMLDivElement>(null);
   const [direction, setDirection] = useState<
     "top" | "bottom" | "left" | "right" | string
   >("left");
@@ -108,6 +106,7 @@ export const DirectionAwareHover = ({
               duration: 0.5,
               ease: "easeOut",
             }}
+            initial={true} animate={{opacity:isDesktop?0:1,transform:'none'}}
             className={cn(
               "text-white absolute bottom-4 left-4 z-40",
               childrenClassName
@@ -172,6 +171,7 @@ const textVariants = {
     opacity: 1,
   },
 };
+
 const mobile = {
   initial: {
     y: 0,
@@ -181,7 +181,7 @@ const mobile = {
   exit: {
     y: 0,
     x: 0,
-    opacity: 0,
+    opacity: 1,
   },
   top: {
     y: 0,

@@ -4,8 +4,8 @@ import React from 'react'
 const Loading = () => {
     return (
         <div className="flex flex-col justify-center items-center px-5 sm:px-0">
-            <div className="grid grid-cols-1 sm:grid-cols-2  max-w-5xl w-full gap-3">
-                <div className="pt-5 h-[450px]">
+            <div className="grid grid-cols-1 sm:grid-cols-2 max-w-5xl w-full gap-3">
+                <div className="pt-5 h-[262px] sm:h-[450px]">
                     <Skeleton className='h-full rounded-md'></Skeleton>
                 </div>
                 <div className="flex flex-col gap-5 pt-5 h-[450px]">
