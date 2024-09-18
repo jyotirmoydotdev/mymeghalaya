@@ -315,6 +315,7 @@ const Page = () => {
                     imgUrl={item.images ? item.images[0] : ""}
                     name={item.name as string}
                     des={item.description as string}
+                    icon={<CiLocationOn/>}
                     />
                   )) : (
                     <div className="h-[80vh] col-span-3  flex justify-center items-center text-4xl">

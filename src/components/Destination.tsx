@@ -2,6 +2,7 @@ import React from 'react'
 import { HiArrowLongRight } from 'react-icons/hi2'
 import Link from 'next/link'
 import ResponsiveCard from './ResponsiveCard'
+import { CiLocationOn } from 'react-icons/ci'
 
 const data = [
     {
@@ -47,6 +48,7 @@ const Destination = () => {
                         imgUrl={loc.img}
                         name={loc.name}
                         des={loc.des}
+                        icon={<CiLocationOn/>}
                     />
                 ))}
             </div>

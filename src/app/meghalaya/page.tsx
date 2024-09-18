@@ -36,7 +36,7 @@ const Page = () => {
                 {"Interestingly, a dramatic climate event around 2250 BCE, evidenced by formations in Meghalaya's Mawmluh cave, led to the naming of the Meghalayan Age, a stage in the Holocene epoch. With its central institutions like the North Eastern Council Secretariat in Shillong, Meghalaya continues to be a vital and fascinating part of India's northeast."}
               </p>
             </div>
-            <DirectionAwareHover1 imageUrl={"/wei-sawdong.webp"} className=' h-[516px] rounded-md order-1 sm:order-2'>
+            <DirectionAwareHover1 imageUrl={"https://ewooifarchgirohujmyz.supabase.co/storage/v1/object/public/Image/wei-sawdong.webp?t=2024-09-14T06%3A00%3A07.809Z"} className=' h-[516px] rounded-md order-1 sm:order-2'>
               <div className="flex flex-col gap-2">
                 <p className="font-bold text-xl">Wei Sawdong Fall</p>
                 <p className="font-normal text-sm">Cherrapunji, East Khasi Hills</p>
@@ -62,7 +62,7 @@ const Page = () => {
             <TabsContent value="geography">
               <div className="grid grid-cols-1 sm:grid-cols-2 w-full gap-5 py-3">
 
-                <DirectionAwareHover1 imageUrl='/daribokgre.webp' className='h-full border rounded-lg order-1'>
+                <DirectionAwareHover1 imageUrl='https://ewooifarchgirohujmyz.supabase.co/storage/v1/object/public/Image/daribokgre.webp?t=2024-09-14T06%3A01%3A17.327Z' className='h-full border rounded-lg order-1'>
                   <p className="font-bold text-xl">Daribokgre</p>
                   <p className="font-normal text-sm">Tura, West Garo Hills</p>
                 </DirectionAwareHover1>
@@ -79,14 +79,14 @@ const Page = () => {
                   </p>
                 </div>
 
-                <DirectionAwareHover1 imageUrl='/Nohkalikai-Falls.webp' className='h-full border rounded-lg order-3 sm:order-4'>
+                <DirectionAwareHover1 imageUrl='https://ewooifarchgirohujmyz.supabase.co/storage/v1/object/public/Image/nohkalikai-falls.webp?t=2024-09-14T05%3A48%3A55.244Z' className='h-full border rounded-lg order-3 sm:order-4'>
                   <div className="flex flex-col gap-1">
                     <p className="font-bold text-xl">Nohkalikai Falls</p>
                     <p className="font-normal text-sm">Cherrapunji, East Khasi Hills</p>
                   </div>
                 </DirectionAwareHover1>
 
-                <DirectionAwareHover1 imageUrl='/Cherrapunji.webp' className='h-full rounded-lg border order-5'>
+                <DirectionAwareHover1 imageUrl='https://ewooifarchgirohujmyz.supabase.co/storage/v1/object/public/Image/cherrapunji.webp?t=2024-09-14T05%3A47%3A53.698Z' className='h-full rounded-lg border order-5'>
                   <div className="flex flex-col gap-1">
                     <p className="font-bold text-xl">Cherrapunji </p>
                     <p className="font-normal text-sm">Cherrapunji, East Khasi Hills</p>
@@ -105,7 +105,7 @@ const Page = () => {
                   </p>
                 </div>
 
-                <DirectionAwareHover1 imageUrl='/red-panda.webp' className='h-full rounded-lg border order-7 sm:order-8'>
+                <DirectionAwareHover1 imageUrl='https://ewooifarchgirohujmyz.supabase.co/storage/v1/object/public/Image/red-panda.webp?t=2024-09-14T06%3A00%3A07.809Z' className='h-full rounded-lg border order-7 sm:order-8'>
                   <div className="flex flex-col gap-1">
                     <p className="font-bold text-xl">Red Panda </p>
                     <p className="font-normal text-sm">Nokrek National Park, West Garo Hills</p>

@@ -67,7 +67,7 @@ const Page = () => {
                 {fetchDistrictData.data?.data.districtData.about}
               </Markdown>
             </div>
-            <DirectionAwareHover imageUrl={fetchDistrictData.data?.data.districtData.img?.url || ""} className=' h-[516px] rounded-md order-1 sm:order-2'>
+            <DirectionAwareHover imageUrl={fetchDistrictData.data?.data.districtData.img?.url || ""} className=' h-64 sm:h-[516px] rounded-md order-1 sm:order-2'>
               <div className="flex flex-col gap-2">
                 <p className="font-bold text-xl">{fetchDistrictData.data?.data.districtData.img?.name}</p>
                 <p className="font-normal text-sm">{fetchDistrictData.data?.data.districtData.img?.location}</p>

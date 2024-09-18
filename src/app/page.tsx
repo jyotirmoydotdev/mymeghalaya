@@ -19,9 +19,9 @@ export default function Home() {
       <Map/>
       {/* <FeaturedImg/> */}
       <Destination/>
-      {/* <Festival/>
+      <Festival/>
       <Food/>
-      <Adventure/> */}
+      <Adventure/>
       <Footer/>
     </main>
   );

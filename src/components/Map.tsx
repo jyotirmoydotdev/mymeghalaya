@@ -4,7 +4,7 @@ import { HiArrowLongRight } from 'react-icons/hi2'
 
 const Map = () => {
   return (
-    <div className='flex flex-col justify-center p-5 sm:py-16 gap-5'>
+    <div className='flex flex-col justify-center p-5 sm:py-16 gap-5 '>
         <div className="flex justify-center py-5 sm:p-10 sm:pt-10 " >
             <div className="max-w-5xl w-full border-b pb-5">
                 <div className={` text-3xl font-black uppercase bg-clip-text text-transparent bg-gradient-to-t from-sky-50 to-gray-500 sm:text-6xl`}>

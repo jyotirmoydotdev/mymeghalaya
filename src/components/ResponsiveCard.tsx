@@ -1,10 +1,10 @@
 import Link from 'next/link'
-import React from 'react'
+import React, { ReactNode } from 'react'
 import { DirectionAwareHover } from './ui/direction-aware-hover'
 import { HiArrowLongRight } from 'react-icons/hi2'
 import { CiLocationOn } from 'react-icons/ci'
 
-const ResponsiveCard = ({ i, url, imgUrl, name, des }: { i: number, url: string, imgUrl: string, name: string, des: string }) => {
+const ResponsiveCard = ({ i, url, imgUrl, name, des, icon }: { i: number, url: string, imgUrl: string, name: string, des: string, icon?: ReactNode }) => {
   return (
     <Link href={url} key={i}>
       <div className="grid grid-cols-2 sm:grid-cols-1 rounded-xl border bg-card text-card-foreground shadow">
@@ -14,7 +14,12 @@ const ResponsiveCard = ({ i, url, imgUrl, name, des }: { i: number, url: string,
           </DirectionAwareHover>
         </div>
         <div className="flex flex-col justify-center space-y-1.5 p-6">
-          <div className="font-semibold leading-none tracking-tight flex items-center gap-2 mb-2"><CiLocationOn />{name}</div>
+          <div className="font-semibold leading-none tracking-tight flex items-center gap-2 mb-2">
+            {icon}
+            <div className="line-clamp-2">
+              {name}
+            </div>
+          </div>
           <div className="text-xs line-clamp-4 sm:text-sm text-muted-foreground">{des}</div>
         </div>
       </div>

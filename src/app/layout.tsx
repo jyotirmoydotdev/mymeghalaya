@@ -10,9 +10,9 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "ᴹʸMeghalaya",
+  title: "MyMeghalaya",
   description: "Enjoy your time in Meghalaya",
-  icons: { icon: "/favicon.webp", apple: "/favicon.png" }
+  icons: { icon: "/favicon.png", apple: "/favicon.png" }
 };
 
 export default function RootLayout({
