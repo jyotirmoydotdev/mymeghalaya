@@ -1,7 +1,7 @@
 import Footer from '@/components/Footer'
 import Navbar from '@/components/Navbar'
 import { Button } from '@/components/ui/button'
-import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card1'
 import { DirectionAwareHover1 } from '@/components/ui/direction-aware-hover1'
 import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
@@ -15,7 +15,7 @@ const page = () => {
   const data = [1,1,1,1,1,1]
   return (
     <div >
-        <Navbar/>
+        
         <div className='w-full justify-center flex px-5 '>
           <div className="w-full max-w-5xl rounded-xl border shadow-sm">
             <div className="text-4xl p-3 italic text-center" >Experiences</div>
@@ -83,7 +83,7 @@ const page = () => {
                 <Button variant={'outline'} className='col-span-1 sm:col-span-2 md:col-span-3'>Load More</Button>
               </div>
           </div>
-        <Footer/>
+        
     </div>
   )
 }

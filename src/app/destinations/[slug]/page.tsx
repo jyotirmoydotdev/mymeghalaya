@@ -19,12 +19,14 @@ import ResponsiveCard from '@/components/ResponsiveCard'
 import { IoCopyOutline } from "react-icons/io5";
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 import { toast } from "@/components/ui/use-toast"
+import { CiBookmark } from "react-icons/ci";
+import { FaBookmark } from "react-icons/fa";
 
 const Pages = () => {
   const { slug } = useParams()
   const url = usePathname()
 
-  const [data, setData] = useState<LocationDataType>();
+  const [data, setData] = useState<LocationDataType | null>();
   const [others, setOthers] = useState<LocationDataType[]>([]);
 
   const fetchData = useQuery({
@@ -39,13 +41,13 @@ const Pages = () => {
 
   const lastUpdate = new Date(data?.lastUpdated || "");
 
-  if (fetchData.isLoading || fetchData.isFetching) {
+  if (fetchData.isLoading || data === undefined) {
     return (
       <Loading />
     )
   }
 
-  if (data === undefined) {
+  if (data === null) {
     return (
       <>
         <div className="flex flex-col gap-3 justify-center items-center h-[90vh] text-4xl">
@@ -61,7 +63,7 @@ const Pages = () => {
   return (
     <div className="">
       <div className="flex justify-center p-5">
-        <div className="">
+        <div className="overflow-hidden">
           <div className="grid grid-cols-1 sm:grid-cols-2 max-w-5xl gap-3 ">
             <div className="bg-gray-100 object-cover relative">
               <Image alt='' width={500} height={500} priority className='object-cover rounded-md shadow-sm h-full w-full overflow-hidden' src={data.images ? data.images[0] : ""}></Image>
@@ -69,11 +71,14 @@ const Pages = () => {
                 <CiImageOn size={35} className='fill-white stroke-white hover:scale-150 transition' />
               </div>
             </div>
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-1 sm:gap-3">
               <div className="text-3xl font-black text-gray-500 sm:text-5xl font-sans" >{data.name}</div>
-              <a target='_blank' href={data.addressGLink} className="hover:underline ">
-                <div className="text-sm font-semibold flex items-center gap-2 text-gray-500"><CiLocationOn />{data.address}</div>
-              </a>
+              <div className="flex justify-between items-center">
+                <a target='_blank' href={data.addressGLink} className="hover:underline ">
+                  <div className="text-xs sm:text-sm font-semibold flex items-center gap-2 text-gray-500"><CiLocationOn />{data.address}</div>
+                </a>
+                <Button variant={'ghost'} className="hidden"><FaBookmark className="fill-green-400 "/></Button>
+              </div>
               <div className="border flex flex-col p-5 gap-3 rounded-md shadow-sm text-xs sm:text-sm font-medium ">
                 {data.timing?.map((item, i) => (
                   <div className="flex justify-between border-b pb-2" key={i}>
@@ -168,19 +173,22 @@ const Pages = () => {
           </div>
           <div className="flex flex-col mt-5 max-w-5xl">
             <div className="text-4xl font-black text-gray-400 font-sans">NEARBY</div>
-            <div className='grid grid-cols-1 sm:grid-cols-3 py-5 gap-5'>
+            <div className="flex justify-center">
+            <div className='flex sm:grid sm:grid-cols-2 md:grid-cols-3 gap-3 w-full max-w-5xl py-5 overflow-x-scroll no-scrollbar'>
               {
                 others?.map((item, i) => (
                   <ResponsiveCard
                   key={i}
                   i={i}
                   url={`/destinations/${item.slug}`}
+                  icon={<CiLocationOn/>}
                   imgUrl={item.images?item.images[0]:''}
                   name={item.name as string}
                   des={item.description as string}
                   />
                 ))
               }
+            </div>
             </div>
           </div>
           <div className="flex justify-center items-center p-10">

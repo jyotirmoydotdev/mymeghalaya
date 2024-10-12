@@ -1,26 +1,38 @@
+'use client'
+
 import Link from 'next/link'
-import React, { ReactNode } from 'react'
+import React, { ReactNode, useState } from 'react'
 import { DirectionAwareHover } from './ui/direction-aware-hover'
 import { HiArrowLongRight } from 'react-icons/hi2'
-import { CiLocationOn } from 'react-icons/ci'
+import { CiBookmark, CiLocationOn } from 'react-icons/ci'
+import { FaBookmark, FaStar } from 'react-icons/fa'
+import { cn } from "@/lib/utils";
 
-const ResponsiveCard = ({ i, url, imgUrl, name, des, icon }: { i: number, url: string, imgUrl: string, name: string, des: string, icon?: ReactNode }) => {
+const ResponsiveCard = ({ i, url, imgUrl, name, des, icon, imgMsg, className }: { i: number, url: string, imgUrl: string, name?: string, des: string, icon?: ReactNode, imgMsg?: string, className?:string }) => {
+  const [button, setbutton] = useState(false)
   return (
-    <Link href={url} key={i}>
-      <div className="grid grid-cols-2 sm:grid-cols-1 rounded-xl border bg-card text-card-foreground shadow">
-        <div className="relative flex items-center justify-start sm:justify-center h-40 sm:h-52">
-          <DirectionAwareHover imageUrl={imgUrl} className='rounded-xl h-40 sm:h-52'>
-            <p className="font-bold flex gap-3 items-center text-xl">Visit<HiArrowLongRight /></p>
+    <Link href={url} key={i} >
+      <div className={cn("grid grid-cols-1 sm:grid-cols-1 rounded-md sm:rounded-xl bg-card text-card-foreground w-[169px] sm:w-full shadow border ",className)}>
+        <div className="relative flex items-center justify-start sm:justify-center h-24 sm:h-52">
+          <DirectionAwareHover imageUrl={imgUrl} className='rounded-sm rounded-b-none sm:rounded-xl h-24 sm:h-52'>
+            <p className="font-normal line-clamp-1 sm:font-bold flex gap-3 items-center text-xs sm:text-xl">{imgMsg ? imgMsg : <>view <HiArrowLongRight /></>} </p>
           </DirectionAwareHover>
         </div>
-        <div className="flex flex-col justify-center space-y-1.5 p-6">
-          <div className="font-semibold leading-none tracking-tight flex items-center gap-2 mb-2">
-            {icon}
-            <div className="line-clamp-2">
-              {name}
-            </div>
+        <div className="flex flex-col justify-center space-x-1 sm:space-y-1.5 p-3 sm:p-6 relative">
+          <div className="flex justify-between">
+            {name ? (
+              <div className="leading-none tracking-tight flex items-center gap-1 sm:gap-2 mb-2">
+                {icon}
+                <div className="text-sm line-clamp-1">
+                  {name}
+                </div>
+              </div>
+            ) : (<></>)}
+            <button onClick={(e) => { e.stopPropagation(); setbutton(!button) }} className='hover:scale-125 transition-all hidden'>
+              {button ? <FaBookmark className='fill-green-500' /> : <CiBookmark className='fill-green-900' />}
+            </button>
           </div>
-          <div className="text-xs line-clamp-4 sm:text-sm text-muted-foreground">{des}</div>
+          <div className="text-xs line-clamp-2 sm:line-clamp-2 sm:text-sm text-muted-foreground">{des}</div>
         </div>
       </div>
     </Link>

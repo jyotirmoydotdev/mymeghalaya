@@ -10,7 +10,7 @@ import {
     SheetTrigger,
 } from "@/components/ui/sheet";
 import { Link } from 'lucide-react';
-import { GoHome } from 'react-icons/go';
+import { GoArrowLeft, GoHome } from 'react-icons/go';
 import { Button } from './ui/button';
 import { CiLocationOn, CiMenuBurger } from 'react-icons/ci';
 import { FaRegCopyright } from 'react-icons/fa';
@@ -22,19 +22,21 @@ const SearchSheet = () => {
     return (
         <div>
             <Sheet>
-                <SheetTrigger className=" border p-1 rounded-md">
+                <SheetTrigger className=" border p-1 rounded-md outline-none">
                     <GoSearch className='fill-gray-500' size={22} />
                 </SheetTrigger>
                 <SheetContent
-                    className="w-full h-[85%] rounded-b-xl border-r-gray-400 shadow-lg flex flex-col "
+                    className="w-full h-[85%] rounded-b-xl border-r-gray-400 shadow-lg flex flex-col"
                     side={"top"}
                 >
                     <div className=" flex flex-col justify-between h-full">
                         <div className="">
-                            <SheetHeader className="h-fit mb-2">
-                                <SheetTitle className="text-left flex gap-2 items-center">
-                                    <GoSearch className='fill-gray-500' size={22} />
-                                    <Input className='border-none shadow-none  w-full text-[16.1px]' placeholder='Type to search' />
+                            <SheetHeader className="h-fit">
+                                <SheetTitle className="flex ">
+                                    <SheetClose className='outline-none'>
+                                        <GoArrowLeft className='fill-gray-500' size={22} />
+                                    </SheetClose>
+                                    <Input type="text" className='text-[16.1px] shadow-none border-none focus:outline-none focus-visible:ring-0 w-full text-left scale-90 font-medium outline-none' placeholder='Search for location, festivals or foods' />
                                 </SheetTitle>
                                 <SheetDescription></SheetDescription>
                             </SheetHeader>

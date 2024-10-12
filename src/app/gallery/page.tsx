@@ -30,14 +30,14 @@ const page = () => {
   const shuffledImages = shuffleArray(images);
   return (
     <div className='max-h-[100vh]'>
-        <Navbar/>
+        
         <div className='w-full justify-center flex px-5 my-3'>
           <div className="w-full max-w-5xl border-b">
             <div className="text-4xl p-3 text-left font-bold" >GALLERY</div>
           </div>
         </div>
         <ParallaxScroll images={shuffledImages} />;
-        <Footer/>
+        
     </div>
   )
 }

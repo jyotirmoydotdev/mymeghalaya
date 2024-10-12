@@ -12,12 +12,11 @@ const Footer = () => {
                 <div className=' flex flex-col justify-between pb-10'>
                     <div className="text-2xl font-semibold text-gray-200 flex flex-col" >
                         <div className="flex">
-                        <Image src={'/logo.png'} width={500} height={500} alt="" className=" brightness-125 h-full w-9 scale-150 mr-2"/>
-                        <div className="flex">
-                            <div className="text-xs">
-                                MY
-                            </div>
-                                MEGHALAYA
+                        <Image src={'/logo.png'} width={500} height={500} alt="" className="h-full w-9 scale-150 mr-2"/>
+                        <div className="flex items-baseline">
+                            <div className="text-xs self-start">MY</div>
+                            <div className="">MEGHALAYA</div>
+                            <div className="text-xs">.in</div>
                         </div>
                         </div>
                         <div className="py-3 text-sm text-gray-500 ">

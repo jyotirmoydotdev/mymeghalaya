@@ -1,13 +1,28 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
-import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card1'
 import { DirectionAwareHover1 } from '@/components/ui/direction-aware-hover1'
 import React, { useState } from 'react'
 import { CiLocationOn } from 'react-icons/ci'
 import { HiArrowLongRight } from 'react-icons/hi2'
-import { useQuery } from '@tanstack/react-query';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import axios from 'axios';
+import { MdOutlineWrongLocation } from "react-icons/md";
+import {
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  DotsHorizontalIcon,
+} from "@radix-ui/react-icons"
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination"
 import {
   Command,
   CommandEmpty,
@@ -40,101 +55,105 @@ import { useSearchParams } from 'next/navigation'
 import Loading from './loading'
 import ResponsiveCard from '@/components/ResponsiveCard'
 
+type locationType = {
+  value: string
+  label: string
+}
+const locationOptions: locationType[] = [
+  {
+    value: "all",
+    label: "All"
+  },
+  {
+    value: "south west garo hills",
+    label: "South West Garo Hills"
+  },
+  {
+    value: "west garo hills",
+    label: "West Garo Hills"
+  },
+  {
+    value: "north garo hills",
+    label: "North Garo Hills"
+  },
+  {
+    value: "east garo hills",
+    label: "East Garo Hills"
+  },
+  {
+    value: "south garo hills",
+    label: "South Garo Hills"
+  },
+  {
+    value: "west khasi hills",
+    label: "West Khasi Hills"
+  },
+  {
+    value: "south west khasi hills",
+    label: "South West Khasi Hills"
+  },
+  {
+    value: "eastern west khasi hills",
+    label: "Eastern West Khasi Hills"
+  },
+  {
+    value: "east khasi hills",
+    label: "East Khasi Hills"
+  },
+  {
+    value: "ri-bhoi",
+    label: "Ri-Bhoi"
+  },
+  {
+    value: "west jaintia hills",
+    label: "West Jaintia Hills"
+  },
+  {
+    value: "east jaintia hills",
+    label: "East Jaintia Hills"
+  },
+]
+type categoryType = {
+  value: string
+  label: string
+}
+const categoryOptions: categoryType[] = [
+  {
+    value: "all",
+    label: "All",
+  },
+  {
+    value: "waterfall",
+    label: "Waterfall"
+  },
+  {
+    value: "viewpoint",
+    label: "Viewpoint"
+  },
+  {
+    value: "hiking",
+    label: "Hiking"
+  }
+]
+
 const Page = () => {
   const searchParams = useSearchParams()
   const locationQuery = searchParams.get('location')
+  const pageQuery = searchParams.get('page')
 
+  const [page, setPage] = useState(Number(pageQuery) || 1);
+  const pageSize = 6;
   const [search, setSearch] = useState("");
-  const [destinationList, setDestinationList] = useState<LocationDataType[]>([]);
-  type locationType = {
-    value: string
-    label: string
-  }
-  const locationOptions: locationType[] = [
-    {
-      value: "all",
-      label: "All"
-    },
-    {
-      value: "south west garo hills",
-      label: "South West Garo Hills"
-    },
-    {
-      value: "west garo hills",
-      label: "West Garo Hills"
-    },
-    {
-      value: "north garo hills",
-      label: "North Garo Hills"
-    },
-    {
-      value: "east garo hills",
-      label: "East Garo Hills"
-    },
-    {
-      value: "south garo hills",
-      label: "South Garo Hills"
-    },
-    {
-      value: "west khasi hills",
-      label: "West Khasi Hills"
-    },
-    {
-      value: "south west khasi hills",
-      label: "South West Khasi Hills"
-    },
-    {
-      value: "eastern west khasi hills",
-      label: "Eastern West Khasi Hills"
-    },
-    {
-      value: "east khasi hills",
-      label: "East Khasi Hills"
-    },
-    {
-      value: "ri-bhoi",
-      label: "Ri-Bhoi"
-    },
-    {
-      value: "west jaintia hills",
-      label: "West Jaintia Hills"
-    },
-    {
-      value: "east jaintia hills",
-      label: "East Jaintia Hills"
-    },
-  ]
-  type categoryType = {
-    value: string
-    label: string
-  }
-  const categoryOptions: categoryType[] = [
-    {
-      value: "all",
-      label: "All",
-    },
-    {
-      value: "waterfall",
-      label: "Waterfall"
-    },
-    {
-      value: "viewpoint",
-      label: "Viewpoint"
-    },
-    {
-      value: "hiking",
-      label: "Hiking"
-    }
-  ]
+
   const [openCategory, setOpenCategory] = React.useState(false)
   const [openLocation, setOpenLocation] = React.useState(false)
   const isDesktop = useMediaQuery("(min-width: 768px)")
   const [selectedLocation, setSelectedLocation] = React.useState<locationType | null>(
-  locationQuery?
-  {
-    value: locationQuery.toLowerCase(),
-    label: locationQuery,
-  }:null)
+    locationQuery ?
+      {
+        value: locationQuery.toLowerCase(),
+        label: locationQuery,
+      } : null)
   const [selectedCategory, setSelectedCategory] = React.useState<categoryType | null>(null)
 
   function CategoryList({
@@ -202,130 +221,142 @@ const Page = () => {
     )
   }
 
-  const destinations = useQuery({
-    queryKey: ['data'],
-    queryFn: async (): Promise<LocationDataType[]> => {
-      const response = await axios.get('/api/destinations', {
-        params: {
-          search: search,
-          location: selectedLocation ? selectedLocation.value : "all",
-          category: selectedCategory ? selectedCategory.value : "all",
-        }
-      })
-      setDestinationList(response.data.destination);
-      return response.data.destination
-    },
+  const fetchDestinations = async (page = 0, pageSize = 6, search = "", location = "all", category = "all") => axios.get(`/api/destinations?page=${page}&pageSize=${pageSize}&search=${search}&location=${location}&category=${category}`).then((res) => res.data.destination)
+
+  const destinationList = useQuery({
+    queryKey: ['data', page],
+    queryFn: async (): Promise<LocationDataType[]> => fetchDestinations(page, pageSize, search, selectedLocation?.value, selectedCategory?.value),
+    placeholderData: keepPreviousData,
   })
+
+  const handlePageChange = (newPage: number) => {
+    setPage(newPage);
+  };
 
   return (
     <div>
       <div className="py-5">
-        <div className='w-full justify-center flex px-5'>
+        <div className='w-full justify-center flex px-5 '>
           <div className="w-full max-w-5xl rounded-lg font-sans">
-            <div className="text-4xl py-3 uppercase text-left font-sans font-bold">Destinatons</div>
-            <div className="flex flex-col sm:flex-row gap-3 py-5 border-t">
-              <Input className='text-[16.1px] bg-white' placeholder='Search destination' value={search} onChange={(e) => setSearch(e.target.value)} />
-              <div className=" flex flex-row w-full gap-3">
-                {isDesktop ?
-                  <Popover open={openLocation} onOpenChange={setOpenLocation}>
-                    <PopoverTrigger asChild>
-                      <Button variant="outline" className="font-normal w-full justify-between">
-                        {selectedLocation ? selectedLocation.label : "Location"}
-                        <CaretSortIcon className="h-4 w-4 opacity-50" />
-                      </Button>
-                    </PopoverTrigger>
-                    <PopoverContent className="w-[200px] p-0" align="start">
-                      <LocationList setOpen={setOpenLocation} setSelectedLocation={setSelectedLocation} />
-                    </PopoverContent>
-                  </Popover>
-                  :
-                  <Drawer open={openLocation} onOpenChange={setOpenLocation}>
-                    <DrawerTrigger asChild>
-                      <Button variant="outline" className="font-normal w-full justify-between">
-                        {selectedLocation ? <>{selectedLocation.label}</> : <>Location</>}
-                        <CaretSortIcon className="h-4 w-4 opacity-50" />
-                      </Button>
-                    </DrawerTrigger>
-                    <DrawerContent className=' rounded-t-none'>
-                      <DrawerHeader className="text-left pb-0">
-                        <DrawerTitle>Location</DrawerTitle>
-                        <DrawerDescription>
-                          Select location of your choose.
-                        </DrawerDescription>
-                      </DrawerHeader>
-                      <div className="mt-4 border-t">
+            <div className={` text-lg font-bold sm:text-4xl py-3 `}>Find Destinations</div>
+              <div className="flex flex-col sm:flex-row gap-3 py-5 border-t">
+                <Input className='text-[16.1px] bg-white' placeholder='Search destination' value={search} onChange={(e) => setSearch(e.target.value)} />
+                <div className=" flex flex-row w-full gap-3">
+                  {isDesktop ?
+                    <Popover open={openLocation} onOpenChange={setOpenLocation}>
+                      <PopoverTrigger asChild>
+                        <Button variant="outline" className="font-normal w-full justify-between">
+                          {selectedLocation ? selectedLocation.label : "Location"}
+                          <CaretSortIcon className="h-4 w-4 opacity-50" />
+                        </Button>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-[200px] p-0" align="start">
                         <LocationList setOpen={setOpenLocation} setSelectedLocation={setSelectedLocation} />
-                      </div>
-                    </DrawerContent>
-                  </Drawer>
-                }
-                {isDesktop ?
-                  <Popover open={openCategory} onOpenChange={setOpenCategory}>
-                    <PopoverTrigger asChild>
-                      <Button variant="outline" className="font-normal w-full justify-between">
-                        {selectedCategory ? <>{selectedCategory.label}</> : <>Category</>}
-                        <CaretSortIcon className="h-4 w-4 opacity-50" />
-                      </Button>
-                    </PopoverTrigger>
-                    <PopoverContent className="w-[200px] p-0" align="start">
-                      <CategoryList setOpen={setOpenCategory} setSelectedCategory={setSelectedCategory} />
-                    </PopoverContent>
-                  </Popover>
-                  :
-                  <Drawer open={openCategory} onOpenChange={setOpenCategory}>
-                    <DrawerTrigger asChild>
-                      <Button variant="outline" className="font-normal w-full justify-between">
-                        {selectedCategory ? <>{selectedCategory.label}</> : <>Category</>}
-                        <CaretSortIcon className="h-4 w-4 opacity-50" />
-                      </Button>
-                    </DrawerTrigger>
-                    <DrawerContent className=' rounded-t-none'>
-                      <DrawerHeader className="text-left pb-0">
-                        <DrawerTitle>Category</DrawerTitle>
-                        <DrawerDescription>
-                          Select category of your choose.
-                        </DrawerDescription>
-                      </DrawerHeader>
-                      <div className="mt-4 border-t">
+                      </PopoverContent>
+                    </Popover>
+                    :
+                    <Drawer open={openLocation} onOpenChange={setOpenLocation}>
+                      <DrawerTrigger asChild>
+                        <Button variant="outline" className="font-normal w-full justify-between">
+                          {selectedLocation ? <>{selectedLocation.label}</> : <>Location</>}
+                          <CaretSortIcon className="h-4 w-4 opacity-50" />
+                        </Button>
+                      </DrawerTrigger>
+                      <DrawerContent className=' rounded-t-none'>
+                        <DrawerHeader className="text-left pb-0">
+                          <DrawerTitle>Location</DrawerTitle>
+                          <DrawerDescription>
+                            Select location of your choose.
+                          </DrawerDescription>
+                        </DrawerHeader>
+                        <div className="mt-4 border-t">
+                          <LocationList setOpen={setOpenLocation} setSelectedLocation={setSelectedLocation} />
+                        </div>
+                      </DrawerContent>
+                    </Drawer>
+                  }
+                  {isDesktop ?
+                    <Popover open={openCategory} onOpenChange={setOpenCategory}>
+                      <PopoverTrigger asChild>
+                        <Button variant="outline" className="font-normal w-full justify-between">
+                          {selectedCategory ? <>{selectedCategory.label}</> : <>Category</>}
+                          <CaretSortIcon className="h-4 w-4 opacity-50" />
+                        </Button>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-[200px] p-0" align="start">
                         <CategoryList setOpen={setOpenCategory} setSelectedCategory={setSelectedCategory} />
-                      </div>
-                    </DrawerContent>
-                  </Drawer>
-                }
-              </div>
-              <Button className='text-sm flex gap-2' onClick={() => destinations.refetch()}>
-                {destinations.isRefetching ? <FaSpinner className='animate-spin' /> : <FiSearch />}
-                Search
-              </Button>
+                      </PopoverContent>
+                    </Popover>
+                    :
+                    <Drawer open={openCategory} onOpenChange={setOpenCategory}>
+                      <DrawerTrigger asChild>
+                        <Button variant="outline" className="font-normal w-full justify-between">
+                          {selectedCategory ? <>{selectedCategory.label}</> : <>Category</>}
+                          <CaretSortIcon className="h-4 w-4 opacity-50" />
+                        </Button>
+                      </DrawerTrigger>
+                      <DrawerContent className=' rounded-t-none'>
+                        <DrawerHeader className="text-left pb-0">
+                          <DrawerTitle>Category</DrawerTitle>
+                          <DrawerDescription>
+                            Select category of your choose.
+                          </DrawerDescription>
+                        </DrawerHeader>
+                        <div className="mt-4 border-t">
+                          <CategoryList setOpen={setOpenCategory} setSelectedCategory={setSelectedCategory} />
+                        </div>
+                      </DrawerContent>
+                    </Drawer>
+                  }
+                </div>
+                <Button className='text-sm flex gap-2' onClick={() => destinationList.refetch()}>
+                  {destinationList.isRefetching ? <FaSpinner className='animate-spin' /> : <FiSearch />}
+                  Search
+                </Button>
             </div>
           </div>
         </div>
         <div className="flex justify-center items-center px-5">
           {
-            (destinations.isLoading || destinations.isRefetching || destinations.isPending || destinations.isFetching ) ?
-              <Loading />
+            (destinationList.isLoading) ?
+              <Loading size={pageSize} />
               :
               <>
-                <div className="py-3 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 w-full max-w-5xl">
-                  {destinationList.length > 0 ? destinationList.map((item: LocationDataType, i: number) => (
+                <div className="py-3 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-3 w-full max-w-5xl">
+                  {(destinationList.data !== undefined && destinationList.data.length) ? destinationList.data.map((item: LocationDataType, i: number) => (
                     <ResponsiveCard
-                    i={i}
-                    key={i}
-                    url={`/destinations/${item.slug}`}
-                    imgUrl={item.images ? item.images[0] : ""}
-                    name={item.name as string}
-                    des={item.description as string}
-                    icon={<CiLocationOn/>}
+                      i={i}
+                      key={i}
+                      url={`/destinations/${item.slug}`}
+                      imgUrl={item.images ? item.images[0] : ""}
+                      name={item.name as string}
+                      des={item.description as string}
+                      icon={<CiLocationOn />}
                     />
                   )) : (
-                    <div className="h-[80vh] col-span-3  flex justify-center items-center text-4xl">
-                      No Destination !!
+                    <div className="h-[80vh] col-span-3 gap-3 flex justify-center items-center text-2xl font-bold relative z-20 bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-500 py-8">
+                      <MdOutlineWrongLocation className='fill-gray-400' /> No Destination Found
                     </div>
                   )}
                 </div>
               </>
           }
           <Button variant={'outline'} disabled className=' hidden col-span-1 sm:col-span-2 md:col-span-3'>Load More</Button>
+        </div>
+        <div className="py-5">
+          <div className="flex w-full justify-center gap-3">
+            <Button variant={'link'} className='gap-1' onClick={() => { handlePageChange(page - 1) }} disabled={destinationList.isFetching || page <= 1}>
+              <ChevronLeftIcon />
+              Previous
+            </Button>
+            <Button variant={'outline'}>
+              {page}
+            </Button>
+            <Button variant={'link'} className='gap-1' onClick={() => { handlePageChange(page + 1) }} disabled={destinationList.isFetching}>
+              Next
+              <ChevronRightIcon />
+            </Button>
+          </div>
         </div>
       </div>
     </div>

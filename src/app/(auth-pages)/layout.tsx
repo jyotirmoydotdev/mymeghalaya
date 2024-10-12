@@ -7,14 +7,14 @@ export default async function Layout({
   children: React.ReactNode;
 }) {
   return (
-    <>
-    <Navbar/>
-    <div className="flex justify-center bg-sky-50">
-      <div className="h-[90vh] items-center grid gap-12">
+    <div>
+    
+    <div className="flex justify-center">
+      <div className="min-h-[90vh] items-start sm:items-center grid gap-12">
         {children}
       </div>
     </div>
-    <Footer/>
-    </>
+    
+    </div>
   );
 }

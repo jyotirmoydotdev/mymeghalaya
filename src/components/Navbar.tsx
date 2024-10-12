@@ -54,6 +54,12 @@ const destinationList: { title: string; href: string; description: string }[] =
       description:
         "The vibrant heart of Khasi Hills, rich in culture and scenery.",
     },
+    {
+      title: "West Jainta Hills",
+      href: "/destinations?location=West+Jainta+Hills",
+      description:
+        "The vibrant heart of Jainta Hills, rich in culture and scenery.",
+    },
   ];
 
 const experienceList: { title: string; href: string; description: string }[] = [
@@ -76,6 +82,33 @@ const experienceList: { title: string; href: string; description: string }[] = [
       "Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.",
   },
 ];
+
+const exploreList: { title: string; href: string; description: string }[] = [
+  {
+    title: "Buy Products",
+    href: "/",
+    description:
+      "A modal dialog that interrupts the user with important content and expects a response.",
+  },
+  {
+    title: "Order Foods",
+    href: "/",
+    description:
+      "A modal dialog that interrupts the user with important content and expects a response.",
+  },
+  {
+    title: "Book Hotels",
+    href: "/",
+    description:
+      "A modal dialog that interrupts the user with important content and expects a response.",
+  },
+  {
+    title: "Reserve Tours",
+    href: "/",
+    description:
+      "A modal dialog that interrupts the user with important content and expects a response.",
+  },
+]
 
 const ListItem = React.forwardRef<
   React.ElementRef<"a">,
@@ -131,9 +164,11 @@ const ListItem2 = ({
 
 const Navbar = async () => {
   return (
-    <div className="">
-      <div className="hidden md:block">
-        <div className="py-5 px-5 md:px-12 lg:px-28 flex justify-between items-center  border-b">
+    <div className="bg-white">
+
+      {/* Nav Bar Desktop */}
+      <div className="hidden lg:block">
+        <div className="py-5 px-5 md:px-10 lg:px-12 flex justify-between items-center  border-b">
           <Link href={"/"} className="flex ">
             <Image
               src={"/logo.png"}
@@ -142,13 +177,10 @@ const Navbar = async () => {
               alt=""
               className="h-full w-9  scale-150 mr-2"
             />
-            <div className="flex text-3xl items-start ">
-              <div className="text-xs">MY</div>
-              MEGHALAYA
-              {/* <div className="flex  text-xs font-thin">
-                <div>I</div>
-                <div>N</div>
-              </div> */}
+            <div className="flex text-gray-600 items-baseline font-semibold">
+              <div className="text-xs self-start">MY</div>
+              <div className="text-3xl">MEGHALAYA</div>
+              <div className="text-xs">.in</div>
             </div>
           </Link>
           <NavigationMenu>
@@ -170,7 +202,7 @@ const Navbar = async () => {
                   Itinerarys
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
-                  <ul className="grid w-[300px] gap-3 p-4 md:w-[350px] md:grid-cols-1 ">
+                  <ul className="grid w-[300px] gap-3 p-4 md:w-[420px] md:grid-cols-1 ">
                     {itineraryList.map((itinerary) => (
                       <ListItem2
                         key={itinerary.title}
@@ -193,7 +225,7 @@ const Navbar = async () => {
               <NavigationMenuItem>
                 <NavigationMenuTrigger>Destinations</NavigationMenuTrigger>
                 <NavigationMenuContent>
-                  <ul className="grid w-[300px] gap-3 p-4 md:w-[300px] md:grid-cols-1 ">
+                  <ul className="grid w-[300px] gap-3 p-4 md:w-[420px] md:grid-cols-1 ">
                     {destinationList.map((destination) => (
                       <ListItem2
                         key={destination.title}
@@ -214,7 +246,7 @@ const Navbar = async () => {
               <NavigationMenuItem>
                 <NavigationMenuTrigger>Experiences</NavigationMenuTrigger>
                 <NavigationMenuContent>
-                  <ul className="grid w-[300px] gap-3 p-4 md:w-[350px] md:grid-cols-1 ">
+                  <ul className="grid w-[300px] gap-3 p-4 md:w-[420px] md:grid-cols-1 ">
                     {experienceList.map((experience) => (
                       <ListItem2
                         key={experience.title}
@@ -225,6 +257,29 @@ const Navbar = async () => {
                       </ListItem2>
                     ))}
                     <Link href={'/experiences'}>
+                      <Button className="w-full">
+                        View All
+                      </Button>
+                    </Link>
+                  </ul>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+
+              {/* Experiences */}
+              <NavigationMenuItem>
+                <NavigationMenuTrigger>Explore</NavigationMenuTrigger>
+                <NavigationMenuContent>
+                  <ul className="grid w-[300px] gap-3 p-4 md:w-[420px] md:grid-cols-1 ">
+                    {exploreList.map((explore) => (
+                      <ListItem2
+                        key={explore.title}
+                        title={explore.title}
+                        href={explore.href}
+                      >
+                        {explore.description}
+                      </ListItem2>
+                    ))}
+                    <Link href={'/explore'}>
                       <Button className="w-full">
                         View All
                       </Button>
@@ -253,7 +308,9 @@ const Navbar = async () => {
           </NavigationMenu>
         </div>
       </div>
-      <div className="md:hidden block">
+
+      {/* Nav Bar Mobile */}
+      <div className="lg:hidden block">
         <div className="p-4 md:px-12 lg:px-28 flex justify-between items-center border-b">
           <LeftSheet />
           <Link href={"/"} className="flex">

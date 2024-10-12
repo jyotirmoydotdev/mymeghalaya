@@ -36,7 +36,7 @@ const HeroSection = () => {
                                 <p className="font-normal text-gray-300 text-xs sm:text-sm">Cherrapunji, East Khasi Hills</p>
                             </DirectionAwareHover>
                         </div>
-                        <Link href={'/'} className=''>
+                        <Link href={'/plan'} className=''>
                             <Cover>
                                 <div className="pt-10 sm:py-0  text-blue-600 text-xl sm:text-3xl flex gap-5 items-end italic hover:translate-x-2 animate transition duration-300" >
                                     {"Let's plan your trip"} <HiArrowLongRight />
