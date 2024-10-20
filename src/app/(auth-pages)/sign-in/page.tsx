@@ -9,7 +9,7 @@ import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { useState } from "react";
 import { BiHide, BiShow } from "react-icons/bi";
-import { FaGithub, FaGoogle } from "react-icons/fa";
+import { FaGoogle } from "react-icons/fa";
 
 export default function Login({ searchParams }: { searchParams: Message }) {
   const [passwordHide, setPasswordHide] = useState(true)

@@ -18,6 +18,7 @@ import LeftSheet from "./leftSheet";
 import RightSheet from "./rightSheet";
 import SearchSheet from "./searchSheet";
 import { Input } from "./ui/input";
+import CommandSearch from "./commandSearch";
 
 const itineraryList: { title: string; href: string; description: string }[] = [
   {
@@ -166,6 +167,7 @@ const Navbar = async () => {
   return (
     <div className="bg-white">
 
+      {/*<CommandSearch/> */}
       {/* Nav Bar Desktop */}
       <div className="hidden lg:block">
         <div className="py-5 px-5 md:px-10 lg:px-12 flex justify-between items-center  border-b">

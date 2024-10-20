@@ -4,7 +4,6 @@ import React, { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { HiArrowLongRight } from 'react-icons/hi2'
 import ResponsiveCard from './ResponsiveCard'
-import { PiBowlFoodThin } from 'react-icons/pi'
 import { GoArrowLeft, GoArrowRight } from 'react-icons/go'
 import { MeghalayaMapData } from '@/data/homeData'
 

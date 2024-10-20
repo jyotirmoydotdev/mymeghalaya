@@ -5,6 +5,7 @@ import { HiArrowLongRight } from 'react-icons/hi2'
 import { DirectionAwareHover } from './ui/direction-aware-hover'
 import { Cover } from './ui/cover'
 import Link from 'next/link'
+import CommandSearch from './commandSearch'
 
 const HeroSection = () => {
     return (
@@ -15,7 +16,7 @@ const HeroSection = () => {
             <div className="flex justify-center py-5">
                 <div className="grid grid-cols-1 sm:grid-cols-2 text-left gap-5 max-w-5xl px-5 sm:px-0">
                     <div className=" rounded-md ">
-                        <DirectionAwareHover imageUrl='https://ewooifarchgirohujmyz.supabase.co/storage/v1/object/public/Image/dawki.webp' className='rounded-md w-full object-cover h-full'>
+                        <DirectionAwareHover imageUrl='http://127.0.0.1:54321/storage/v1/object/public/images-public/dawki.webp?t=2024-10-14T17%3A02%3A21.972Z' className='rounded-md w-full object-cover h-full'>
                             <div className="">
                                 <p className="font-bold text-xl">Dawki River</p>
                                 <p className="font-normal text-gray-300 text-sm">Dawki, East Khasi Hills</p>
@@ -27,11 +28,11 @@ const HeroSection = () => {
                             Meghalaya beautifully blends its rich cultural heritage with the lush Hills, offering a unique fusion of tradition and natural beauty.
                         </div>
                         <div className="flex gap-2 ">
-                            <DirectionAwareHover imageUrl='https://ewooifarchgirohujmyz.supabase.co/storage/v1/object/public/Image/cherrapunji.webp?t=2024-09-14T05%3A47%3A53.698Z' className=' rounded-md h-40 sm:size-64 object-cover '>
+                            <DirectionAwareHover imageUrl='http://127.0.0.1:54321/storage/v1/object/public/images-public/Cherrapunji.webp?t=2024-10-14T16%3A52%3A05.721Z' className=' rounded-md h-40 sm:size-64 object-cover '>
                                 <p className="font-bold text-sm sm:text-xl">Cherrapunji</p>
                                 <p className="font-normal text-gray-300 text-xs sm:text-sm">Cherrapunji, East Khasi Hills</p>
                             </DirectionAwareHover>
-                            <DirectionAwareHover imageUrl='https://ewooifarchgirohujmyz.supabase.co/storage/v1/object/public/Image/nohkalikai-falls.webp?t=2024-09-14T05%3A48%3A55.244Z' className=' rounded-md h-40 sm:size-64 object-cover '>
+                            <DirectionAwareHover imageUrl='http://127.0.0.1:54321/storage/v1/object/public/images-public/Nohkalikai-Falls.webp?t=2024-10-14T16%3A56%3A38.092Z' className=' rounded-md h-40 sm:size-64 object-cover '>
                                 <p className="font-bold text-sm sm:text-xl">Nohkalikai Falls</p>
                                 <p className="font-normal text-gray-300 text-xs sm:text-sm">Cherrapunji, East Khasi Hills</p>
                             </DirectionAwareHover>

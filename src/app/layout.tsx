@@ -6,6 +6,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Analytics } from '@vercel/analytics/react';
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import CommandSearch from "@/components/commandSearch";
 
 const inter = Inter({ subsets: ["latin"] });
 

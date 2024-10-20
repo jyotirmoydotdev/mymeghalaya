@@ -20,18 +20,12 @@ import { FaRegCopyright } from 'react-icons/fa';
 import { createClient } from '@/utils/supabase/server';
 
 const RightSheet = async () => {
-  const {data: { user }} = await createClient().auth.getUser();
+  const {
+    data: { user },
+  } = await createClient().auth.getUser();
   
-  if (user === null){
-    <div className="flex gap-3">
-      <Button asChild size="sm" variant={"outline"}>
-        <Link href="/sign-in">Sign in</Link>
-      </Button>
-    </div>
-  }
-
   
-  return (
+  return user ? (
     <div>
       <Sheet>
         <SheetTrigger>
@@ -126,6 +120,12 @@ const RightSheet = async () => {
         </SheetContent>
       </Sheet>
     </div>
+  ):(
+      <div className='flex gap-3'>
+        <Button asChild size={"sm"} variant={"outline"}>
+          <Link href={"/sign-in"}>Sign in</Link>
+        </Button>
+      </div>
   )
 }
 
