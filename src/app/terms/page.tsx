@@ -14,7 +14,7 @@ const page = () => {
 
       <main className="max-w-5xl mx-auto px-4 py-8">
         <section className="bg-white p-6 rounded-lg shadow-md">
-          <p>Welcome to MyMeghalaya.in! By accessing or using our website, you agree to comply with and be bound by the following Terms of Service ("Terms"). Please review these Terms carefully before using our services.</p>
+          <p>Welcome to MyMeghalaya.in! By accessing or using our website, you agree to comply with and be bound by the following Terms of Service ( {"'Terms'"}) Please review these Terms carefully before using our services.</p>
         </section>
 
         <section className="bg-white p-6 mt-6 rounded-lg shadow-md">
