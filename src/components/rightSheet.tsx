@@ -110,11 +110,19 @@ const RightSheet = async () => {
                   </Link> */}
               </div>
             </div>
-            <SheetFooter className="font-light text-gray-500 text-xs">
+            <SheetFooter className="flex gap-1 flex-row font-light text-gray-500 text-xs">
               <div className=" flex items-center gap-1">
                 <FaRegCopyright className=" fill-gray-500" />
                 <div className="">2024 MyMeghalaya</div>
               </div>
+              <div>|</div>
+              <Link href={"/privacy"}>
+                Privacy
+              </Link>
+              <div>|</div>
+              <Link href={"/terms"}>
+                Terms
+              </Link>
             </SheetFooter>
           </div>
         </SheetContent>

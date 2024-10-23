@@ -25,9 +25,9 @@ export default function RootLayout({
     <App>
       <html lang="en">
         <body className={`${inter.className} relative`}>
-          <Navbar/>
-            {children}
-          <Footer/>
+          <Navbar />
+          {children}
+          <Footer />
           <Analytics />
           <Toaster />
         </body>
