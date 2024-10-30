@@ -1,6 +1,8 @@
-import { locationData } from "@/data/locationData";
+import { supabaseMd } from "@/libs/supabaseFetch";
+import { locationData } from "@/staticData/locationData";
 import { LocationDataType } from "@/types/locationDataTypes";
 import { createClient } from "@/utils/supabase/server";
+import axios from "axios";
 
 import { NextRequest, NextResponse } from "next/server";
 
@@ -12,19 +14,28 @@ type SupabaseResponse<T> = {
 async function fetchDestinationBySlug(slug:string) {
     const supabase = createClient();
     const { data, error } = await supabase
-        .from('locationData')
+        .from('destinations')
         .select("*")
         .ilike('slug', slug);
     if (error) throw new Error(error.message);
     return data;
 }
 
-async function fetchOthers(othersSlugs:string[]) {
+async function fetchAboutSection(url: string) {
+    try {
+        const aboutData = await axios.get(url)
+        return aboutData.data
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+async function fetchOthers(nearby_attractions:string[]) {
     const supabase = createClient();
     const { data, error } = await supabase
-        .from('locationData')
-        .select("*")
-        .in('slug', othersSlugs);
+        .from('destinations')
+        .select('name, description, slug, images')
+        .in('id', nearby_attractions);
     if (error) throw new Error(error.message);
     return data;
 }
@@ -39,10 +50,12 @@ export async function GET(request:NextRequest,{ params }: { params: { slug: stri
         }
 
         const destination = destinationData[0];
-        const others = destination.others ? await fetchOthers(destination.others) : [];
+        const others = destination.nearby_attractions ? await fetchOthers(destination.nearby_attractions) : [];
+        const about = fetchAboutSection(supabaseMd(destination.about))
+        destination.about = (await about).toString();
 
-        return NextResponse.json({ msg: "All Ok", data: { destination, nearby: others } }, { status: 200 });
+        return NextResponse.json({ msg: "All Ok", data: { destination, nearby_attractions: others } }, { status: 200 });
     } catch (error) {
-        return NextResponse.json({ msg: "Error fetching data", error: "Error" }, { status: 500 });
+        return NextResponse.json({ msg: "Error fetching data", error: error }, { status: 500 });
     }
 }

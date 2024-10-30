@@ -1,7 +1,7 @@
 export interface DataType {
     id?: number;
-    slug: string;
-    name: string;  // Name is required for a destination
+    slug?: string;
+    name?: string;  // Name is required for a destination
     description?: string;
     about?: string;
     highlights?: string[];  // Key attractions or highlights of the destination

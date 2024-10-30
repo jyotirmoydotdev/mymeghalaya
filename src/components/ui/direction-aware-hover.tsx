@@ -68,7 +68,7 @@ export const DirectionAwareHover = ({
       onMouseEnter={handleMouseEnter}
       ref={ref}
       className={cn(
-        "h-52 w-full bg-transparent rounded-lg overflow-hidden group/card relative !m-0 !p-0",
+        "h-52 w-full bg-transparent rounded-xl overflow-hidden group/card relative !m-0 !p-0",
         className
       )}
     >
@@ -96,8 +96,8 @@ export const DirectionAwareHover = ({
               )}
               width="1000"
               height="1000"
-              priority
               src={imageUrl}
+              priority
             />
           </motion.div>
           <motion.div

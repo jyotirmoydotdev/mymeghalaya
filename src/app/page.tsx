@@ -1,20 +1,14 @@
-import Adventure from "@/components/Adventure";
-import Destination from "@/components/Destination";
-import Festival from "@/components/Festival";
-import Food from "@/components/Food";
-import HeroSection from "@/components/HeroSection";
-import Map from "@/components/Map";
+
+import HeroSection from "@/components/landingPage/heroSection";
+import MeghalayaSection from "@/components/landingPage/meghalayaSection";
+import Destination from "@/components/landingPage/destinationSection";
 
 export default function Home() {
   return (
     <main>
       <HeroSection />
-      <Map />
-      {/* <FeaturedImg/> */}
+      <MeghalayaSection />
       <Destination />
-      <Festival />
-      <Food />
-      <Adventure />
     </main>
   );
 }

@@ -71,8 +71,18 @@ const config = {
           '0%': { transform: 'translateY(50%)', opacity: '0' },
           '100%': { transform: 'translateY(0%)', opacity: '1' },
         },
+        'about-down': {
+          '0%': { maxHeight: '2.5rem' },
+          '100%': { maxHeight: '500px' },
+        },
+        'about-up': {
+          '0%': { maxHeight: '500px' },
+          '100%': { maxHeight: '2.5rem' },
+        },
       },
       animation: {
+        'about-down': 'accordion-down 0.3s ease-in-out',
+        'about-up': 'accordion-up 0.3s ease-in-out',
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "scroll-up-page": "scroll-up-page 1.5s ease-out forwards",

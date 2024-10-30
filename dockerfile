@@ -1,7 +1,7 @@
 FROM ubuntu AS build
 
 # Install dependencies for installing nvm and building the project
-RUN apt-get update && apt-get upgrade -y && apt-get install -y curl
+RUN apt-get update & apt-get upgrade -y && apt-get install -y curl
 
 # Install nvm, install Node.js (v20), and make nvm available for the rest of the session
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.0/install.sh | bash \

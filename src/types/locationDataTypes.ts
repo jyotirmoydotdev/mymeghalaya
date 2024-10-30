@@ -1,9 +1,10 @@
 export interface LocationDataType {
-    id?: number;
+    id?: string;
     slug: string;
     name?: string;
     description?: string;
     about?: string;
+    highlights?: string[];
     transport?:{
         road: boolean;
         airport: boolean;
@@ -25,9 +26,19 @@ export interface LocationDataType {
         time: string,
     }[];
     ticket?: {
+     All?:{
         type: string,
-        price: string,
-    }[];
+        price:string,
+     }[],
+     Indians?:{
+        type: string,
+        price:string,
+     }[],
+     Foreigners?:{
+        type: string,
+        price:string,
+     }[]    
+    };      
     parking?: {
         type: string,
         price: string,
@@ -36,5 +47,30 @@ export interface LocationDataType {
         distance:string,
         link:string
     }[];
-    others: string[];
+    activities?: string[];
+    bestTimeToVisit?: string;
+    accommodations?: {
+        name: string;
+        type: string;
+        priceRange: string;
+        rating?: number;
+        contact?: string
+    }[];
+    weatherInfo?: string;
+    safetyTips?: string[];
+    cuisine?: string[];
+    accessibility?: string;
+    localCustoms?: string[];
+    reviews?: {
+        user: string;
+        rating: number;
+        comment: string;
+        date: string;
+    }[];
+    emergencyContacts?: {
+        type: string;
+        number: string;
+        address?: string;
+    }[];
+    nearby_attractions: string[];
 }

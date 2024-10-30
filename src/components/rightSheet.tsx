@@ -8,28 +8,29 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import HeaderAuth from "@/components/header-auth";
 import Link from 'next/link';
 import { RxPerson } from 'react-icons/rx';
 import { Button } from './ui/button';
 import { GoBookmark, GoSignOut } from 'react-icons/go';
 import { IoSettingsOutline } from 'react-icons/io5';
 import { RiGroupLine } from 'react-icons/ri';
-import { signOutAction } from '@/app/actions';
+import { signOutAction } from '@/functions/auth';
 import { FaRegCopyright } from 'react-icons/fa';
 import { createClient } from '@/utils/supabase/server';
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 const RightSheet = async () => {
   const {
     data: { user },
   } = await createClient().auth.getUser();
-  
-  
-  return user ? (
+  return (
     <div>
       <Sheet>
-        <SheetTrigger>
-          <HeaderAuth />
+        <SheetTrigger className='rounded-md outline-none'>
+          <Avatar className="h-7 w-7 sm:h-8 sm:w-8">
+            <AvatarImage src={""} />
+            <AvatarFallback className="font-black text-sm sm:text-base text-gray-600">{user ? user?.email?.at(0)?.toUpperCase() : "U"}</AvatarFallback>
+          </Avatar>
         </SheetTrigger>
         <SheetContent
           className="w-[85%] h-full rounded-l-xl border-r-gray-400 shadow-lg flex flex-col "
@@ -39,22 +40,12 @@ const RightSheet = async () => {
             <div className="">
               <SheetHeader className="h-fit">
                 <SheetTitle className="text-left flex items-center gap-2">
-                  {/* <Link href={"/"} className="flex">
-                        <Image
-                          src={"/logo.png"}
-                          width={500}
-                          height={500}
-                          alt=""
-                          className="h-6 scale-105 object-cover w-9  mr-2"
-                        />
-                        <div className="flex items-start text-lg font-normal">
-                          <div className="text-xs">MY</div>
-                          MEGHALAYA
-                        </div>
-                      </Link> */}
-                  <HeaderAuth />
+                  <Avatar className="h-7 w-7 sm:h-8 sm:w-8">
+                    <AvatarImage src={""} />
+                    <AvatarFallback className="font-black text-sm sm:text-base text-gray-600">{user ? user?.email?.at(0)?.toUpperCase() : "U"}</AvatarFallback>
+                  </Avatar>
                   <div className="text-xs">
-                    {user?.email || ""}
+                    {user?.email || "Please Sign in"}
                   </div>
                 </SheetTitle>
                 <SheetDescription></SheetDescription>
@@ -98,16 +89,6 @@ const RightSheet = async () => {
                     Sign out
                   </Button>
                 </form>
-                {/* <Link href={'/experiences'} className="w-full">
-                    <Button variant={'link'} >
-                      Experiences
-                    </Button>
-                  </Link>
-                  <Link href={'/gallery'} className="w-full">
-                    <Button variant={'link'}>
-                      Gallery
-                    </Button>
-                  </Link> */}
               </div>
             </div>
             <SheetFooter className="flex gap-1 flex-row font-light text-gray-500 text-xs">
@@ -128,12 +109,6 @@ const RightSheet = async () => {
         </SheetContent>
       </Sheet>
     </div>
-  ):(
-      <div className='flex gap-3'>
-        <Button asChild size={"sm"} variant={"outline"}>
-          <Link href={"/sign-in"}>Sign in</Link>
-        </Button>
-      </div>
   )
 }
 
