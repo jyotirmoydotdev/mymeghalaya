@@ -130,7 +130,7 @@ export const resetPasswordAction = async (formData: FormData) => {
 export const signOutAction = async () => {
   const supabase = createClient();
   await supabase.auth.signOut();
-  // return redirect("/sign-in");
+  return redirect("/");
 };
 
 export const signInWithGithub = async () => {

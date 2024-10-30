@@ -5,6 +5,7 @@ import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { useMediaQuery } from 'usehooks-ts'
+import { getBlurData } from "@/libs/getBlurData";
 
 export const DirectionAwareHover = ({
   imageUrl,
@@ -62,7 +63,6 @@ export const DirectionAwareHover = ({
     const d = Math.round(Math.atan2(y, x) / 1.57079633 + 5) % 4;
     return d;
   };
-
   return (
     <motion.div
       onMouseEnter={handleMouseEnter}
@@ -94,10 +94,12 @@ export const DirectionAwareHover = ({
                 "h-full w-full object-cover object-center scale-[1.15]",
                 imageClassName
               )}
-              width="1000"
-              height="1000"
+              width="500"
+              height="500"
               src={imageUrl}
               priority
+              blurDataURL={getBlurData()}
+              placeholder="blur"
             />
           </motion.div>
           <motion.div

@@ -20,18 +20,16 @@ import { createClient } from '@/utils/supabase/server';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 const RightSheet = async () => {
-  const {
-    data: { user },
-  } = await createClient().auth.getUser();
+  const { data: { user } } = await createClient().auth.getUser()
   return (
     <div>
       <Sheet>
-        <SheetTrigger className='rounded-md outline-none'>
-          <Avatar className="h-7 w-7 sm:h-8 sm:w-8">
-            <AvatarImage src={""} />
-            <AvatarFallback className="font-black text-sm sm:text-base text-gray-600">{user ? user?.email?.at(0)?.toUpperCase() : "U"}</AvatarFallback>
-          </Avatar>
-        </SheetTrigger>
+        <Avatar>
+          <SheetTrigger className='outline-none'>
+            <AvatarImage src={user?.user_metadata.avatar_url} alt={user?.user_metadata.full_name} />
+            <AvatarFallback className="size-8 font-black text-sm sm:text-base text-gray-600">{user ? user?.email?.at(0)?.toUpperCase() : "U"}</AvatarFallback>
+          </SheetTrigger>
+        </Avatar>
         <SheetContent
           className="w-[85%] h-full rounded-l-xl border-r-gray-400 shadow-lg flex flex-col "
           side={"right"}
@@ -41,11 +39,16 @@ const RightSheet = async () => {
               <SheetHeader className="h-fit">
                 <SheetTitle className="text-left flex items-center gap-2">
                   <Avatar className="h-7 w-7 sm:h-8 sm:w-8">
-                    <AvatarImage src={""} />
+                    <AvatarImage src={user?.user_metadata.avatar_url} />
                     <AvatarFallback className="font-black text-sm sm:text-base text-gray-600">{user ? user?.email?.at(0)?.toUpperCase() : "U"}</AvatarFallback>
                   </Avatar>
-                  <div className="text-xs">
-                    {user?.email || "Please Sign in"}
+                  <div className="text-xs flex flex-col">
+                    <div className="">
+                      {user?.user_metadata.full_name || "Please Sign in"}
+                    </div>
+                    <div className="text-[10px] text-gray-500">
+                      {user?.email || "Please Sign in"}
+                    </div>
                   </div>
                 </SheetTitle>
                 <SheetDescription></SheetDescription>

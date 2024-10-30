@@ -4,10 +4,10 @@ import RightSheet from './rightSheet';
 import SingInButton from './singinButton';
 
 const AuthButton = async () => {
-    const {
-        data: { user },
-      } = await createClient().auth.getUser();
-  return user?<RightSheet/>:<SingInButton/>
+  const {
+    data: { user },
+  } = await createClient().auth.getUser();
+  return (user) ? <RightSheet /> : <SingInButton />
 }
 
 export default AuthButton
