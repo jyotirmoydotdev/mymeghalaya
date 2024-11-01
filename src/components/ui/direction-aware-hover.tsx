@@ -1,14 +1,14 @@
 "use client";
 
-import { useRef, useState } from "react";
-import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
+import Image, { StaticImageData } from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { useMediaQuery } from 'usehooks-ts'
-import { getBlurData } from "@/libs/getBlurData";
+import { StaticImport } from "next/dist/shared/lib/get-img-props";
 
-export const DirectionAwareHover = ({
-  imageUrl,
+export  const  DirectionAwareHover = ({
+imageUrl,
   children,
   childrenClassName,
   imageClassName,
@@ -97,8 +97,8 @@ export const DirectionAwareHover = ({
               width="500"
               height="500"
               src={imageUrl}
-              priority
-              blurDataURL={getBlurData()}
+              blurDataURL={"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="}
+              loading="lazy"
               placeholder="blur"
             />
           </motion.div>

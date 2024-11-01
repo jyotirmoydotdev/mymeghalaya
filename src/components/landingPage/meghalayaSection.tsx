@@ -11,30 +11,33 @@ import MeghalayaMap from '../meghalayaMap'
 import { districtsData as data } from '@/staticData/districtData'
 
 const MeghalayaSection = () => {
-    const [activePathIndex, setActivePathIndex] = useState<number | null>(0);
+    const [activePathIndex, setActivePathIndex] = useState<number>(0);
     const cardRefs = useRef<Array<HTMLDivElement | null>>([]);
+    
     useEffect(() => {
         const observer = new IntersectionObserver(
             (entries) => {
                 entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        setActivePathIndex(Number(entry.target.getAttribute('data-index')));
+                    const newIndex = Number(entry.target.getAttribute('data-index'));
+    
+                    if (entry.isIntersecting && (newIndex === activePathIndex + 1 || newIndex === activePathIndex - 1)) {
+                        setActivePathIndex(newIndex);
                     }
                 });
             },
             { threshold: 1 }
         );
-
+    
         cardRefs.current.forEach((cardRef) => {
             if (cardRef) observer.observe(cardRef);
         });
-
+    
         return () => {
             cardRefs.current.forEach((cardRef) => {
                 if (cardRef) observer.unobserve(cardRef);
             });
         };
-    }, []);
+    }, [activePathIndex]); 
 
     return (
         <div className='flex flex-col justify-center p-4 sm:py-16 gap-5 overflow-hidden'>
@@ -63,7 +66,7 @@ const MeghalayaSection = () => {
                                 key={i}
                                 data-index={i}
                                 ref={(el) => { (cardRefs.current[i] = el) }}
-                                className={`${activePathIndex === i ? 'border transition-all duration-500 rounded-xl border-green-500 scale-105' : 'border border-white'}`} // Apply border radius conditionally
+                                className={`${activePathIndex === i ? 'border transition-all duration-500 rounded-[10px] border-green-500 scale-105' : 'border border-white'}`} // Apply border radius conditionally
                             >
                                 <ResponsiveCard
                                     i={i}
