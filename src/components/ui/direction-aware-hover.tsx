@@ -1,11 +1,10 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import Image, { StaticImageData } from "next/image";
+import { useRef, useState } from "react";
+import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { useMediaQuery } from 'usehooks-ts'
-import { StaticImport } from "next/dist/shared/lib/get-img-props";
 
 export  const  DirectionAwareHover = ({
 imageUrl,
@@ -68,7 +67,7 @@ imageUrl,
       onMouseEnter={handleMouseEnter}
       ref={ref}
       className={cn(
-        "h-52 w-full bg-transparent rounded-xl overflow-hidden group/card relative !m-0 !p-0",
+        "h-52 w-full bg-transparent overflow-hidden group/card relative !m-0 !p-0",
         className
       )}
     >
@@ -91,7 +90,7 @@ imageUrl,
             <Image
               alt="image"
               className={cn(
-                "h-full w-full object-cover object-center scale-[1.15]",
+                "h-full w-full object-cover object-center scale-100 sm:scale-[1.15] rounded-t-[11px]",
                 imageClassName
               )}
               width="500"

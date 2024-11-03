@@ -7,12 +7,13 @@ import { Button } from './ui/button'
 import { FaGoogle } from 'react-icons/fa'
 import Link from 'next/link'
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { LiaSpinnerSolid } from "react-icons/lia";
 
 
-const SingInButton = () => {
+const LoginButton = () => {
     const supabase = createClientComponentClient();
     const [isGoogleOAuthLoading, setIsGoogleOAuthLoading] = useState(false);
-    const handleGoogleSignin = async (e: any)=> {
+    const handleGoogleSignin = async (e: any) => {
         e?.preventDefault();
         setIsGoogleOAuthLoading(true);
         try {
@@ -34,8 +35,8 @@ const SingInButton = () => {
             <div className="hidden sm:block">
                 <Dialog>
                     <DialogTrigger asChild>
-                        <div className="p-2 active:scale-75 transition-transform">
-                            <Button variant={'outline'} size={'sm'}>Sign in</Button>
+                        <div className=" active:scale-75 transition-transform">
+                            <Button variant={'default'} size={'sm'} className='rounded-full'>Log in</Button>
                         </div>
                     </DialogTrigger>
                     <DialogContent className='max-w-[300px] '>
@@ -48,7 +49,7 @@ const SingInButton = () => {
                             </DialogDescription>
                         </DialogHeader>
                         <div className="flex flex-col gap-5 justify-center items-center ">
-                            <Button className='active:scale-90 transition-transform flex gap-2 w-fit ' size={'lg'} onClick={(e)=>handleGoogleSignin(e)}>
+                            <Button className='active:scale-90 transition-transform flex gap-2 w-fit ' size={'lg'} onClick={(e) => handleGoogleSignin(e)}>
                                 <FaGoogle />
                                 {
                                     isGoogleOAuthLoading ? (
@@ -84,8 +85,8 @@ const SingInButton = () => {
             <div className="block sm:hidden">
                 <Sheet >
                     <SheetTrigger asChild>
-                        <div className="p-2 active:scale-75 transition-transform">
-                            <Button variant={'outline'} size={'sm'}>Sign in</Button>
+                        <div className="active:scale-75 transition-transform">
+                            <Button variant={'outline'} size={'sm'} className=''>Log in</Button>
                         </div>
                     </SheetTrigger>
                     <SheetContent side={'bottom'} className='rounded-t-xl '>
@@ -98,17 +99,19 @@ const SingInButton = () => {
                             </SheetDescription>
                         </SheetHeader>
                         <div className="flex flex-col gap-5 justify-center items-center py-4">
-                            <Button className='active:scale-90 transition-transform flex gap-2 w-fit ' size={'lg'} onClick={(e)=>handleGoogleSignin(e)}>
-                                <FaGoogle />
+                            <Button className='active:scale-90 transition-transform flex gap-2 ' disabled={isGoogleOAuthLoading?true:false} size={isGoogleOAuthLoading?'icon':'lg'} onClick={(e) => handleGoogleSignin(e)}>
                                 {
                                     isGoogleOAuthLoading ? (
-                                        <div className="">
-                                            Signing in...
+                                        <div className=" animate-spin">
+                                            <LiaSpinnerSolid/>
                                         </div>
                                     ) : (
-                                        <div className="">
-                                            Sign in with Google
-                                        </div>
+                                        <>
+                                            <FaGoogle />
+                                            <div className="">
+                                                Sign in with Google
+                                            </div>
+                                        </>
                                     )
                                 }
                             </Button>
@@ -135,4 +138,4 @@ const SingInButton = () => {
     )
 }
 
-export default SingInButton
+export default LoginButton

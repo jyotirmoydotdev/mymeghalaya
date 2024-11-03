@@ -2,14 +2,14 @@
 
 import React from 'react'
 import { Button } from './ui/button'
-import { FaChevronLeft } from 'react-icons/fa'
+import { BsChevronLeft } from "react-icons/bs";
 import { useRouter } from 'next/navigation'
 
 const BackButton = () => {
     const route = useRouter();
     return (
-        <Button size={'icon'} className="size-7 active:scale-75 transition-transform" variant={'outline'} onClick={() => route.back()}>
-            <FaChevronLeft className="siz-3" />
+        <Button size={'icon'} className="size-7 " variant={'ghost'} onClick={() => route.back()}>
+            <BsChevronLeft className="siz-3" />
         </Button>
     )
 }

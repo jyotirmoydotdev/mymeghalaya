@@ -20,13 +20,10 @@ const Loading = () => {
 
                     {/* Main Section Skeleton */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        <div className="h-64 sm:h-96 w-full">
+                        <div className=" aspect-video">
                             <Skeleton className='rounded-md h-full w-full'></Skeleton>
                         </div>
-                        <div className="grid grid-cols-4 sm:grid-cols-2 gap-3 h-14 sm:h-full">
-                            <Skeleton className='rounded-md h-full w-full'></Skeleton>
-                            <Skeleton className='rounded-md h-full w-full'></Skeleton>
-                            <Skeleton className='rounded-md h-full w-full'></Skeleton>
+                        <div className=" aspect-video">
                             <Skeleton className='rounded-md h-full w-full'></Skeleton>
                         </div>
                         <div className="flex flex-col gap-1 pt-2">

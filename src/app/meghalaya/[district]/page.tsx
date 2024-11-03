@@ -88,6 +88,7 @@ const Page = () => {
                       imgUrl={item.images ? item.images[0] : ""}
                       name={item.name as string}
                       des={item.description as string}
+                      className='w-full'
                     />
                   ))
                 }

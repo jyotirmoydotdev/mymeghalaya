@@ -29,7 +29,7 @@ export const LandingPageDestinationSectionData: { name: string, des: string, img
         name: "Nokrek National Park",
         des: "Nokrek National Park is a Wilderness of Rare Flora, Fauna, and Pristine Beauty",
         img: supabaseImg("/red-panda.webp"),
-        link: "/destinations/darechikgre"
+        link: "/destinations/nokrek-national-park"
     },
     {
         name: "Arwah Cave",

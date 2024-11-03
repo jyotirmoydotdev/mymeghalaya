@@ -59,14 +59,14 @@ const MeghalayaSection = () => {
             <div className="w-screen block sm:hidden">
                 <div className="flex justify-center">
                     <div className="flex gap-3 sm:gap-5 w-full max-w-5xl py-3 overflow-x-scroll no-scrollbar">
-                        <div className="text-center bg-gray-100 h-full w-[169px] sm:w-[332px] px-3 rounded-xl flex justify-center gap-2 items-center"><GoArrowRight /></div>
+                        <div className="text-center bg-gray-100 h-full w-[169px] sm:w-[332px] px-[1rem] rounded-lg flex justify-center gap-2 items-center mr-1"><GoArrowRight /></div>
                         {data.map((district, i) => (
                             <div
                                 onClick={handleClick}
                                 key={i}
                                 data-index={i}
                                 ref={(el) => { (cardRefs.current[i] = el) }}
-                                className={`${activePathIndex === i ? 'border transition-all duration-500 rounded-[10px] border-green-500 scale-105' : 'border border-white'}`} // Apply border radius conditionally
+                                className={`${activePathIndex === i ? 'border transition-all duration-500 rounded-[13px] border-green-500 scale-110' : 'border rounded-[13px] border-white'}`} // Apply border radius conditionally
                             >
                                 <ResponsiveCard
                                     i={i}

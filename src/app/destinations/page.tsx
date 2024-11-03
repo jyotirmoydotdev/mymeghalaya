@@ -29,6 +29,11 @@ const Page = () => {
     queryFn: fetchDestinations,
     initialPageParam: 0,
     getNextPageParam: (lastPage, pages) => lastPage.nextPage,
+    staleTime: Infinity,
+    refetchOnMount: false,
+    refetchOnReconnect: false,
+    refetchOnWindowFocus: false,
+    refetchInterval: false,
   })
 
   const totalDestinations = useQuery({
@@ -41,6 +46,7 @@ const Page = () => {
     refetchOnMount: false,
     refetchOnReconnect: false,
     refetchOnWindowFocus: false,
+    refetchInterval: false,
   })
 
   const loadDistrict = async () => {
@@ -60,18 +66,14 @@ const Page = () => {
 
   return (
     <div>
-      <div className="border-b pb-2">
-        <div className='w-full justify-center flex px-3 '>
-          <div className="w-full max-w-5xl rounded-lg font-sans flex gap-2 items-center py-3 ">
-            <div className={`text-lg font-bold sm:text-4xl`}>
-              Destinations
-            </div>
-            <div className="text-sm sm:text-base">
-              ( {totalDestinations.data ? totalDestinations.data.count : "0"} )
-            </div>
+      <div className="pb-2 sm:container sm:max-w-6xl w-full">
+        <div className="rounded-lg font-sans flex gap-2 items-center pt-3 py-2 px-3 ">
+          <div className={`font-semibold text-base sm:text-3xl`}>Destinations</div>
+          <div className="text-sm sm:text-base">
+            ( {totalDestinations.data ? totalDestinations.data.count : "0"} )
           </div>
         </div>
-        <div className="flex flex-col justify-center items-center px-3">
+        <div className="px-3">
           {isLoading ? (
             <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 max-w-5xl w-full gap-3 py-3">
               {Array.from({ length: 6 }).map((_, index) => (
@@ -86,7 +88,7 @@ const Page = () => {
             </div>
           ) : <>{
             data?.pages.map((group, i) => (
-              <div key={i} className='py-3 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-3 w-full max-w-5xl justify-items-center'>
+              <div key={i} className='py-2 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-3'>
                 {group.data.map((item: LocationDataType, i: number) => (
                   <ResponsiveCard
                     i={i}
@@ -96,6 +98,7 @@ const Page = () => {
                     name={item.name as string}
                     des={item.description as string}
                     icon={<CiLocationOn />}
+                    className='w-full h-full'
                   />
                 ))}
               </div>
@@ -124,11 +127,11 @@ const Page = () => {
           </div>
         </div>
       </div>
-      <div className="flex justify-center">
-        <div className="p-3 flex flex-col gap-2 h-full max-w-5xl w-full">
-          <div className="flex gap-1 py-4 items-center">
-            <div className="font-bold text-lg"> Districts</div>
-            <div className="text-sm">( 12 )</div>
+      <div className="sm:container sm:max-w-6xl w-full">
+        <div className="p-3 flex flex-col gap-2 h-full">
+          <div className="flex gap-1 pt-4 pb-2 items-center">
+            <div className="font-semibold text-base sm:text-3xl"> Districts</div>
+            <div className="text-sm sm:text-base">( 12 )</div>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 overflow-x-auto no-scrollbar gap-2 justify-items-center">
             {
@@ -139,14 +142,15 @@ const Page = () => {
                   url={`/meghalaya/${item.id}`}
                   imgUrl={item.img.url}
                   name={item.name}
-                  des={item.about.slice(0, 60)+"..."}
+                  des={item.about.slice(0, 60) + "..."}
                   icon={<CiLocationOn />}
+                  className='w-full'
                 />
               ))
             }
           </div>
           {districtDataLoading ? (
-            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 max-w-5xl w-full gap-3 py-3">
+            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-3 py-3">
               {Array.from({ length: 2 }).map((_, index) => (
                 <div className="rounded-md flex flex-col gap-3 w-full min-h-[182px]" key={index}>
                   <Skeleton className='sm:h-[208px] h-24 w-full'></Skeleton>

@@ -12,13 +12,12 @@ import { LandingPageDestinationSectionData as data } from '@/staticData/landingP
 
 const DestinationSection = () => {
     return (
-        <div className="sm:py-16 border-t">
+        <div className="sm:py-16 container max-w-5xl w-full px-0">
             <div className=" pt-4 px-4">
-                <SectionHeader name={"Destinations"} />
+                <SectionHeader name={"Destinations"} url='/destinations' />
             </div>
             <div className="flex justify-center pl-4 sm:pl-0 pb-4">
                 <div className="flex sm:grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-3 w-full max-w-5xl pb-3 overflow-x-scroll no-scrollbar">
-                    <div className="h-full px-3 bg-gray-100 flex justify-center items-center rounded-xl sm:hidden"><GoArrowRight /></div>
                     {data.map((loc, i) => (
                         <ResponsiveCard
                             key={i}
@@ -30,9 +29,6 @@ const DestinationSection = () => {
                             icon={<CiLocationOn />}
                         />
                     ))}
-                    <Link href={"/destinations"} className='flex justify-center items-center h-full bg-gray-100 rounded-xl text-nowrap sm:hidden '>
-                        <div className="text-blue-500 italic px-5 gap-2"><div className="">View all</div> <HiArrowLongRight className='' /></div>
-                    </Link>
                 </div>
             </div>
             <Link href={"/destinations"} className='hidden sm:block'>

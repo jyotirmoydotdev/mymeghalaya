@@ -18,6 +18,7 @@ import { signOutAction } from '@/functions/auth';
 import { FaRegCopyright } from 'react-icons/fa';
 import { createClient } from '@/utils/supabase/server';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { CiLocationOn, CiSearch } from 'react-icons/ci';
 
 const RightSheet = async () => {
   const { data: { user } } = await createClient().auth.getUser()
@@ -26,8 +27,8 @@ const RightSheet = async () => {
       <Sheet>
         <Avatar>
           <SheetTrigger className='outline-none'>
-            <AvatarImage src={user?.user_metadata.avatar_url} alt={user?.user_metadata.full_name} />
-            <AvatarFallback className="size-8 font-black text-sm sm:text-base text-gray-600">{user ? user?.email?.at(0)?.toUpperCase() : "U"}</AvatarFallback>
+            <AvatarImage src={user?.user_metadata.avatar_url} alt={user?.user_metadata.full_name} className='rounded-full'/>
+            <AvatarFallback className="size-8 font-black text-sm sm:text-base text-gray-600">{user ? user?.email?.at(0)?.toUpperCase() : "J"}</AvatarFallback>
           </SheetTrigger>
         </Avatar>
         <SheetContent
@@ -38,7 +39,7 @@ const RightSheet = async () => {
             <div className="">
               <SheetHeader className="h-fit">
                 <SheetTitle className="text-left flex items-center gap-2">
-                  <Avatar className="h-7 w-7 sm:h-8 sm:w-8">
+                  <Avatar className="h-7 w-7 sm:h-8 sm:w-8 rounded-full">
                     <AvatarImage src={user?.user_metadata.avatar_url} />
                     <AvatarFallback className="font-black text-sm sm:text-base text-gray-600">{user ? user?.email?.at(0)?.toUpperCase() : "U"}</AvatarFallback>
                   </Avatar>
@@ -64,7 +65,7 @@ const RightSheet = async () => {
                     Your profile
                   </Button>
                 </Link>
-                <Link
+                {/* <Link
                   href={"/bookmarks"}
                   className="flex items-center gap-2"
                 >
@@ -72,17 +73,30 @@ const RightSheet = async () => {
                   <Button variant={"link"} className="pl-0">
                     Bookmarks
                   </Button>
-                </Link>
-                <Link href={"/"} className="flex items-center gap-2">
+                </Link> */}
+                {/* <Link href={"/"} className="flex items-center gap-2">
                   <IoSettingsOutline />
                   <Button variant={"link"} className="pl-0">
                     Settings
                   </Button>
-                </Link>
+                </Link> */}
                 <Link href={"/support"} className="flex items-center gap-2">
                   <RiGroupLine />
                   <Button variant={"link"} className="pl-0">
                     Support
+                  </Button>
+                </Link>
+                <div className="w-full border"></div>
+                <Link href={"/destinations"} className="flex items-center gap-2">
+                  <CiLocationOn />
+                  <Button variant={"link"} className="pl-0">
+                    Destinations
+                  </Button>
+                </Link>
+                <Link href={"/search"} className="flex items-center gap-2">
+                  <CiSearch />
+                  <Button variant={"link"} className="pl-0">
+                    Search
                   </Button>
                 </Link>
                 <div className="w-full border"></div>

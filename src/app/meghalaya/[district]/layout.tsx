@@ -1,12 +1,10 @@
 import React from 'react'
 
 import { getSEOTags } from '@/libs/seo';
-import Navbar from '@/components/layout/navbar';
-import Footer from '@/components/layout/footer';
 
 export const metadata = getSEOTags({
-  title: `Destinations & Districts`,
-  canonicalUrlRelative: "/destinations",
+  title: `District Details`,
+  canonicalUrlRelative: "/meghalaya",
 });
 
 const layout = ({
@@ -16,9 +14,7 @@ const layout = ({
 }>) => {
   return (
     <>
-      <Navbar Title='Destinations' enabaleBackButton={true}/>
       {children}
-      <Footer/>
     </>
   )
 }

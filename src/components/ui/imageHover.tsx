@@ -6,8 +6,8 @@ import { AnimatePresence, motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { useMediaQuery } from 'usehooks-ts'
 
-export const DirectionAwareHover1 = ({
-  imageUrl,
+export  const  ImageHover = ({
+imageUrl,
   children,
   childrenClassName,
   imageClassName,
@@ -15,12 +15,14 @@ export const DirectionAwareHover1 = ({
 }: {
   imageUrl: string;
   children: React.ReactNode | string;
+  hover?: boolean;
   childrenClassName?: string;
   imageClassName?: string;
   className?: string;
 }) => {
-  const ref = useRef<HTMLDivElement>(null);
+  const isDesktop = useMediaQuery("(min-width: 768px)")
 
+  const ref = useRef<HTMLDivElement>(null);
   const [direction, setDirection] = useState<
     "top" | "bottom" | "left" | "right" | string
   >("left");
@@ -60,29 +62,23 @@ export const DirectionAwareHover1 = ({
     const d = Math.round(Math.atan2(y, x) / 1.57079633 + 5) % 4;
     return d;
   };
-  const isDesktop = useMediaQuery("(min-width: 768px)")
-
   return (
     <motion.div
       onMouseEnter={handleMouseEnter}
       ref={ref}
       className={cn(
-        "h-52 w-full bg-transparent rounded-t-lg  overflow-hidden group/card relative",
+        "h-52 w-full bg-transparent overflow-hidden group/card relative !m-0 !p-0 rounded-xl sm:rounded-lg",
         className
       )}
     >
-      <AnimatePresence mode="wait">
+      <AnimatePresence mode='wait'>
         <motion.div
           className="relative h-full w-full"
           initial="initial"
           whileHover={direction}
           exit="exit"
         >
-          {isDesktop?
-          <motion.div className="group-hover/card:block hidden absolute inset-0 w-full h-full bg-black/40 z-10 transition duration-500" />
-          :
-          <div></div>
-          }
+          <motion.div className="sm:group-hover/card:block hidden absolute inset-0 w-full h-full bg-black/40 z-10 transition duration-500" />
           <motion.div
             variants={variants}
             className="h-full w-full relative bg-gray-50 dark:bg-black"
@@ -94,13 +90,15 @@ export const DirectionAwareHover1 = ({
             <Image
               alt="image"
               className={cn(
-                "h-full w-full object-cover scale-[1.15]",
+                "h-full w-full object-cover object-center scale-100 sm:scale-[1.15] ",
                 imageClassName
               )}
-              width="1000"
-              height="1000"
+              width="500"
+              height="500"
               src={imageUrl}
+              blurDataURL={"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="}
               loading="lazy"
+              placeholder="blur"
             />
           </motion.div>
           <motion.div
@@ -109,6 +107,7 @@ export const DirectionAwareHover1 = ({
               duration: 0.5,
               ease: "easeOut",
             }}
+            initial={true} animate={{opacity:isDesktop?0:1,transform:'none'}}
             className={cn(
               "text-white absolute bottom-4 left-4 z-40",
               childrenClassName
@@ -183,7 +182,7 @@ const mobile = {
   exit: {
     y: 0,
     x: 0,
-    opacity: 0,
+    opacity: 1,
   },
   top: {
     y: 0,

@@ -2,6 +2,8 @@ import React from 'react'
 
 import { getSEOTags } from '@/libs/seo';
 import config from '@/config';
+import Navbar from '@/components/layout/navbar';
+import Footer from '@/components/layout/footer';
 
 export const metadata = getSEOTags({
   title: `Privacy policy of ${config.appName}`,
@@ -15,7 +17,9 @@ const layout = ({
 }>) => {
   return (
     <>
+      <Navbar Title='Privacy' enabaleBackButton={true}/>
       {children}
+      <Footer/>
     </>
   )
 }
