@@ -1,7 +1,6 @@
 {
-  "name": "Meghalaya",
+  "name": "MyMeghalaya",
   "short_name": "Meghalaya",
-  "start_url":"/",
   "icons": [
     {
       "src": "/web-app-manifest-192x192.png",

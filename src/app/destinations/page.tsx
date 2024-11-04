@@ -66,7 +66,7 @@ const Page = () => {
 
   return (
     <div>
-      <div className="pb-2 sm:container sm:max-w-6xl w-full">
+      <div className="pb-2 sm:container sm:max-w-6xl w-full" id='destinations'>
         <div className="rounded-lg font-sans flex gap-2 items-center pt-3 py-2 px-3 ">
           <div className={`font-semibold text-base sm:text-3xl`}>Destinations</div>
           <div className="text-sm sm:text-base">
@@ -127,7 +127,7 @@ const Page = () => {
           </div>
         </div>
       </div>
-      <div className="sm:container sm:max-w-6xl w-full">
+      <div className="sm:container sm:max-w-6xl w-full" id='districts'>
         <div className="p-3 flex flex-col gap-2 h-full">
           <div className="flex gap-1 pt-4 pb-2 items-center">
             <div className="font-semibold text-base sm:text-3xl"> Districts</div>

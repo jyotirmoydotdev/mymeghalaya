@@ -12,7 +12,7 @@ import axios from 'axios'
 import { IoBookmark, IoCopyOutline, IoTimeOutline } from "react-icons/io5";
 import { CiBookmark, CiLocationOn, CiParking1 } from 'react-icons/ci'
 import { FaLocationDot, FaSailboat } from "react-icons/fa6";
-import { FaPlane, FaRoad } from "react-icons/fa";
+import { FaAngleLeft, FaPlane, FaRoad } from "react-icons/fa";
 import { TbExternalLink } from "react-icons/tb";
 import { GoArrowRight } from "react-icons/go";
 import { PiTicketThin } from "react-icons/pi";
@@ -20,7 +20,7 @@ import { MdGroups2 } from "react-icons/md";
 import { FcGlobe } from "react-icons/fc";
 
 // Components
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious,} from "@/components/ui/carousel"
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, } from "@/components/ui/carousel"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Card, CardContent } from "@/components/ui/card"
 import ResponsiveCard from '@/components/responsiveCard'
@@ -32,6 +32,16 @@ import Loading from './loading'
 // Types and Functions
 import { LocationDataType } from '@/types/locationDataTypes'
 import Markdown from 'react-markdown'
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb"
+import Breadcrumbs from '@/components/breadcrumbs'
+
 
 const Pages = () => {
   const { slug } = useParams()
@@ -79,7 +89,20 @@ const Pages = () => {
   }
 
   return (
-    <div className="py-4 container max-w-5xl p-4 no-scrollbar overflow-hidden sm:overflow-visible">
+    <div className="py-4 container max-w-5xl p-4 no-scrollbar overflow-hidden lg:overflow-visible">
+
+      {/* Breadcrumb */}
+      <Breadcrumbs
+        breadcrumbs={
+          [
+            {
+              label: "Destinations",
+              link: "/destinations"
+            }
+          ]
+        }
+        breadcrumbPage={fetchDestination.data.destination.name || ""}
+      ></Breadcrumbs>
 
       {/* Header */}
       <div className="flex justify-between items-center relative">
@@ -291,13 +314,17 @@ const Pages = () => {
           <div className="flex flex-col">
             <div className=" pt-1 text-lg">Description</div>
             <div onClick={() => setAboutState(!aboutState)} className="relative transition-all duration-500 ease-in-out">
-              <div className={`overflow-hidden tracking-wide text-pretty font-sans text-gray-500 transition-all ${aboutState ? 'h-full sm:max-h-full' : 'max-h-[3.5rem]'} sm:max-h-[20rem] relative`}>
-                <Markdown className={"blog-content"}>
+              <div className={`overflow-hidden tracking-wide text-pretty font-sans text-gray-700 transition-all
+                 ${aboutState ? 'h-full sm:max-h-full' : 'max-h-[3.5rem]'} sm:max-h-[20rem] relative`}>
+                <Markdown className={"blog-content text-sm"}>
                   {fetchDestination.data.destination.about}
                 </Markdown>
-                {!aboutState && (<div className="absolute bottom-0 left-0 right-0 h-10 bg-gradient-to-t from-white to-transparent pointer-events-none"></div>)}
+                {!aboutState && (
+                  <div className="absolute bottom-0 left-0 right-0 h-10 bg-gradient-to-t from-white to-transparent pointer-events-none"></div>
+                )}
               </div>
             </div>
+
           </div>
         </div>
       </div>

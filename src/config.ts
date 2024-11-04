@@ -1,6 +1,6 @@
 const config = {
     appName: "MyMeghalaya",
-    appDescription: "Enjoy your time in the abode of clouds aka meghalaya.",
+    appDescription: "Your ultimate guide to exploring Meghalaya's breathtaking landscapes, vibrant culture, and hidden gems.",
     domainName: "mymeghalaya.in",
     supportMail: "care.jyotirmoy@gmail.com",
     auth:{

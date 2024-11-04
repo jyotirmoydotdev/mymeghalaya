@@ -89,6 +89,7 @@ imageUrl,
           >
             <Image
               alt="image"
+              title="image"
               className={cn(
                 "h-full w-full object-cover object-center scale-100 sm:scale-[1.15] rounded-t-[11px]",
                 imageClassName

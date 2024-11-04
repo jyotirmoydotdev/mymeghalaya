@@ -12,6 +12,7 @@ import Loading from './loading'
 import NotFound from './not-found'
 import Markdown from 'react-markdown'
 import ResponsiveCard from '@/components/responsiveCard'
+import Breadcrumbs from '@/components/breadcrumbs'
 
 const Page = () => {
   const { district } = useParams();
@@ -43,8 +44,21 @@ const Page = () => {
 
   return (
     <div>
-      <div className="px-5">
-        <div className="flex justify-center py-5 sm:p-5 sm:pb-0 " >
+      <div className="px-5 container max-w-5xl">
+        <Breadcrumbs
+          breadcrumbs={[
+            {
+              label: "Meghalaya",
+              link: "/meghalaya"
+            },
+            {
+              label: "Districts",
+              link: "/destinations#districts"
+            }
+          ]}
+          breadcrumbPage={fetchDistrictData.data.data.districtData.name as string}
+        ></Breadcrumbs>
+        <div className="flex justify-center pt-5 sm:pb-0 " >
           <div className="max-w-5xl w-full">
             <div className="text-2xl capitalize font-bold sm:font-black text-gray-600 sm:text-5xl tracking-tight flex items-center gap-2">
               {/* <FaLocationDot/> */}
@@ -52,7 +66,7 @@ const Page = () => {
             </div>
           </div>
         </div>
-        <div className="flex justify-center pb-5 sm:p-10">
+        <div className="flex justify-center pb-5 sm:py-10">
           <div className="max-w-5xl grid grid-cols-1 sm:grid-cols-2 w-full gap-10">
             <div className="text-sm flex flex-col gap-3 order-2 sm:order-1">
               <Markdown>
@@ -74,7 +88,7 @@ const Page = () => {
           <>
             <div className="flex justify-center py-5  px-4" >
               <div className="max-w-5xl w-full ">
-              <div className="text-lg tracking-tight sm:text-4xl font-medium sm:font-black text-black sm:text-gray-400 sm:uppercase">Nearby</div>
+                <div className="text-lg tracking-tight sm:text-4xl font-medium sm:font-black text-black sm:text-gray-400 sm:uppercase">Nearby</div>
               </div>
             </div>
             <div className="flex justify-center px-4 pb-5">
