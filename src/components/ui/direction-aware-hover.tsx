@@ -98,7 +98,7 @@ imageUrl,
               height="500"
               src={imageUrl}
               blurDataURL={"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="}
-              loading="lazy"
+              loading="eager"
               placeholder="blur"
             />
           </motion.div>

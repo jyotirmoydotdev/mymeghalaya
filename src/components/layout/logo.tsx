@@ -12,7 +12,8 @@ const Logo = () => {
             src={"/logo.png"}
             width={500}
             height={500}
-            alt=""
+            alt="MyMeghalaya"
+            priority
             className="h-full w-9  scale-150 mr-2"
           />
           <div className="flex items-baseline text-gray-500 pl-2 font-black font-mono" >
@@ -32,7 +33,8 @@ const Logo = () => {
             src={"/logo.png"}
             width={500}
             height={500}
-            alt=""
+            alt="MyMeghalaya"
+            priority
             className="h-full w-7 scale-150 ml-3 mr-3"
           />
           <div className="flex items-baseline text-gray-600 font-bold  pl-1" >
