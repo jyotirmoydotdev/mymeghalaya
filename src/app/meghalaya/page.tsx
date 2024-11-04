@@ -1,10 +1,10 @@
 'use client'
 
-import Navbar from '@/components/Navbar'
 import React from 'react'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { DirectionAwareHover1 } from '@/components/ui/direction-aware-hover1'
-import Footer from '@/components/Footer'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs1"
+import { ImageHover } from '@/components/ui/imageHover'
+import Markdown from 'react-markdown'
+import { supabaseImg } from '@/libs/supabaseFetch'
 
 const Page = () => {
   return (
@@ -12,60 +12,51 @@ const Page = () => {
       <div className="p-5">
         <div className="flex justify-center py-5 sm:p-5 sm:pb-0 " >
           <div className="max-w-5xl w-full border-b pb-5">
-            <div className="text-3xl font-semibold sm:text-6xl uppercase text-gray-500 ">
-              Meghalaya
+            <div className="text-3xl font-black text-gray-500 sm:text-5xl font-sans">
+              MEGHALAYA
             </div>
             <div className="font-medium text-sm capitalize pt-2 text-gray-400">
               Destinations of meghalaya
             </div>
           </div>
         </div>
-        <div className="flex justify-center pb-5 sm:p-10"> 
-          <div className="max-w-5xl grid grid-cols-1 sm:grid-cols-2 w-full gap-10">
-            <div className="text-sm flex flex-col gap-3 order-2 sm:order-1">
-              <p>
-                {"Meghalaya, known as the 'abode of clouds' is a mesmerizing state in northeast India, rich in natural beauty and cultural heritage. Carved from Assam on January 21, 1972, it comprises the United Khasi, Jaintia Hills, and Garo Hills. Covering an area of 22,429 square kilometers, Meghalaya is home to over 3.2 million people, with its capital, Shillong, often dubbed the 'Scotland of the East' by the British due to its lush landscapes and misty hills."}
-              </p>
-              <p>
-                {"The state shares its southern and western borders with Bangladesh, and its northern and eastern boundaries with Assam. One of the wettest places on earth, Meghalaya's southern Khasi Hills record an astounding 12,000 mm of rainfall annually. Over 70% of the state is covered in forests, renowned for their rich biodiversity of flora and fauna."}
-              </p>
-              <p>
-                {"A unique feature of Meghalaya is its matrilineal society, where lineage and inheritance pass through the female line. Predominantly agrarian, the state grows crops like potatoes, rice, pineapples, and spices, while also having a notable commercial forestry sector. Though rich in minerals, Meghalaya lacks major industries but serves as a key trading hub with Bangladesh."}
-              </p>
-              <p>
-                {"Interestingly, a dramatic climate event around 2250 BCE, evidenced by formations in Meghalaya's Mawmluh cave, led to the naming of the Meghalayan Age, a stage in the Holocene epoch. With its central institutions like the North Eastern Council Secretariat in Shillong, Meghalaya continues to be a vital and fascinating part of India's northeast."}
-              </p>
+        <div className="flex justify-center pb-5 sm:p-5"> 
+          <div className="max-w-5xl grid grid-cols-1 sm:grid-cols-2 w-full gap-10 items-center">
+            <div className="text-sm flex flex-col gap-3 order-2 sm:order-1 ">
+              <Markdown className={'blog-content'}>
+                {"**Meghalaya**, known as the *'abode of clouds'*, is a mesmerizing state in northeast India, rich in natural beauty and cultural heritage. **Carved from Assam on January 21, 1972**, it comprises the *United Khasi*, *Jaintia Hills*, and *Garo Hills*. Covering an area of *22,429 square kilometers*, Meghalaya is home to over **3.2 million people**, with its capital, **Shillong**, often dubbed the _'Scotland of the East'_ by the British due to its lush landscapes and misty hills.\n\nThe state shares its southern and western borders with **Bangladesh**, and its northern and eastern boundaries with **Assam**. One of the wettest places on earth, Meghalaya's southern [Khasi Hills](/destinations?location=East+Khasi+Hills) record an astounding 12,000 mm of rainfall annually. Over **70% of the state** is covered in forests, renowned for their rich biodiversity of flora and fauna.\n\nA unique feature of Meghalaya is its **_matrilineal society_**, where lineage and inheritance pass through the female line. Predominantly agrarian, the state grows crops like *potatoes*, *rice*, *pineapples*, and *spices*, while also having a notable commercial **forestry sector**. Though rich in minerals, Meghalaya lacks major industries but serves as a **key trading hub with Bangladesh**.\n\nInterestingly, a dramatic climate event around **2250 BCE**, evidenced by formations in Meghalaya's **Mawmluh cave**, led to the naming of the **Meghalayan Age**, a stage in the Holocene epoch. With its central institutions like the **North Eastern Council Secretariat in Shillong**, Meghalaya continues to be a vital and fascinating part of India's northeast."}
+              </Markdown>
             </div>
-            <DirectionAwareHover1 imageUrl={"/wei-sawdong.webp"} className=' h-[516px] rounded-md order-1 sm:order-2'>
+            <ImageHover imageUrl={supabaseImg("/wei-sawdong.webp")} className=' h-[516px] order-1 sm:order-2'>
               <div className="flex flex-col gap-2">
                 <p className="font-bold text-xl">Wei Sawdong Fall</p>
                 <p className="font-normal text-sm">Cherrapunji, East Khasi Hills</p>
               </div>
-            </DirectionAwareHover1>
+            </ImageHover>
           </div>
         </div>
-        <div className="flex justify-center py-5  " >
+        <div className="flex justify-center pt-5  " >
           <div className="max-w-5xl w-full border-b pb-5">
-            <div className="text-xl font-thin sm:text-3xl uppercase text-gray-500 ">
-              What you are looking for ?
+            <div className="text-xl sm:text-4xl font-black text-gray-400 font-sans">
+              WHAT ARE YOU LOOKING FOR ?
             </div>
           </div>
         </div> 
         <div className="flex justify-center">
           <Tabs defaultValue="geography" className=" w-full max-w-5xl">
-            <TabsList className=' bg-white rounded-none'>
-              <TabsTrigger value="geography">Geography</TabsTrigger>
-              <TabsTrigger value="history">History</TabsTrigger>
-              <TabsTrigger value="culture">Culture</TabsTrigger>
-              <TabsTrigger value="transport">Transport</TabsTrigger>
+            <TabsList className=' bg-white rounded-none '>
+              <TabsTrigger className='text-xs sm:text-base' value="geography">Geography</TabsTrigger>
+              <TabsTrigger className='text-xs sm:text-base' value="history">History</TabsTrigger>
+              <TabsTrigger className='text-xs sm:text-base' value="culture">Culture</TabsTrigger>
+              <TabsTrigger className='text-xs sm:text-base' value="transport">Transport</TabsTrigger>
             </TabsList>
             <TabsContent value="geography">
               <div className="grid grid-cols-1 sm:grid-cols-2 w-full gap-5 py-3">
 
-                <DirectionAwareHover1 imageUrl='/daribokgre.webp' className='h-full border rounded-lg order-1'>
+                <ImageHover imageUrl={supabaseImg("/daribokgre.webp")} className='h-full border  order-1'>
                   <p className="font-bold text-xl">Daribokgre</p>
                   <p className="font-normal text-sm">Tura, West Garo Hills</p>
-                </DirectionAwareHover1>
+                </ImageHover>
 
                 <div className="text-sm p-0 sm:p-5 flex flex-col justify-center  order-2">
                   <p>
@@ -79,19 +70,19 @@ const Page = () => {
                   </p>
                 </div>
 
-                <DirectionAwareHover1 imageUrl='/Nohkalikai-Falls.webp' className='h-full border rounded-lg order-3 sm:order-4'>
+                <ImageHover imageUrl={supabaseImg("/nohkalikai-falls.webp")} className='h-full border  order-3 sm:order-4'>
                   <div className="flex flex-col gap-1">
                     <p className="font-bold text-xl">Nohkalikai Falls</p>
                     <p className="font-normal text-sm">Cherrapunji, East Khasi Hills</p>
                   </div>
-                </DirectionAwareHover1>
+                </ImageHover>
 
-                <DirectionAwareHover1 imageUrl='/Cherrapunji.webp' className='h-full rounded-lg border order-5'>
+                <ImageHover imageUrl={supabaseImg("/cherrapunji.webp")} className='h-full  border order-5'>
                   <div className="flex flex-col gap-1">
                     <p className="font-bold text-xl">Cherrapunji </p>
                     <p className="font-normal text-sm">Cherrapunji, East Khasi Hills</p>
                   </div>
-                </DirectionAwareHover1>
+                </ImageHover>
 
                 <div className="text-sm p-0 sm:p-5 flex flex-col gap-3 justify-center order-6">
                   <p>
@@ -105,21 +96,21 @@ const Page = () => {
                   </p>
                 </div>
 
-                <DirectionAwareHover1 imageUrl='/red-panda.webp' className='h-full rounded-lg border order-7 sm:order-8'>
+                <ImageHover imageUrl={supabaseImg("/red-panda.webp")} className='h-full  border order-7 sm:order-8'>
                   <div className="flex flex-col gap-1">
                     <p className="font-bold text-xl">Red Panda </p>
                     <p className="font-normal text-sm">Nokrek National Park, West Garo Hills</p>
                   </div>
-                </DirectionAwareHover1>
+                </ImageHover>
               </div>
             </TabsContent>
             <TabsContent value="history">
               <div className="grid grid-cols-1 sm:grid-cols-2 w-full gap-5 py-3">
 
-                <DirectionAwareHover1 imageUrl='/neolithic.webp' className='h-full border rounded-lg order-1'>
+                <ImageHover imageUrl={supabaseImg("/neolithic.webp")} className='h-full border  order-1'>
                   <p className="font-bold text-xl">Neolithic artifacts</p>
                   <p className="font-normal text-sm">2,700 years-old from Gawak Abri, Garo Hills</p>
-                </DirectionAwareHover1>
+                </ImageHover>
 
                 <div className="text-sm p-0 sm:p-5 order-2">
                   <p>
@@ -136,15 +127,15 @@ const Page = () => {
                   </p>
                 </div>
 
-                <DirectionAwareHover1 imageUrl='/Kamarupa.webp' className='h-full border rounded-lg order-3 sm:order-4'>
+                <ImageHover imageUrl={supabaseImg("/neolithic.webp")} className='h-full border  order-3 sm:order-4'>
                   <p className="font-bold text-xl">Kamarupa Kingdom</p>
                   <p className="font-normal text-sm">Kamarupa from 350 to 1140 CE</p>
-                </DirectionAwareHover1>
+                </ImageHover>
 
-                <DirectionAwareHover1 imageUrl='/shillong-before-1897.webp' className='h-full rounded-lg border order-5'>
+                <ImageHover imageUrl={supabaseImg("/shillong-before-1897.webp")} className='h-full  border order-5'>
                   <p className="font-bold text-xl">Shillong, Meghalaya </p>
                   <p className="font-normal text-sm">Before year 1897</p>
-                </DirectionAwareHover1>
+                </ImageHover>
 
                 <div className="text-sm p-0 sm:p-5 flex flex-col gap-3 order-6">
                   <p>
@@ -159,10 +150,10 @@ const Page = () => {
             <TabsContent value="culture">
               <div className="grid grid-cols-1 sm:grid-cols-2 w-full gap-5 py-3">
 
-                <DirectionAwareHover1 imageUrl='/culture1.webp' className='h-full border rounded-lg order-1'>
+                <ImageHover imageUrl={supabaseImg("/culture1.webp")} className='h-full border  order-1'>
                   <p className="font-bold text-xl">Tribe Statues</p>
                   <p className="font-normal text-sm">Don Bosco Museum, Shillong, Meghalaya</p>
-                </DirectionAwareHover1>
+                </ImageHover>
 
                 <div className="text-sm p-0 sm:p-5 order-2">
                   <p>
@@ -176,20 +167,20 @@ const Page = () => {
                   </p>
                 </div>
 
-                <DirectionAwareHover1 imageUrl='/union.webp' className='h-full border rounded-lg order-3 sm:order-4'>
+                <ImageHover imageUrl={supabaseImg("/student-unions.webp")} className='h-full border  order-3 sm:order-4'>
                   <p className="font-bold text-xl">Khasi, Garo and Jaintia Student Union</p>
                   <p className="font-normal text-sm">Meghalaya</p>
-                </DirectionAwareHover1>
+                </ImageHover>
 
               </div>
             </TabsContent>
             <TabsContent value="transport">
               <div className="grid grid-cols-1 sm:grid-cols-2 w-full gap-5 py-3">
 
-                <DirectionAwareHover1 imageUrl='/meghalaya-road.webp' className='h-full border rounded-lg order-1'>
+                <ImageHover imageUrl={supabaseImg('/meghalaya-road-map.webp')} className='h-full border  order-1'>
                   <p className="font-bold text-xl">Map of Meghalaya</p>
                   <p className="font-normal text-sm">meghalaya.gov.in/maps</p>
-                </DirectionAwareHover1>
+                </ImageHover>
 
                 <div className="text-sm p-0 sm:p-5 order-2">
                   <p>
@@ -203,10 +194,10 @@ const Page = () => {
                   </p>
                 </div>
 
-                <DirectionAwareHover1 imageUrl='/shillong-airport.webp' className='h-full border rounded-lg order-3 sm:order-4'>
+                <ImageHover imageUrl={supabaseImg("/shillong-airport.webp")} className='h-full border  order-3 sm:order-4'>
                   <p className="font-bold text-xl">Shillong Airport</p>
                   <p className="font-normal text-sm">Shillong, Meghalaya</p>
-                </DirectionAwareHover1>
+                </ImageHover>
 
               </div>
             </TabsContent>

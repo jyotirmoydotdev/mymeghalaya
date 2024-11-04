@@ -6,8 +6,8 @@ import { AnimatePresence, motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { useMediaQuery } from 'usehooks-ts'
 
-export const DirectionAwareHover = ({
-  imageUrl,
+export  const  DirectionAwareHover = ({
+imageUrl,
   children,
   childrenClassName,
   imageClassName,
@@ -62,13 +62,12 @@ export const DirectionAwareHover = ({
     const d = Math.round(Math.atan2(y, x) / 1.57079633 + 5) % 4;
     return d;
   };
-
   return (
     <motion.div
       onMouseEnter={handleMouseEnter}
       ref={ref}
       className={cn(
-        "h-52 w-full bg-transparent rounded-lg overflow-hidden group/card relative !m-0 !p-0",
+        "h-52 w-full bg-transparent overflow-hidden group/card relative !m-0 !p-0",
         className
       )}
     >
@@ -79,7 +78,7 @@ export const DirectionAwareHover = ({
           whileHover={direction}
           exit="exit"
         >
-          <motion.div className="group-hover/card:block hidden absolute inset-0 w-full h-full bg-black/40 z-10 transition duration-500" />
+          <motion.div className="sm:group-hover/card:block hidden absolute inset-0 w-full h-full bg-black/40 z-10 transition duration-500" />
           <motion.div
             variants={variants}
             className="h-full w-full relative bg-gray-50 dark:bg-black"
@@ -90,14 +89,17 @@ export const DirectionAwareHover = ({
           >
             <Image
               alt="image"
+              title="image"
               className={cn(
-                "h-full w-full object-cover object-center scale-[1.15]",
+                "h-full w-full object-cover object-center scale-100 sm:scale-[1.15] rounded-t-[11px]",
                 imageClassName
               )}
-              width="1000"
-              height="1000"
-              priority
+              width="500"
+              height="500"
               src={imageUrl}
+              blurDataURL={"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="}
+              loading="lazy"
+              placeholder="blur"
             />
           </motion.div>
           <motion.div

@@ -1,31 +1,26 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
-import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { DirectionAwareHover } from '@/components/ui/direction-aware-hover'
-import { DirectionAwareHover1 } from '@/components/ui/direction-aware-hover1'
-import { Skeleton } from '@/components/ui/skeleton'
 import { DistrictDataType } from '@/types/districtDataType'
 import { LocationDataType } from '@/types/locationDataTypes'
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
-import Link from 'next/link'
 import { useParams } from 'next/navigation'
-import React, { useState } from 'react'
-import { CiLocationOn } from 'react-icons/ci'
-import { HiArrowLongRight } from 'react-icons/hi2'
+import React from 'react'
 import Loading from './loading'
 import NotFound from './not-found'
 import Markdown from 'react-markdown'
-import ResponsiveCard from '@/components/ResponsiveCard'
+import ResponsiveCard from '@/components/responsiveCard'
+import Breadcrumbs from '@/components/breadcrumbs'
 
 const Page = () => {
-  const {district} = useParams();
+  const { district } = useParams();
   const fetchDistrictData = useQuery({
     queryKey: ['district'],
     queryFn: async (): Promise<{
-      msg:string;
-      data:{
+      msg: string;
+      data: {
         districtData: DistrictDataType;
         destinationData: LocationDataType[];
       }
@@ -39,35 +34,46 @@ const Page = () => {
     },
   })
 
-  if (fetchDistrictData.isLoading || fetchDistrictData.isFetching){
-    return (<Loading/>)
+  if (fetchDistrictData.isLoading || fetchDistrictData.isFetching) {
+    return (<Loading />)
   }
 
-  if (fetchDistrictData.data?.data == null){
-    return <NotFound/>
+  if (fetchDistrictData.data?.data == null) {
+    return <NotFound />
   }
-  
+
   return (
     <div>
-      <div className="px-5">
-        <div className="flex justify-center py-5 sm:p-5 sm:pb-0 " >
-          <div className="max-w-5xl w-full border-b pb-5">
-            <div className="text-3xl font-semibold sm:text-6xl uppercase text-gray-500 ">
+      <div className="px-5 container max-w-5xl">
+        <Breadcrumbs
+          breadcrumbs={[
+            {
+              label: "Meghalaya",
+              link: "/meghalaya"
+            },
+            {
+              label: "Districts",
+              link: "/destinations#districts"
+            }
+          ]}
+          breadcrumbPage={fetchDistrictData.data.data.districtData.name as string}
+        ></Breadcrumbs>
+        <div className="flex justify-center pt-5 sm:pb-0 " >
+          <div className="max-w-5xl w-full">
+            <div className="text-2xl capitalize font-bold sm:font-black text-gray-600 sm:text-5xl tracking-tight flex items-center gap-2">
+              {/* <FaLocationDot/> */}
               {fetchDistrictData.data?.data.districtData.name}
-            </div>
-            <div className="font-medium text-sm capitalize pt-2 text-gray-400">
-              District of meghalaya
             </div>
           </div>
         </div>
-        <div className="flex justify-center pb-5 sm:p-10">
+        <div className="flex justify-center pb-5 sm:py-10">
           <div className="max-w-5xl grid grid-cols-1 sm:grid-cols-2 w-full gap-10">
             <div className="text-sm flex flex-col gap-3 order-2 sm:order-1">
               <Markdown>
                 {fetchDistrictData.data?.data.districtData.about}
               </Markdown>
             </div>
-            <DirectionAwareHover imageUrl={fetchDistrictData.data?.data.districtData.img?.url || ""} className=' h-[516px] rounded-md order-1 sm:order-2'>
+            <DirectionAwareHover imageUrl={fetchDistrictData.data?.data.districtData.img?.url || ""} className=' h-64 sm:h-[516px] rounded-md order-1 sm:order-2'>
               <div className="flex flex-col gap-2">
                 <p className="font-bold text-xl">{fetchDistrictData.data?.data.districtData.img?.name}</p>
                 <p className="font-normal text-sm">{fetchDistrictData.data?.data.districtData.img?.location}</p>
@@ -75,33 +81,39 @@ const Page = () => {
             </DirectionAwareHover>
           </div>
         </div>
-        <div className="flex justify-center py-5  " >
-          <div className="max-w-5xl w-full border-b pb-5">
-            <div className="text-xl font-thin sm:text-3xl uppercase text-gray-500 ">
-              Destinations to visit
-            </div>
-          </div>
-        </div>
       </div>
-          <div className="flex justify-center px-5 pb-5">
-            <div className="py-3 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 w-full max-w-5xl">
-              {fetchDistrictData.data?.data.destinationData.length ? fetchDistrictData.data?.data.destinationData.map((item: LocationDataType, i: number) => (
-                <ResponsiveCard
-                key={i}
-                i={i}
-                url={`/destinations/${item.slug}`}
-                imgUrl={item.images ? item.images[0] : ""}
-                name={item.name as string}
-                des={item.description as string}
-                />
-              )) : (
-                <div className="h-[40vh] col-span-3 flex justify-center items-center text-2xl">
-                  No Destination !!
-                </div>
-              )}
-              <Button variant={'outline'} disabled className=' hidden col-span-1 sm:col-span-2 md:col-span-3'>Load More</Button>
+
+      {
+        fetchDistrictData.data.data.destinationData.length ? (
+          <>
+            <div className="flex justify-center py-5  px-4" >
+              <div className="max-w-5xl w-full ">
+                <div className="text-lg tracking-tight sm:text-4xl font-medium sm:font-black text-black sm:text-gray-400 sm:uppercase">Nearby</div>
+              </div>
             </div>
-          </div>
+            <div className="flex justify-center px-4 pb-5">
+              <div className="py-3 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-3 w-full max-w-5xl">
+                {
+                  fetchDistrictData.data?.data.destinationData.map((item: LocationDataType, i: number) => (
+                    <ResponsiveCard
+                      key={i}
+                      i={i}
+                      url={`/destinations/${item.slug}`}
+                      imgUrl={item.images ? item.images[0] : ""}
+                      name={item.name as string}
+                      des={item.description as string}
+                      className='w-full'
+                    />
+                  ))
+                }
+                <Button variant={'outline'} disabled className=' hidden col-span-1 sm:col-span-2 md:col-span-3'>Load More</Button>
+              </div>
+            </div>
+          </>
+        ) : (
+          <></>
+        )
+      }
     </div>
   )
 }

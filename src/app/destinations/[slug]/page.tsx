@@ -1,51 +1,81 @@
 'use client'
 
-import { TbExternalLink } from "react-icons/tb";
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { LocationDataType } from '@/types/locationDataTypes'
+import React, { useEffect, useState } from 'react'
+import { useParams } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useParams, usePathname } from 'next/navigation'
-import React, { useState } from 'react'
-import { CiLocationOn } from 'react-icons/ci'
-import { CiParking1 } from "react-icons/ci";
-import { PiTicketThin } from "react-icons/pi";
-import { CiImageOn } from "react-icons/ci";
-import { useQuery } from '@tanstack/react-query'
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import axios from 'axios'
-import Loading from './loading'
-import ResponsiveCard from '@/components/ResponsiveCard'
-import { IoCopyOutline } from "react-icons/io5";
-import {CopyToClipboard} from 'react-copy-to-clipboard';
+
+// Icons
+import { IoBookmark, IoCopyOutline, IoTimeOutline } from "react-icons/io5";
+import { CiBookmark, CiLocationOn, CiParking1 } from 'react-icons/ci'
+import { FaLocationDot, FaSailboat } from "react-icons/fa6";
+import { FaAngleLeft, FaPlane, FaRoad } from "react-icons/fa";
+import { TbExternalLink } from "react-icons/tb";
+import { GoArrowRight } from "react-icons/go";
+import { PiTicketThin } from "react-icons/pi";
+import { MdGroups2 } from "react-icons/md";
+import { FcGlobe } from "react-icons/fc";
+
+// Components
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, } from "@/components/ui/carousel"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Card, CardContent } from "@/components/ui/card"
+import ResponsiveCard from '@/components/responsiveCard'
+import ShareButton from "@/components/shareButton";
 import { toast } from "@/components/ui/use-toast"
+import { Button } from '@/components/ui/button'
+import Loading from './loading'
+
+// Types and Functions
+import { LocationDataType } from '@/types/locationDataTypes'
+import Markdown from 'react-markdown'
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb"
+import Breadcrumbs from '@/components/breadcrumbs'
+
 
 const Pages = () => {
   const { slug } = useParams()
-  const url = usePathname()
 
-  const [data, setData] = useState<LocationDataType>();
-  const [others, setOthers] = useState<LocationDataType[]>([]);
+  const [aboutState, setAboutState] = useState(false);
+  const [isBookamark, setIsBookmark] = useState(false);
 
-  const fetchData = useQuery({
-    queryKey: ['destination'],
-    queryFn: async (): Promise<{ destination: LocationDataType, nearby: LocationDataType[] }> => {
+  const queryClient = useQueryClient();
+  const getFromCache = (key: string) => {
+    return queryClient.getQueryData([key]);
+  };
+
+  const fetchDestination = useQuery({
+    queryKey: [`/destination/${slug}`],
+    queryFn: async (arg): Promise<{ destination: LocationDataType, nearby_attractions: LocationDataType[] }> => {
+      const cache = getFromCache(`/destination/${slug}`);
+      if (cache) {
+        return cache as Promise<{ destination: LocationDataType, nearby_attractions: LocationDataType[] }>;
+      }
+
       const response = await axios.get(`/api/destinations/${slug}`)
-      setData(response.data.data.destination)
-      setOthers(response.data.data.nearby)
       return response.data.data
-    }
+    },
+    refetchOnWindowFocus: false,
+    refetchInterval: false,
   })
 
-  const lastUpdate = new Date(data?.lastUpdated || "");
-
-  if (fetchData.isLoading || fetchData.isFetching) {
+  if (fetchDestination.isLoading || fetchDestination.isFetching) {
     return (
       <Loading />
     )
   }
 
-  if (data === undefined) {
+  if (fetchDestination.isSuccess === false) {
     return (
       <>
         <div className="flex flex-col gap-3 justify-center items-center h-[90vh] text-4xl">
@@ -59,148 +89,276 @@ const Pages = () => {
   }
 
   return (
-    <div className="">
-      <div className="flex justify-center p-5">
-        <div className="">
-          <div className="grid grid-cols-1 sm:grid-cols-2 max-w-5xl gap-3 ">
-            <div className="bg-gray-100 object-cover relative">
-              <Image alt='' width={500} height={500} priority className='object-cover rounded-md shadow-sm h-full w-full overflow-hidden' src={data.images ? data.images[0] : ""}></Image>
-              <div className="absolute right-2 bottom-2">
-                <CiImageOn size={35} className='fill-white stroke-white hover:scale-150 transition' />
+    <div className="py-4 container max-w-5xl p-4 no-scrollbar overflow-hidden lg:overflow-visible">
+
+      {/* Breadcrumb */}
+      <Breadcrumbs
+        breadcrumbs={
+          [
+            {
+              label: "Destinations",
+              link: "/destinations"
+            }
+          ]
+        }
+        breadcrumbPage={fetchDestination.data.destination.name || ""}
+      ></Breadcrumbs>
+
+      {/* Header */}
+      <div className="flex justify-between items-center relative">
+        <div className=" overflow-ellipsis font-black text-gray-100 absolute text-9xl -z-10 flex h-full w-full justify-center items-start pointer-events-none">
+          MYMEGHALAYA
+        </div>
+        <div className="flex flex-col gap-1 sm:gap-3 pb-3">
+          <div className="text-2xl font-bold sm:font-black text-gray-600 sm:text-5xl tracking-tight">{fetchDestination.data.destination.name}</div>
+          <div className="flex gap-1 text-xs text-gray-500 items-center">
+            <FaLocationDot />
+            {fetchDestination.data.destination.location}, Meghalaya
+          </div>
+        </div>
+        <div className="flex gap-1">
+          <ShareButton name={fetchDestination.data.destination.name as string} url={window.location.href} description={fetchDestination.data.destination.description as string} />
+          {/* <Button className=" p-2 active:scale-75 hover:bg-transparent transition-transform" disabled onClick={() => setIsBookmark(!isBookamark)} variant={'ghost'}>
+            {
+              isBookamark ? (
+                <IoBookmark className="fill-green-500 size-4" />
+              ) : (
+                <CiBookmark className="stroke-1 size-4" />
+              )
+            }
+          </Button> */}
+        </div>
+      </div>
+
+      {/* Images */}
+      <Carousel className="w-full sm:mt-5">
+        <CarouselContent>
+          {fetchDestination.data.destination.images?.map((imgUrl, index) => (
+            <CarouselItem key={index} className=' sm:basis-1/2'>
+              <div className="p-1">
+                <Card>
+                  <CardContent className="aspect-video p-0 object-cover ">
+                    <Image alt='' width={500} height={500} loading={'lazy'} placeholder={'blur'} blurDataURL={"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="} className='h-full w-full rounded-xl shadow-sm border border-muted' src={imgUrl}></Image>
+                  </CardContent>
+                </Card>
               </div>
-            </div>
-            <div className="flex flex-col gap-4">
-              <div className="text-3xl font-black text-gray-500 sm:text-5xl font-sans" >{data.name}</div>
-              <a target='_blank' href={data.addressGLink} className="hover:underline ">
-                <div className="text-sm font-semibold flex items-center gap-2 text-gray-500"><CiLocationOn />{data.address}</div>
-              </a>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+        <CarouselPrevious />
+        <CarouselNext />
+      </Carousel>
+
+      {/* Travel Information */}
+      <div className="sm:mt-10 mt-5 relative">
+        <div className="text-lg tracking-tight sm:text-4xl font-medium font-sans text-gray-700 hidden sm:block">Informations</div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 mt-2 text-xs sm:text-sm font-medium gap-5 max-w-5xl w-full">
+          <Tabs defaultValue="timing" className="bg-white self-start sticky top-0 sm:pt-2">
+            <TabsList className="grid w-full grid-cols-4 text-xs sm:text-base">
+              <TabsTrigger className="flex gap-1" value="timing">  Timing</TabsTrigger>
+              <TabsTrigger className="flex gap-1" value="ticket">  Ticket</TabsTrigger>
+              <TabsTrigger className="flex gap-1" value="parking"> Parking</TabsTrigger>
+              <TabsTrigger className="flex gap-1" value="distance">Distance</TabsTrigger>
+            </TabsList>
+            <TabsContent value="timing" className=''>
               <div className="border flex flex-col p-5 gap-3 rounded-md shadow-sm text-xs sm:text-sm font-medium ">
-                {data.timing?.map((item, i) => (
-                  <div className="flex justify-between border-b pb-2" key={i}>
-                    <div className="">{item.day}</div>
+                {fetchDestination.data.destination.timing?.map((item, i) => (
+                  <div className="flex justify-between pb-2" key={i}>
+                    <div className=" flex gap-2 items-center">
+                      <IoTimeOutline />
+                      <div className="">{item.day}</div>
+                    </div>
                     <div className="">{item.time}</div>
                   </div>
                 ))}
               </div>
-            </div>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-3 mt-5 text-xs sm:text-sm font-medium gap-5 ">
-            <div className="flex flex-col p-5 shadow-sm border rounded-md">
-              {
-                data.ticket?.map((item, i) => (
-                  <div className="flex gap-2 p-1.5 items-center" key={i}>
-                    <PiTicketThin size={20} className="hover:scale-150 transition"/>
-                    <div className="flex justify-between w-full">
-                      <div className="">{item.type}</div>
-                      <div className="">{item.price}</div>
-                    </div>
-                  </div>
-                ))
-              }
-            </div>
-            <div className="flex flex-col p-5 shadow-sm rounded-md gap-3 border">
-              {
-                data.parking?.map((item, i) => (
-                  <div className="text-xs sm:text-sm flex gap-2 items-center" key={i}>
-                    <CiParking1 size={20} className="hover:scale-150 transition"/>
-                    <div key={i} className="flex justify-between w-full">
-                      <div className="">{item.type}</div>
-                      <div className="">{item.price}</div>
-                    </div>
-                  </div>
-                ))
-              }
-            </div>
-            <div className="flex flex-col gap-3 p-5 shadow-sm rounded-md border">
-              {
-                data.distance?.map((item, i) => (
-                  <div className="flex items-center justify-between" key={i}>
-                    <a href={item.link} target="_blank" rel="noopener noreferrer">
-                      <div className="flex items-center gap-2">
-                          <CiLocationOn className=" hover:scale-150 transition"/>
-                        <div key={i} className="hover:underline">{item.distance}</div>
+            </TabsContent>
+            <TabsContent value="ticket">
+              <div className="flex flex-col gap-2">
+                {
+                  fetchDestination.data.destination.ticket?.All ? (
+                    <div className="flex flex-col p-5 shadow-sm rounded-md gap-3 border">
+                      <div className="text-base flex gap-2 items-center border-b pb-2">
+                        <div className="">
+                          <MdGroups2 />
+                        </div>
+                        <div className="">
+                          All
+                        </div>
                       </div>
-                    </a>
-                    <div className="flex gap-2">
-                      <CopyToClipboard text={item.link} onCopy={()=>{
-                        return toast({
-                          title: "Copied to clipboard",
-                          description: "Now you can share with you friends.",
-                        })
-                      }}>
-                        <IoCopyOutline className="hover:scale-150 transition" />
-                      </CopyToClipboard>
-                      <div className="">
-                        <a href={item.link} target="_blank" rel="noopener noreferrer">
-                          <TbExternalLink className="hover:scale-150 transition"/>
-                        </a>
+                      {
+                        fetchDestination.data.destination.ticket.All.map((item, i) => (
+                          <div className="text-xs sm:text-sm flex gap-2 items-center" key={i}>
+                            <PiTicketThin size={20} className="hover:scale-150 transition" />
+                            <div key={i} className="flex justify-between w-full">
+                              <div className="">{item.type}</div>
+                              <div className="">{item.price}</div>
+                            </div>
+                          </div>
+                        ))
+                      }
+                    </div>
+                  ) : (<></>)
+                }
+                {
+                  fetchDestination.data.destination.ticket?.Indians ? (
+                    <div className="flex flex-col p-5 shadow-sm rounded-md gap-3 border">
+                      <div className="text-base flex gap-2 items-center border-b pb-2">
+                        <div className="">
+                          🇮🇳
+                        </div>
+                        <div className="">
+                          Indians
+                        </div>
+                      </div>
+                      {
+                        fetchDestination.data.destination.ticket.Indians.map((item, i) => (
+                          <div className="text-xs sm:text-sm flex gap-2 items-center" key={i}>
+                            <PiTicketThin size={20} className="hover:scale-150 transition" />
+                            <div key={i} className="flex justify-between w-full">
+                              <div className="">{item.type}</div>
+                              <div className="">{item.price}</div>
+                            </div>
+                          </div>
+                        ))
+                      }
+                    </div>
+                  ) : (<></>)
+                }
+                {
+                  fetchDestination.data.destination.ticket?.Foreigners ? (
+                    <div className="flex flex-col p-5 shadow-sm rounded-md gap-3 border">
+                      <div className="text-base flex gap-2 items-center border-b pb-2">
+                        <FcGlobe />
+                        <div className="">
+                          Foreigners
+                        </div>
+                      </div>
+                      {
+                        fetchDestination.data.destination.ticket.Foreigners.map((item, i) => (
+                          <div className="text-xs sm:text-sm flex gap-2 items-center" key={i}>
+                            <PiTicketThin size={20} className="hover:scale-150 transition" />
+                            <div key={i} className="flex justify-between w-full">
+                              <div className="">{item.type}</div>
+                              <div className="">{item.price}</div>
+                            </div>
+                          </div>
+                        ))
+                      }
+                    </div>
+                  ) : (<></>)
+                }
+              </div>
+            </TabsContent>
+            <TabsContent value="distance" className="gap-2 flex flex-col">
+              <div className="border flex flex-col p-5 gap-3 rounded-md shadow-sm text-xs sm:text-sm font-medium ">
+                {
+                  fetchDestination.data.destination.distance?.map((item, i) => (
+                    <div className="flex items-center justify-between" key={i}>
+                      <a href={item.link} target="_blank" rel="noopener noreferrer">
+                        <div className="flex items-center gap-2">
+                          <CiLocationOn className=" hover:scale-150 transition" />
+                          <div key={i} className="hover:underline">{item.distance}</div>
+                        </div>
+                      </a>
+                      <div className="flex gap-2">
+                        <CopyToClipboard text={item.link} onCopy={() => {
+                          return toast({
+                            title: "Copied to clipboard",
+                            description: "Now you can share with you friends.",
+                          })
+                        }}>
+                          <IoCopyOutline className="hover:scale-150 transition" />
+                        </CopyToClipboard>
+                        <div className="">
+                          <a href={item.link} target="_blank" rel="noopener noreferrer">
+                            <TbExternalLink className="hover:scale-150 transition" />
+                          </a>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))
-              }
-            </div>
-          </div>
-          <div className="flex flex-col sm:flex-row ">
-            <div className="flex flex-wrap sm:flex-row gap-3 mt-5 font-semibold grow">
-              <Badge>{data.category}</Badge>
-              {data.tags?.map((item, i) => (
-                <Badge key={i} className=' capitalize'>
-                  {item}
-                </Badge>
-              ))}
-              <Badge variant={'destructive'}>More</Badge>
-            </div>
-            <div className="mt-5 text-xs font-semibold flex gap-1 items-center">
-              <div className="">
-                Last Updated -
+                  ))
+                }
               </div>
-              <div className="text-gray-500">
-                {lastUpdate.toDateString()}
+              <div className="flex justify-around pb-3 pt-5 border shadow-sm rounded-md">
+                <div className="flex flex-col justify-center items-center gap-2">
+                  <div className={`px-4 py-3 shadow-sm rounded-sm border ${fetchDestination.data.destination.transport?.road ? "bg-green-100" : "bg-red-100"}`}><FaRoad /></div>
+                  <div className="text-xs">Road</div>
+                </div>
+                <div className="flex flex-col justify-center items-center gap-2">
+                  <div className={`px-4 py-3 shadow-sm rounded-sm border ${fetchDestination.data.destination.transport?.airport ? "bg-green-100" : "bg-red-100"}`}><FaPlane /></div>
+                  <div className="text-xs">Airport</div>
+                </div>
+                <div className="flex flex-col justify-center items-center gap-2">
+                  <div className={`px-4 py-3 shadow-sm rounded-sm border ${fetchDestination.data.destination.transport?.water ? "bg-green-100" : "bg-red-100"}`}><FaSailboat /></div>
+                  <div className="text-xs">Water</div>
+                </div>
+              </div>
+            </TabsContent>
+            <TabsContent value="parking">
+              <div className="flex flex-col p-5 shadow-sm rounded-md gap-3 border">
+                {
+                  fetchDestination.data.destination.parking?.map((item, i) => (
+                    <div className="text-xs sm:text-sm flex gap-2 items-center" key={i}>
+                      <CiParking1 size={20} className="hover:scale-150 transition" />
+                      <div key={i} className="flex justify-between w-full">
+                        <div className="">{item.type}</div>
+                        <div className="">{item.price}</div>
+                      </div>
+                    </div>
+                  ))
+                }
+              </div>
+            </TabsContent>
+          </Tabs>
+          <div className="flex flex-col">
+            <div className=" pt-1 text-lg">Description</div>
+            <div onClick={() => setAboutState(!aboutState)} className="relative transition-all duration-500 ease-in-out">
+              <div className={`overflow-hidden tracking-wide text-pretty font-sans text-gray-700 transition-all
+                 ${aboutState ? 'h-full sm:max-h-full' : 'max-h-[3.5rem]'} sm:max-h-[20rem] relative`}>
+                <Markdown className={"blog-content text-sm"}>
+                  {fetchDestination.data.destination.about}
+                </Markdown>
+                {!aboutState && (
+                  <div className="absolute bottom-0 left-0 right-0 h-10 bg-gradient-to-t from-white to-transparent pointer-events-none"></div>
+                )}
               </div>
             </div>
-          </div>
-          <div className="flex flex-col mt-10 max-w-5xl ">
-            <div className="text-4xl font-black text-gray-400 font-sans" >ABOUT</div>
-            <div className="py-5 text-sm">
-              {data.about}
-            </div>
-          </div>
-          <div className="flex flex-col mt-5 max-w-5xl">
-            <div className="text-4xl font-black text-gray-400 font-sans">NEARBY</div>
-            <div className='grid grid-cols-1 sm:grid-cols-3 py-5 gap-5'>
-              {
-                others?.map((item, i) => (
-                  <ResponsiveCard
-                  key={i}
-                  i={i}
-                  url={`/destinations/${item.slug}`}
-                  imgUrl={item.images?item.images[0]:''}
-                  name={item.name as string}
-                  des={item.description as string}
-                  />
-                ))
-              }
-            </div>
-          </div>
-          <div className="flex justify-center items-center p-10">
-            <CopyToClipboard text={url} onCopy={()=>{
-              return toast({
-                title: "Copied to clipboard",
-                description: "Now you can share with you friends.",
-              })
-            }}>
-              <Button  variant={'default'} className="flex gap-2 ">
-              <IoCopyOutline />
-              <div className="">
-                Copy To Clipboard
-              </div>
-              </Button>
-            </CopyToClipboard>
+
           </div>
         </div>
       </div>
-      {/* <iframe src={data.embedMapLink} className='w-full' height="450" loading="lazy" ></iframe> */}
+
+      {/* Nearby Section */}
+      <div className="sm:mt-10 mt-5">
+        {
+          (fetchDestination.data.nearby_attractions.length === 0 || fetchDestination.data.nearby_attractions == null) ? (
+            <></>
+          ) : (
+            <div className="flex flex-col">
+              <div className="text-lg tracking-tight sm:text-4xl font-medium font-sans text-gray-700 pb-2">Nearby</div>
+              <div className="flex justify-center">
+                <div className='flex sm:grid sm:grid-cols-2 md:grid-cols-3 gap-3 w-full pb-5 pt-2 overflow-x-scroll no-scrollbar'>
+                  <div className="h-full px-3 py-5 bg-gray-100 flex justify-center items-center rounded-xl  sm:hidden"><GoArrowRight /></div>
+                  {
+                    fetchDestination.data.nearby_attractions?.map((item, i) => (
+                      <ResponsiveCard
+                        key={i}
+                        i={i}
+                        url={`/destinations/${item.slug}`}
+                        icon={<CiLocationOn />}
+                        imgUrl={item.images ? item.images[0] : ''}
+                        name={item.name as string}
+                        des={item.description as string}
+                      />
+                    ))
+                  }
+                </div>
+              </div>
+            </div>
+          )
+        }
+      </div>
     </div>
   )
 }

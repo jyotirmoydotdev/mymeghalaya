@@ -1,90 +1,85 @@
-import Footer from '@/components/Footer'
-import Navbar from '@/components/Navbar'
-import React from 'react'
-
-const page = () => {
+const PrivacyPolicy = () => {
   return (
-    <>
-      <Navbar />
-      <div className=''>
-        <header className="py-6 max-w-5xl border-b mx-auto">
-          <div className="max-w-5xl mx-auto px-4">
-            <h1 className="text-4xl font-bold">Privacy Policy</h1>
-            <p className="mt-2">Effective Date: 21-10-2024</p>
-          </div>
-        </header>
-
-        <main className="max-w-5xl mx-auto px-4 py-8">
-          <section className="bg-white p-6 rounded-lg shadow-md">
-            <p>At MyMeghalaya.in, accessible from <a href="https://www.mymeghalaya.in" className="text-blue-600 hover:underline">https://www.mymeghalaya.in</a>, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that are collected and recorded by MyMeghalaya.in and how we use it.</p>
-          </section>
-
-          <section className="bg-white p-6 mt-6 rounded-lg shadow-md">
-            <h2 className="text-2xl font-bold mb-4">1. Information We Collect</h2>
-            <p>We collect the following types of information:</p>
-            <ul className="list-disc ml-5 mt-2">
-              <li><strong>Personal Information:</strong> When you sign up or contact us, we may collect personal details such as your name, email address, and any other information you choose to provide.</li>
-              <li><strong>Usage Data:</strong> We automatically collect information about how you interact with our website, such as your IP address, browser type, operating system, and browsing behavior.</li>
-              <li><strong>Cookies:</strong> We use cookies and similar technologies to track activity on our website and improve user experience.</li>
-            </ul>
-          </section>
-
-          <section className="bg-white p-6 mt-6 rounded-lg shadow-md">
-            <h2 className="text-2xl font-bold mb-4">2. How We Use Your Information</h2>
-            <p>Your information is used in the following ways:</p>
-            <ul className="list-disc ml-5 mt-2">
-              <li>To provide, operate, and maintain our website and services.</li>
-              <li>To improve, personalize, and expand our services.</li>
-              <li>To communicate with you, either directly or through one of our partners, including for customer service, to provide updates, or for marketing purposes.</li>
-              <li>To process and manage your requests, including trip planning or other services offered through the site.</li>
-            </ul>
-          </section>
-
-          <section className="bg-white p-6 mt-6 rounded-lg shadow-md">
-            <h2 className="text-2xl font-bold mb-4">3. Sharing Your Information</h2>
-            <p>We may share your information with trusted third-party service providers to help us operate our website and improve our services, such as:</p>
-            <ul className="list-disc ml-5 mt-2">
-              <li>Analytics providers to understand website usage and improve user experience.</li>
-              <li>Payment processors, if applicable, to handle financial transactions.</li>
-              <li>Other third parties to comply with legal obligations or protect against fraud.</li>
-            </ul>
-          </section>
-
-          <section className="bg-white p-6 mt-6 rounded-lg shadow-md">
-            <h2 className="text-2xl font-bold mb-4">4. User Rights</h2>
-            <p>As a user, you have the right to:</p>
-            <ul className="list-disc ml-5 mt-2">
-              <li>Access the personal information we hold about you.</li>
-              <li>Request correction or deletion of your personal information.</li>
-              <li>Withdraw consent for processing your information, where applicable.</li>
-            </ul>
-            <p>If you would like to exercise any of these rights, please contact us at <a href="mailto:care.jyotirmoy@gmail.com" className="text-blue-600 hover:underline">care.jyotirmoy@gmail.com</a>.</p>
-          </section>
-
-          <section className="bg-white p-6 mt-6 rounded-lg shadow-md">
-            <h2 className="text-2xl font-bold mb-4">5. Security of Your Data</h2>
-            <p>We use industry-standard security measures to protect your personal information. Our website is built on secure technologies, and we use <strong>Supabase</strong> to store and manage your data securely. However, no method of transmission over the Internet is 100% secure, and we cannot guarantee absolute security.</p>
-          </section>
-
-          <section className="bg-white p-6 mt-6 rounded-lg shadow-md">
-            <h2 className="text-2xl font-bold mb-4">6. Cookies</h2>
-            <p>We use cookies to improve user experience by remembering your preferences and tracking site usage. You can choose to disable cookies through your browser settings, but doing so may affect your ability to use certain features on our website.</p>
-          </section>
-
-          <section className="bg-white p-6 mt-6 rounded-lg shadow-md">
-            <h2 className="text-2xl font-bold mb-4">7. Changes to This Privacy Policy</h2>
-            <p>We may update our Privacy Policy from time to time. If we make significant changes, we will notify you via email. Please review this policy periodically for any updates.</p>
-          </section>
-
-          <section className="bg-white p-6 mt-6 rounded-lg shadow-md">
-            <h2 className="text-2xl font-bold mb-4">8. Contact Us</h2>
-            <p>If you have any questions or concerns about this Privacy Policy, please contact us at <a href="mailto:care.jyotirmoy@gmail.com" className="text-blue-600 hover:underline">care.jyotirmoy@gmail.com</a>.</p>
-          </section>
-        </main>
+    <main className="max-w-xl mx-auto">
+      <div className="p-5 flex flex-col gap-4 text-xs sm:text-base pb-10">
+        <div className="text-lg sm:text-3xl font-extrabold">
+          Privacy Policy for MyMeghalaya
+        </div>
+        <div className="font-semibold">
+          Effective Date: October 28, 2024
+        </div>
+        <div className="">
+          MyMeghalaya values your privacy. This policy outlines how we collect, use, and protect your information. If you have any questions, please reach out to us at <a href="mailto:care.jyotirmoy@gmail.com" className="underline">care.jyotirmoy@gmail.com</a> .
+        </div>
+        <div className="text-base font-semibold">
+          1. Information We Collect
+        </div>
+        <div className="pl-4">
+          <div className="font-semibold text-nowrap">Personal Data</div>We collect your email address when you sign up for services or subscribe to updates. This information is used to manage your account, communicate with you, and provide access to our offerings.
+        </div>
+        <div className="pl-4">
+          <div className="font-semibold text-nowrap">Non-Personal Data</div>We collect cookies and IP addresses to track website usage and provide analytics services. This data helps us understand visitor behavior and improve user experience.
+        </div>
+        <div className="text-base font-semibold">
+          2. Use of Information
+        </div>
+        <div className="pl-4">
+          <div className="font-semibold text-nowrap">Personal Data</div>Your email address is used for account management, communication about services, and providing access to the platform.
+        </div>
+        <div className="pl-4">
+          <div className="font-semibold text-nowrap">Non-Personal Data</div>Cookies and IP addresses are used solely for analyzing website traffic, tracking visitor behavior, and enhancing the user experience.
+        </div>
+        <div className="text-base font-semibold">
+          3. Sharing of Data
+        </div>
+        <div className="">
+          We do not sell, trade, or share your email address or other personal data with third parties, except as required to provide services (e.g., payment processors) or comply with legal obligations.
+        </div>
+        <div className="text-base font-semibold">
+          4. Cookies
+        </div>
+        <div className="">
+          Our website uses cookies to track website usage and improve your experience. These cookies collect non-personal data, such as visitor activity, for analytics purposes. By using this site, you agree to our cookie usage. You can disable cookies in your browser settings, but this may limit access to certain features.
+        </div>
+        <div className="text-base font-semibold">
+          5. Security
+        </div>
+        <div className="">
+          We take reasonable steps to protect your personal and non-personal data from unauthorized access, disclosure, or misuse. However, please note that no method of transmission over the internet is completely secure.
+        </div>
+        <div className="text-base font-semibold">
+          6. User Rights
+        </div>
+        <div className="">
+          You may request to access, modify, or delete your email address or other personal data at any time by contacting us at <a href="mailto:care.jyotirmoy@gmail.com" className="underline">care.jyotirmoy@gmail.com</a> . You can also opt out of data collection by discontinuing use of our services.
+        </div>
+        <div className="text-base font-semibold">
+          7. Data Retention
+        </div>
+        <div className="">
+          If you do not continue with a subscription after a trial period, all user analytics and collected non-personal data will be deleted following the trial&apos;s conclusion. Your email address may be retained for future communication unless you request its deletion.
+        </div>
+        <div className="text-base font-semibold">
+          8. Updates to Privacy Policy
+        </div>
+        <div className="">
+          We may update this policy occasionally to reflect changes in our practices. You will be notified of any changes via email.
+        </div>
+        <div className="text-base font-semibold">
+          9. Governing Law
+        </div>
+        <div className="">
+          This Privacy Policy is governed by the laws of India.
+        </div>
+        <div className="text-base font-semibold">
+          10. Contact Information
+        </div>
+        <div className="">
+          For questions or concerns about this policy, please contact us at <a href="mailto:care.jyotirmoy@gmail.com" className="underline">care.jyotirmoy@gmail.com</a>.
+        </div>
       </div>
-      <Footer />
-    </>
-  )
-}
+    </main>
+  );
+};
 
-export default page
+export default PrivacyPolicy;
