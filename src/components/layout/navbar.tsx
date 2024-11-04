@@ -61,7 +61,8 @@ const Navbar = async ({
                   src={"/logo.png"}
                   width={500}
                   height={500}
-                  alt=""
+                  alt="MyMeghalaya Logo"
+                  priority
                   className="h-full w-8 scale-150 ml-3 mr-3"
                 />
               </Link>

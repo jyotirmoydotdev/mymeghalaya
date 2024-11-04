@@ -12,6 +12,7 @@ imageUrl,
   childrenClassName,
   imageClassName,
   className,
+  priority,
 }: {
   imageUrl: string;
   children: React.ReactNode | string;
@@ -19,6 +20,7 @@ imageUrl,
   childrenClassName?: string;
   imageClassName?: string;
   className?: string;
+  priority ?: boolean;
 }) => {
   const isDesktop = useMediaQuery("(min-width: 768px)")
 
@@ -96,8 +98,9 @@ imageUrl,
               width="500"
               height="500"
               src={imageUrl}
+              priority={priority}
               blurDataURL={"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="}
-              loading="lazy"
+              loading={priority?"eager":'lazy'}
               placeholder="blur"
             />
           </motion.div>

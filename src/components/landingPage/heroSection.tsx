@@ -28,7 +28,7 @@ const HeroSection = () => {
             <div className="flex justify-center py-5">
                 <div className="grid grid-cols-1 sm:grid-cols-2 text-left gap-5 max-w-5xl px-4 sm:px-0">
                     <div className=" ">
-                        <ImageHover imageUrl={data.images.img1.imgUrl} className=' w-full object-cover h-full'>
+                        <ImageHover priority={true} imageUrl={data.images.img1.imgUrl} className=' w-full object-cover h-full'>
                             <div className="">
                                 <p className="font-bold text-xl">{data.images.img1.name}</p>
                                 <p className="font-normal text-gray-300 text-sm">{data.images.img1.location}</p>
@@ -40,11 +40,11 @@ const HeroSection = () => {
                             {data.description}
                         </div>
                         <div className="flex gap-3 sm:gap-5 justify-center sm:justify-start">
-                            <ImageHover imageUrl={data.images.img2.imgUrl} className='size-44 sm:size-60 object-cover '>
+                            <ImageHover priority={true} imageUrl={data.images.img2.imgUrl} className='size-44 sm:size-60 object-cover '>
                                 <p className="font-bold text-sm sm:text-xl">{data.images.img2.name}</p>
                                 <p className="font-normal text-gray-300 text-xs sm:text-sm">{data.images.img2.location}</p>
                             </ImageHover>
-                            <ImageHover imageUrl={data.images.img3.imgUrl} className='size-44 sm:size-60 object-cover '>
+                            <ImageHover priority={true} imageUrl={data.images.img3.imgUrl} className='size-44 sm:size-60 object-cover '>
                                 <p className="font-bold text-sm sm:text-xl">{data.images.img3.name}</p>
                                 <p className="font-normal text-gray-300 text-xs sm:text-sm">{data.images.img3.location}</p>
                             </ImageHover>
