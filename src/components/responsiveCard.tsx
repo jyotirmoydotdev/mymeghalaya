@@ -10,13 +10,13 @@ import { cn } from "@/lib/utils";
 import { handleClick } from '@/functions/haptic'
 import { GoArrowRight } from 'react-icons/go'
 
-const ResponsiveCard = ({ i, url, imgUrl, name, des, icon, imgMsg, className, grid }: { i: number, url: string, imgUrl: string, name?: string, des: string, icon?: ReactNode, imgMsg?: string, className?:string, grid?: boolean }) => {
+const ResponsiveCard = ({ i, url, imgUrl, imgBlurDataUrl, name, des, icon, imgMsg, className, grid }: { i: number, imgBlurDataUrl?:string, url: string, imgUrl: string, name?: string, des: string, icon?: ReactNode, imgMsg?: string, className?:string, grid?: boolean }) => {
   const [button, setbutton] = useState(false)
   return (
     <Link href={url} key={i}  className='transform active:scale-95 transition-all group' onClick={handleClick}>
-      <div className={cn("grid grid-cols-1 sm:grid-cols-1 rounded-xl bg-card text-card-foreground w-[169px] sm:w-full",className)}>
+      <div className={cn("grid grid-cols-1 sm:grid-cols-1 rounded-xl text-card-foreground w-[169px] sm:w-full",className)}>
         <div className="relative flex items-center justify-start sm:justify-center h-24 sm:h-52">
-          <DirectionAwareHover imageUrl={imgUrl} className='rounded-[11px] sm:rounded-xl h-24 sm:h-52'>
+          <DirectionAwareHover imageUrl={imgUrl} imgBlurDataUrl={imgBlurDataUrl} name={name as string} className='rounded-[11px] sm:rounded-xl h-24 sm:h-52'>
             <p className="font-normal hidden line-clamp-1 sm:font-bold sm:flex gap-3 items-center text-xs sm:text-xl">{imgMsg ? imgMsg : <>view <HiArrowLongRight /></>} </p>
           </DirectionAwareHover>
         </div>

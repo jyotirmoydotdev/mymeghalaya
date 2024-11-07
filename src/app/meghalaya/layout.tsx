@@ -17,7 +17,7 @@ const layout = ({
 }>) => {
   return (
     <>
-      <Navbar enabaleBackButton={true} Title='Meghalaya' />
+      <Navbar enableBackButton={true} Title='Meghalaya' />
       {children}
       <Footer />
     </>

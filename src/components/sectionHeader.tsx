@@ -14,7 +14,7 @@ const SectionHeader = ({ name, url }: { name: String, url: string }) => {
         </div>
       </div>
       <Link href={url}>
-        <div className="text-xs flex gap-2 font-semibold items-center text-gray-500 sm:hidden">
+        <div className="text-xs flex gap-2 font-semibold items-center text-gray-500 sm:hidden active:scale-95 transition">
           <div className='text-nowrap'>View All</div>
           <GoArrowRight />
         </div>

@@ -9,6 +9,7 @@ import { handleClick } from '@/functions/haptic'
 import MeghalayaMap from '../meghalayaMap'
 
 import { districtsData as data } from '@/staticData/districtData'
+import { CiLocationOn } from 'react-icons/ci'
 
 const MeghalayaSection = () => {
     const [activePathIndex, setActivePathIndex] = useState<number>(0);
@@ -66,15 +67,19 @@ const MeghalayaSection = () => {
                                 key={i}
                                 data-index={i}
                                 ref={(el) => { (cardRefs.current[i] = el) }}
-                                className={`${activePathIndex === i ? 'border transition-all duration-500 rounded-[13px] border-green-500 scale-110' : 'border rounded-[13px] border-white'}`} // Apply border radius conditionally
+                                className={`${activePathIndex === i ? 'border transition-all duration-500 rounded-[13px] border-green-500 scale-105' : 'border rounded-[13px] border-white'}`} // Apply border radius conditionally
                             >
                                 <ResponsiveCard
                                     i={i}
                                     imgUrl={district.img.url}
+                                    name={district.name}
+
+                                    imgBlurDataUrl={district.img.blurDataUrl}
                                     imgMsg={district.name}
                                     des={district.about.slice(0, 60)}
                                     url={`/meghalaya/${district.id}`}
                                     className='sm:w-[332px]'
+                                    icon={<CiLocationOn/>}
                                 >
                                 </ResponsiveCard>
                             </div>

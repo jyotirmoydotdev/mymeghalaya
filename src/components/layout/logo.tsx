@@ -7,13 +7,14 @@ const Logo = () => {
     <>
       {/* Desktop Logo */}
       <div className="hidden sm:block">
-        <Link href={"/"} className="flex">
+        <Link href={"/"} className="flex items-center">
           <Image
             src={"/logo.png"}
             width={500}
             height={500}
-            alt=""
-            className="h-full w-9  scale-150 mr-2"
+            alt="MyMeghalaya Logo"
+            priority
+            className="h-full w-16 "
           />
           <div className="flex items-baseline text-gray-500 pl-2 font-black font-mono" >
             <div className="text-3xl">M</div>
@@ -32,8 +33,9 @@ const Logo = () => {
             src={"/logo.png"}
             width={500}
             height={500}
-            alt=""
-            className="h-full w-7 scale-150 ml-3 mr-3"
+            alt="MyMeghalaya Logo"
+            priority
+            className="h-full w-12"
           />
           <div className="flex items-baseline text-gray-600 font-bold  pl-1" >
             <div className="">M</div>

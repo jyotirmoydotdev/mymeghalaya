@@ -24,6 +24,7 @@ const DestinationSection = () => {
                             i={i}
                             url={loc.link}
                             imgUrl={loc.img}
+                            imgBlurDataUrl={loc.imageBlurDataUrl}
                             name={loc.name}
                             des={loc.des}
                             icon={<CiLocationOn />}

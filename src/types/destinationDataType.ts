@@ -4,7 +4,7 @@ export interface DestinationDataType {
     created_at?: string; // Timestamp indicating when the destination was created (ISO 8601 format)
     last_updated?: string; // Timestamp of the last update to this destination's information (ISO 8601 format)
     slug: string; // URL-friendly identifier for the destination
-    name?: string; // Name of the destination
+    name: string; // Name of the destination
     tagline?: string; // Short description to display on cards
     description?: string; // Detailed description for the Description Section
     highlights?: {
@@ -43,7 +43,7 @@ export interface DestinationDataType {
         "sports club" |
         "tourist attraction"
     ); // Category of the destination (e.g., historical, natural, cultural)
-    images?: {
+    images: {
         imageUrl: string;
         imageTitle: string;
         imageBlurDataUrl: string;
@@ -61,15 +61,15 @@ export interface DestinationDataType {
        all:{
             day: string; // Day or days of the week
             time: { open: string, close: string }; // Opening and closing times in a structured format
-        },
+        }[],
         summer:{
             day: string; // Day or days of the week
             time: { open: string, close: string }; // Opening and closing times in a structured format
-        },
+        }[],
        winter:{
             day: string; // Day or days of the week
             time: { open: string, close: string }; // Opening and closing times in a structured format
-        }
+        }[]
     };
     ticket?: { // Ticket prices or charges associated with entry
         all?: { type: string; price: string }[]; // General ticket types and prices

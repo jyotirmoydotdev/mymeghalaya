@@ -7,7 +7,7 @@ export async function GET(request: NextRequest) {
 
     const { data } = await supabase
         .from('destinations')
-        .select('id, name, slug, tagline, images') // For the card
+        .select('id, name, slug, tagline, images, tags') // For the card
 
     return NextResponse.json({data})
 }
