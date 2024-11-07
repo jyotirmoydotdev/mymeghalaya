@@ -39,6 +39,7 @@ export default function RootLayout({
         <link rel="shortcut icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
         <meta name="apple-mobile-web-app-title" content="Meghalaya" />
+        <meta name="mobile-web-app-capable" content="yes"/>
         <link rel="manifest" href="/site.webmanifest" />
         <body className={`${inter.className} relative`}>
           {/* <AcceptCookies/> */}

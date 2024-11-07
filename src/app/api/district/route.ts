@@ -41,9 +41,7 @@ export async function GET(request: NextRequest) {
 
     const supabase = createClient();
 
-    let query = supabase.from('destinations').select('id, name, images, description, slug').ilike('location', data.name as string);
-
-    const nearby = await query;
+    const nearby = await supabase.from('destinations').select('id, name, images, tagline, slug').ilike('district', data.name as string);
 
     if (nearby.error) {
         return NextResponse.json(

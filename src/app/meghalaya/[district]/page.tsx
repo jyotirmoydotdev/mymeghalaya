@@ -13,6 +13,8 @@ import NotFound from './not-found'
 import Markdown from 'react-markdown'
 import ResponsiveCard from '@/components/responsiveCard'
 import Breadcrumbs from '@/components/breadcrumbs'
+import { DestinationDataType } from '@/types/destinationDataType'
+import { supabaseFetch } from '@/libs/supabaseFetch'
 
 const Page = () => {
   const { district } = useParams();
@@ -22,7 +24,7 @@ const Page = () => {
       msg: string;
       data: {
         districtData: DistrictDataType;
-        destinationData: LocationDataType[];
+        destinationData: DestinationDataType[];
       }
     }> => {
       const response = await axios.get('/api/district', {
@@ -56,7 +58,7 @@ const Page = () => {
               link: "/destinations#districts"
             }
           ]}
-          breadcrumbPage={fetchDistrictData.data.data.districtData.name as string}
+          breadcrumbPage={fetchDistrictData.data.data.districtData.name}
         ></Breadcrumbs>
         <div className="flex justify-center pt-5 sm:pb-0 " >
           <div className="max-w-5xl w-full">
@@ -73,7 +75,7 @@ const Page = () => {
                 {fetchDistrictData.data?.data.districtData.about}
               </Markdown>
             </div>
-            <DirectionAwareHover imageUrl={fetchDistrictData.data?.data.districtData.img?.url || ""} className=' h-64 sm:h-[516px] rounded-md order-1 sm:order-2'>
+            <DirectionAwareHover name={fetchDistrictData.data.data.districtData.name} imageUrl={fetchDistrictData.data?.data.districtData.img.url} imgBlurDataUrl={fetchDistrictData.data.data.districtData.img.blurDataUrl} className=' h-64 sm:h-[516px] rounded-md order-1 sm:order-2'>
               <div className="flex flex-col gap-2">
                 <p className="font-bold text-xl">{fetchDistrictData.data?.data.districtData.img?.name}</p>
                 <p className="font-normal text-sm">{fetchDistrictData.data?.data.districtData.img?.location}</p>
@@ -94,19 +96,19 @@ const Page = () => {
             <div className="flex justify-center px-4 pb-5">
               <div className="py-3 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-3 w-full max-w-5xl">
                 {
-                  fetchDistrictData.data?.data.destinationData.map((item: LocationDataType, i: number) => (
+                  fetchDistrictData.data?.data.destinationData.map((item: DestinationDataType, i: number) => (
                     <ResponsiveCard
                       key={i}
                       i={i}
                       url={`/destinations/${item.slug}`}
-                      imgUrl={item.images ? item.images[0] : ""}
+                      imgUrl={supabaseFetch(item.images[0].imageUrl)}
+                      imgBlurDataUrl={item.images[0].imageBlurDataUrl}
                       name={item.name as string}
-                      des={item.description as string}
+                      des={item.tagline as string}
                       className='w-full'
                     />
                   ))
                 }
-                <Button variant={'outline'} disabled className=' hidden col-span-1 sm:col-span-2 md:col-span-3'>Load More</Button>
               </div>
             </div>
           </>

@@ -11,6 +11,10 @@ export const footerData: {
                 {
                     label: "Support",
                     link: "/support"
+                },
+                {
+                    label: "Log in",
+                    link: "/login"
                 }
             ]
         }, {

@@ -22,12 +22,12 @@ const layout = async ({
   } = await createClient().auth.getUser();
 
   if (user === null) {
-    return redirect('/')
+    return redirect('/login')
   }
 
   return (
     <>
-      <Navbar Title='Profile' enabaleBackButton={true} />
+      <Navbar Title='Profile' enableBackButton={true} />
       {children}
       <Footer/>
     </>

@@ -6,14 +6,18 @@ import { AnimatePresence, motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { useMediaQuery } from 'usehooks-ts'
 
-export  const  DirectionAwareHover = ({
-imageUrl,
+export const DirectionAwareHover = ({
+  name,
+  imageUrl,
+  imgBlurDataUrl,
   children,
   childrenClassName,
   imageClassName,
   className,
 }: {
+  name: string;
   imageUrl: string;
+  imgBlurDataUrl?: string;
   children: React.ReactNode | string;
   hover?: boolean;
   childrenClassName?: string;
@@ -35,13 +39,13 @@ imageUrl,
     const direction = getDirection(event, ref.current);
     switch (direction) {
       case 0:
-        setDirection("top");
+        setDirection("left");
         break;
       case 1:
         setDirection("right");
         break;
       case 2:
-        setDirection("bottom");
+        setDirection("right");
         break;
       case 3:
         setDirection("left");
@@ -88,8 +92,8 @@ imageUrl,
             }}
           >
             <Image
-              alt="image"
-              title="image"
+              alt={name}
+              title={name}
               className={cn(
                 "h-full w-full object-cover object-center scale-100 sm:scale-[1.15] rounded-t-[11px]",
                 imageClassName
@@ -97,18 +101,18 @@ imageUrl,
               width="500"
               height="500"
               src={imageUrl}
-              blurDataURL={"data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="}
-              loading="eager"
-              placeholder="blur"
+              blurDataURL={imgBlurDataUrl as string}
+              loading="lazy"
+              placeholder={imgBlurDataUrl?"blur":"empty"}
             />
           </motion.div>
           <motion.div
-            variants={isDesktop?textVariants:mobile}
+            variants={isDesktop ? textVariants : mobile}
             transition={{
               duration: 0.5,
               ease: "easeOut",
             }}
-            initial={true} animate={{opacity:isDesktop?0:1,transform:'none'}}
+            initial={true} animate={{ opacity: isDesktop ? 0 : 1, transform: 'none' }}
             className={cn(
               "text-white absolute bottom-4 left-4 z-40",
               childrenClassName

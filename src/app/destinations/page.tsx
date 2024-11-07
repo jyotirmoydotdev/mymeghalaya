@@ -12,6 +12,8 @@ import ResponsiveCard from '@/components/responsiveCard'
 import { districtsData as districts } from '@/staticData/districtData';
 import { fetchDestinations } from '@/functions/fetchDestinations';
 import { Skeleton } from '@/components/ui/skeleton';
+import { DestinationDataType } from '@/types/destinationDataType';
+import { supabaseFetch } from '@/libs/supabaseFetch';
 
 const Page = () => {
   const [districtData, setdistrictData] = useState(districts.slice(0, 6))
@@ -89,14 +91,15 @@ const Page = () => {
           ) : <>{
             data?.pages.map((group, i) => (
               <div key={i} className='py-2 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-3'>
-                {group.data.map((item: LocationDataType, i: number) => (
+                {group.data.map((item: DestinationDataType, i: number) => (
                   <ResponsiveCard
                     i={i}
                     key={i}
                     url={`/destinations/${item.slug}`}
-                    imgUrl={item.images ? item.images[0] : ""}
+                    imgUrl={supabaseFetch(item.images[0].imageUrl)}
                     name={item.name as string}
-                    des={item.description as string}
+                    imgBlurDataUrl={item.images[0].imageBlurDataUrl}
+                    des={item.tagline as string}
                     icon={<CiLocationOn />}
                     className='w-full h-full'
                   />
@@ -133,7 +136,7 @@ const Page = () => {
             <div className="font-semibold text-base sm:text-3xl"> Districts</div>
             <div className="text-sm sm:text-base">( 12 )</div>
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 overflow-x-auto no-scrollbar gap-2 justify-items-center">
+          <div className="grid grid-cols-2 md:grid-cols-3 overflow-x-auto no-scrollbar gap-2 justify-items-center">
             {
               districtData.map((item, i) => (
                 <ResponsiveCard
@@ -141,6 +144,7 @@ const Page = () => {
                   key={i}
                   url={`/meghalaya/${item.id}`}
                   imgUrl={item.img.url}
+                  imgBlurDataUrl={item.img.blurDataUrl}
                   name={item.name}
                   des={item.about.slice(0, 60) + "..."}
                   icon={<CiLocationOn />}
