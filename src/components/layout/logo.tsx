@@ -36,6 +36,7 @@ const Logo = () => {
             alt="MyMeghalaya Logo"
             priority
             className="h-full w-12"
+
           />
           <div className="flex items-baseline text-gray-600 font-bold  pl-1" >
             <div className="">M</div>
