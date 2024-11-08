@@ -71,7 +71,7 @@ const Page = () => {
                                                     <Link href={`/destinations/${item.slug}`} key={i}>
                                                         <CommandItem>
                                                             <div className="flex gap-3 justify-center items-center">
-                                                                <Image src={supabaseFetch(item.images[0].imageUrl)} placeholder='blur' blurDataURL={item.images[0].imageBlurDataUrl} width={500} height={500} alt={item.name} className='object-cover size-8 rounded-sm'></Image>
+                                                                <Image src={supabaseFetch(item.images[0].imageUrl)} placeholder='blur' loading='lazy' blurDataURL={item.images[0].imageBlurDataUrl} width={500} height={500} alt={item.name} className='object-cover size-8 rounded-sm'></Image>
                                                                 <div className="flex flex-col gap-1">
                                                                     {item.name}
                                                                     <div className="text-xs line-clamp-1">
@@ -104,7 +104,7 @@ const Page = () => {
                                         <Link href={`/meghalaya/${item.id}`} key={i}>
                                             <CommandItem>
                                                 <div className="flex gap-3 justify-center items-center">
-                                                    <Image src={item.img.url} placeholder='blur' blurDataURL={item.img.blurDataUrl} width={500} height={500} alt='' className='object-cover size-8 rounded-sm'></Image>
+                                                    <Image src={item.img.url} placeholder='blur' blurDataURL={item.img.blurDataUrl} width={500} height={500} alt={item.name} loading='lazy' className='object-cover size-8 rounded-sm'></Image>
                                                     <div className="flex flex-col gap-1">
                                                         {item.name}
                                                         <div className="text-xs line-clamp-1">

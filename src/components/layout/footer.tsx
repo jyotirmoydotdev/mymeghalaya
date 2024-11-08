@@ -49,7 +49,7 @@ const Footer = () => {
                             <div className='text-[#f87160] underline'>
                                 Jyotirmoy
                             </div>
-                            <Image className='group-hover:rotate-[360deg] group-active:rotate-[360deg]  group-hover:scale-110 transition-all size-7 rounded-full' alt='Jyotirmoy Profile Image' src={'/jyotirmoy.png'} width={500} height={500}></Image>
+                            <Image className='group-hover:rotate-[360deg] group-active:rotate-[360deg]  group-hover:scale-110 transition-all size-7 rounded-full' alt='Jyotirmoy Profile Image' src={'/jyotirmoy.webp'} width={500} height={500} priority blurDataURL={"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8n+z7HwAGyAKwweeKNgAAAABJRU5ErkJggg=="} placeholder='blur'></Image>
                         </div>
                     </a>
                 </div>
