@@ -9,7 +9,7 @@ const Logo = () => {
       <div className="hidden sm:block">
         <Link href={"/"} className="flex items-center">
           <Image
-            src={"/logo.png"}
+            src={"/logo.webp"}
             width={500}
             height={500}
             alt="MyMeghalaya Logo"
@@ -30,7 +30,7 @@ const Logo = () => {
       <div className="block sm:hidden">
         <div className="flex items-center">
           <Image
-            src={"/logo.png"}
+            src={"/logo.webp"}
             width={500}
             height={500}
             alt="MyMeghalaya Logo"

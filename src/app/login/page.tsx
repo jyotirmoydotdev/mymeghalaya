@@ -28,7 +28,7 @@ const page = () => {
     return (
         <div className=" container max-w-5xl px-5 min-h-[90vh]">
             <div className="flex flex-col justify-start items-center py-12">
-                <Image src={'/logo.png'} alt='' width={500} height={300} className=' h-12 w-fit object-contain'></Image>
+                <Image src={'/logo.webp'} alt="MyMeghalaya.in" width={500} height={300} className=' h-12 w-fit object-contain'></Image>
                 <div className="pb-3 sm:pb-6 text-center">
                     <div className="text-lg sm:text-3xl sm:pb-2 font-bold">Welcome Back</div>
                     <div className="text-xs sm:text-base text-gray-500">Create an account or sign in to continue</div>

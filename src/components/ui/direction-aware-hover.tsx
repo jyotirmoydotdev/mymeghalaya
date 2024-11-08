@@ -8,6 +8,7 @@ import { useMediaQuery } from 'usehooks-ts'
 
 export const DirectionAwareHover = ({
   name,
+  isPriority = false,
   imageUrl,
   imgBlurDataUrl,
   children,
@@ -16,6 +17,7 @@ export const DirectionAwareHover = ({
   className,
 }: {
   name: string;
+  isPriority?:boolean;
   imageUrl: string;
   imgBlurDataUrl?: string;
   children: React.ReactNode | string;
@@ -98,11 +100,12 @@ export const DirectionAwareHover = ({
                 "h-full w-full object-cover object-center scale-100 sm:scale-[1.15] rounded-t-[11px]",
                 imageClassName
               )}
-              width="500"
-              height="500"
+              width={500}
+              height={500}
               src={imageUrl}
               blurDataURL={imgBlurDataUrl as string}
-              loading="lazy"
+              priority={isPriority}
+              loading={isPriority?"eager":"lazy"}
               placeholder={imgBlurDataUrl?"blur":"empty"}
             />
           </motion.div>

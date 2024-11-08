@@ -58,7 +58,7 @@ const Navbar = async ({
           ) : (
             <Link href={"/"} className="flex items-center">
               <Image
-                src={"/logo.png"}
+                src={"/logo.webp"}
                 width={500}
                 height={500}
                 alt="MyMeghalaya Logo"
