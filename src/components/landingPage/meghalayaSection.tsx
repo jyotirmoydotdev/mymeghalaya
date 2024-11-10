@@ -14,13 +14,13 @@ import { CiLocationOn } from 'react-icons/ci'
 const MeghalayaSection = () => {
     const [activePathIndex, setActivePathIndex] = useState<number>(0);
     const cardRefs = useRef<Array<HTMLDivElement | null>>([]);
-    
+
     useEffect(() => {
         const observer = new IntersectionObserver(
             (entries) => {
                 entries.forEach((entry) => {
                     const newIndex = Number(entry.target.getAttribute('data-index'));
-    
+
                     if (entry.isIntersecting && (newIndex === activePathIndex + 1 || newIndex === activePathIndex - 1)) {
                         setActivePathIndex(newIndex);
                     }
@@ -28,39 +28,30 @@ const MeghalayaSection = () => {
             },
             { threshold: 1 }
         );
-    
+
         cardRefs.current.forEach((cardRef) => {
             if (cardRef) observer.observe(cardRef);
         });
-    
+
         return () => {
             cardRefs.current.forEach((cardRef) => {
                 if (cardRef) observer.unobserve(cardRef);
             });
         };
-    }, [activePathIndex]); 
+    }, [activePathIndex]);
 
     return (
-        <div className='flex flex-col justify-center p-4 sm:py-16 gap-5 overflow-hidden'>
-            <div className="flex justify-center pt-5 mb-5 sm:p-10 sm:pt-10 bg-white" >
-                <div className="max-w-5xl w-full border-b pb-5">
-                    <div className={` text-3xl font-black uppercase bg-clip-text text-transparent bg-gradient-to-t from-sky-50 to-gray-500 sm:text-6xl`}>
-                        Meghalaya
-                    </div>
-                    <div className="font-medium text-sm capitalize pt-2 text-gray-400">
-                        Districts of meghalaya
-                    </div>
-                </div>
-            </div>
+        <div className=' container max-w-5xl w-full p-4 sm:py-16 overflow-hidden relative'>
+            <div className=" inset-x-0 font-black text-center bg-clip-text text-transparent bg-gradient-to-b from-gray-200 to-white text-5xl sm:text-9xl absolute -z-10 pointer-events-none">MEGHALAYA</div>
             <div className="flex justify-center">
                 <div className="max-w-5xl w-full">
-                    <MeghalayaMap activePathIndex={activePathIndex}/>
+                    <MeghalayaMap activePathIndex={activePathIndex} />
                 </div>
             </div>
             <div className="w-screen block sm:hidden">
                 <div className="flex justify-center">
-                    <div className="flex gap-3 sm:gap-5 w-full max-w-5xl py-3 overflow-x-scroll no-scrollbar">
-                        <div className="text-center bg-gray-100 h-full w-[169px] sm:w-[332px] px-[1rem] rounded-lg flex justify-center gap-2 items-center mr-1"><GoArrowRight /></div>
+                    <div className="flex gap-3 sm:gap-5 snap-x snap-mandatory w-full max-w-5xl py-3 overflow-x-scroll no-scrollbar">
+                        <div className="text-center  bg-gray-100 h-full w-[169px] sm:w-[332px] px-[1rem] rounded-lg flex justify-center gap-2 items-center mr-1"><GoArrowRight /></div>
                         {data.map((district, i) => (
                             <div
                                 onClick={handleClick}
@@ -72,24 +63,26 @@ const MeghalayaSection = () => {
                                 <ResponsiveCard
                                     i={i}
                                     imgUrl={district.img.url}
-                                    name={district.name}
-
+                                    alt={district.name}
                                     imgBlurDataUrl={district.img.blurDataUrl}
                                     imgMsg={district.name}
                                     des={district.about.slice(0, 60)}
                                     url={`/meghalaya/${district.id}`}
-                                    className='sm:w-[332px]'
-                                    icon={<CiLocationOn/>}
+                                    className='sm:w-[332px] snap-center'
+                                    icon={<CiLocationOn />}
                                 >
                                 </ResponsiveCard>
                             </div>
                         ))}
-                        <div className="text-center bg-gray-100 h-[154px] w-[169px] pl-5 pr-10 rounded-xl flex justify-center gap-2 items-center"><GoArrowLeft /></div>
+                        <div className="text-center bg-gray-100 h-full w-[169px] sm:w-[332px] px-[1rem] rounded-lg flex justify-center gap-2 items-center">
+                            <GoArrowLeft />
+                        </div>
+                        <div className="min-w-4"></div>
                     </div>
                 </div>
             </div>
             <Link href={"/meghalaya"}>
-                <div className="flex justify-center items-center w-full gap-3 text-blue-600 pb-5 pt-2 italic hover:translate-x-2 animate transition" >
+                <div className=" text-xl pl-2 flex items-center justify-start sm:justify-center w-full gap-3 text-green-800 py-8 italic hover:translate-x-2 ease-in-out duration-300" >
                     Read about Meghalaya <HiArrowLongRight />
                 </div>
             </Link>

@@ -38,11 +38,10 @@ export default function RootLayout({
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <link rel="shortcut icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-        <meta name="apple-mobile-web-app-title" content="Meghalaya" />
-        <meta name="mobile-web-app-capable" content="yes"/>
+        <meta name="apple-mobile-web-app-title" content="MyMeghalaya" />
+        <meta name="mobile-web-app-capable" content="yes" />
         <link rel="manifest" href="/site.webmanifest" />
-        <body className={`${inter.className} relative`}>
-          {/* <AcceptCookies/> */}
+        <body className={`${inter.className} relative no-scrollbar`}>
           {children}
           <MobileNavBar />
           <Analytics />

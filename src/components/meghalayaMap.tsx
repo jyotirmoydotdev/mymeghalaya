@@ -1,11 +1,14 @@
+'use client'
+
 import Link from 'next/link'
 import React from 'react'
+import { useMediaQuery } from 'usehooks-ts'
 
-const MeghalayaMap = ({ activePathIndex }: { activePathIndex?: number | null }) => {
+const MeghalayaMap = ({ activePathIndex }: { activePathIndex: number }) => {
     return (
-        <svg version="1.1" className='h-full w-full' id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 400">
-            <Link href="/meghalaya/south-west-garo-hills" className="" target="_PARENT">
-                <path className={`transition duration-500 fill-gray-100 sm:hover:fill-green-300 ${activePathIndex === 0 ? 'fill-green-300 sm:fill-gray-100' : ''}`} d="M64,292.5c1.7-1,2.6-3.3,4.7-4.5c1.2-0.7,2.7-1.7,2.2-3.7c1.4,0,1-1.1,1-1.8c0-7.4,0-14.7,0-22.1
+        <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 400">
+            <Link href="/meghalaya/south-west-garo-hills" target="_PARENT">
+                <path className={`transition duration-500 sm:hover:fill-green-300 sm:hover:stroke-muted ${activePathIndex === 0 ? 'fill-[rgb(134,239,172)] sm:fill-[#E6DDD4]' : 'fill-[rgb(230,221,212)]'}`} d="M64,292.5c1.7-1,2.6-3.3,4.7-4.5c1.2-0.7,2.7-1.7,2.2-3.7c1.4,0,1-1.1,1-1.8c0-7.4,0-14.7,0-22.1
     c-0.2-1.1,1.8-1.3,1-2.6c1.2-1.1,2.5-0.1,3.6-0.8c2.1,2.9,5.2,4.4,7.7,6.5c2.6-0.9,3.2-3.3,4.4-5.1c1.3-2,0.6-4.5,2.1-6.4
     c1.6-2.1,1-4.5,1-6.9c-0.6-0.2-1.2-0.4-1.9-0.7c0-1.1,0-2.3,0-3c2.3-2.5,4.3-4.8,6.5-7.1c3.6-0.1,7.1,2.2,11,0.7
     c0.7-4,1.5-8.2,2.2-12.3c0-0.2-0.1-0.3-0.1-0.5c-2.6-0.8-3.8-2.9-5.5-4.4c-2.1,0-4.1,0-6.2,0c-2.3-2.8-6.8-2.3-8.3-6.1
@@ -16,7 +19,7 @@ const MeghalayaMap = ({ activePathIndex }: { activePathIndex?: number | null }) 
     c1.6,0.9,2.9,1.6,3.6,2c2.7,0,4.7,0,7,0c-0.8-2.6,1.3-4,1.9-6c-0.1-0.9,0.7-1.1,1.1-1.6C61.7,296.5,61.4,293.9,64,292.5z"></path>
             </Link>
             <Link href="/meghalaya/west-garo-hills">
-                <path className={`transition duration-500 fill-gray-100 sm:hover:fill-green-300 ${activePathIndex === 1 ? 'fill-green-300 sm:fill-gray-100' : ''}`} d="M154.8,331.9c2.1-4.7,1.1-9.3,1.4-13.7c1.2-1.6,2.2-3.1,2-5.6c-1.2-1-2.8-2.3-4.1-3.3c0-2.3,0-4.1,0-5.5
+                <path className={`transition duration-500 sm:hover:fill-green-300 sm:hover:stroke-muted ${(activePathIndex === 1) ? 'fill-[rgb(134,239,172)] sm:fill-[#D2C7BC]' : 'fill-[rgb(210,199,188)]'}`} d="M154.8,331.9c2.1-4.7,1.1-9.3,1.4-13.7c1.2-1.6,2.2-3.1,2-5.6c-1.2-1-2.8-2.3-4.1-3.3c0-2.3,0-4.1,0-5.5
     c2.1-3.4,3-7.4,6.1-9.5c0-1.3,0-2.3,0-3.3c-2.2-0.1-1.8-2.7-3.3-3.2c-1.8-0.6,0.5-3.1-2-3.6c-1.4-0.3-1.5-2.7-3-3.5
     c0.1-2.8-0.3-5.5,1-8c0.9-1.7-0.9-3.1-1-4.7c-0.5-6.1,1-11.9,3.3-17.4c1-2.3,2.2-4.5,1.9-7c-0.2-1.8,1-3.1,1.3-4.7
     c1.3-0.1,2.2-1.6,4.1-1.2c3.8,1.9,7.8,4.6,12.9,4c0.5-1.3,2-1,2.9-1.8c3.9-3.1,7.6-6.4,12-8.8c5.6-3,8.8-7.4,10.9-13.1
@@ -44,7 +47,7 @@ const MeghalayaMap = ({ activePathIndex }: { activePathIndex?: number | null }) 
     C151.4,332.9,153.6,332.9,154.8,331.9z"></path>
             </Link>
             <Link href="/meghalaya/north-garo-hills">
-                <path className={`transition duration-500 fill-gray-100 sm:hover:fill-green-300 ${activePathIndex === 2 ? 'fill-green-300 sm:fill-gray-100' : ''}`} d="M207.2,84.2c0,0.5-0.2,1.2,0,1.5c2,2.8,0.5,5.9,1.1,8.7c-2.1,1.4-2.4,4-4.2,5.2c0,1.5,0,2.8,0,4.2
+                <path className={`transition duration-500 sm:hover:fill-green-300 sm:hover:stroke-muted ${(activePathIndex === 2) ? 'fill-[rgb(134,239,172)] sm:fill-[#DDD2C8]' : 'fill-[rgb(221,210,200)]'}`} d="M207.2,84.2c0,0.5-0.2,1.2,0,1.5c2,2.8,0.5,5.9,1.1,8.7c-2.1,1.4-2.4,4-4.2,5.2c0,1.5,0,2.8,0,4.2
     c2.3,1.8,3.3,4.1,3.1,6.8c-1.3,3.3-5.1,2.6-6.9,5c-0.4,0.5-2,0.1-3,0.1c-0.9,0.9-1.7,1.7-2.7,2.7c0.4,1-0.3,2.3,0.4,3.4
     c1.5,0.6,3.1,1,4.4,2.2c1.3,0,2.7,0,4.4,0c4.3-6.9,12.1-8.9,19-12.5c2,0,4.1,0.2,6.2-0.1c2.1-0.3,4,0.7,5.8,1.3
     c3.2,1,6.3,0.8,9.5,0.9c2.1,0,4.2,0,6.2,0c0.5,0.5,1,1,1.7,1.7c-0.6,3.6-3.1,6.5-4.3,10c-1.3,3.4-4,5.8-7.1,9.1c2.8,0,4.6-0.2,6.5,0
@@ -64,7 +67,7 @@ const MeghalayaMap = ({ activePathIndex }: { activePathIndex?: number | null }) 
     c0,1.5-0.4,2.9,0.1,4.1C207.8,74.7,206.9,79.5,207.2,84.2z"></path>
             </Link>
             <Link href="/meghalaya/east-garo-hills">
-                <path className={`transition duration-500 fill-gray-100 sm:hover:fill-green-300 ${activePathIndex === 3 ? 'fill-green-300 sm:fill-gray-100' : ''}`} d="M213.5,191.1c-0.1,2.8-1.6,4.6-3.3,6.6c0,2,0,4.1,0,6.1c-0.9,1.1-1.9,1.8-2.1,3.4c-0.5,3.1-1.1,6.3-2.9,9.2
+                <path className={`transition duration-500 sm:hover:fill-green-300 sm:hover:stroke-muted ${(activePathIndex === 3) ? 'fill-[#86efac] sm:fill-[#E5DED4]' : 'fill-[#E5DED4]'}`} d="M213.5,191.1c-0.1,2.8-1.6,4.6-3.3,6.6c0,2,0,4.1,0,6.1c-0.9,1.1-1.9,1.8-2.1,3.4c-0.5,3.1-1.1,6.3-2.9,9.2
     c-1.3,2.1-2.3,4.6-3.1,7c-1,3-2.6,5.4-5.3,6.8c-0.8,0.4-1.4,1-1.9,1.5c-2.2,2.3-4.9,3.9-7.6,5.5c-3,1.7-5.9,3.6-8,6
     c-0.3,1.7,0.2,2.7,1.5,3.7c1.2,0,2.7,0,4.3,0c2.8,1,4.1,3.6,6,5.1c3.8,1,7.1-1.4,10.6-1c2.1-1.9,4.9-1.3,6.8-0.7
     c2,0.7,3.9,0.7,5.9,0.8c2.6,0.1,5.2-0.2,7.7,1.6c1.5,1.1,3.8,1.4,5.6,1.4c6.3,0,12.5,1.9,18.8,1.2c0.3,0,0.7,0.1,1,0.1
@@ -84,7 +87,7 @@ const MeghalayaMap = ({ activePathIndex }: { activePathIndex?: number | null }) 
     C214.4,188.1,213.5,189.6,213.5,191.1z"></path>
             </Link>
             <Link href="/meghalaya/south-garo-hills">
-                <path className={`transition duration-500 fill-gray-100 sm:hover:fill-green-300 ${activePathIndex === 4 ? 'fill-green-300 sm:fill-gray-100' : ''}`} d="M362,339.8c1.1-4.9-1-9.2-2.2-13.7c-4-0.5-3.9-5.4-7.5-6.8c-3.4-1.3-3.3-6.5-6.7-8.4c0-1.2,0-2.2,0-2.9
+                <path className={`transition duration-500 sm:hover:fill-green-300 sm:hover:stroke-muted ${(activePathIndex === 4) ? 'fill-[#86efac] sm:fill-[#EEE4D8]' : 'fill-[#EEE4D8]'}`} d="M362,339.8c1.1-4.9-1-9.2-2.2-13.7c-4-0.5-3.9-5.4-7.5-6.8c-3.4-1.3-3.3-6.5-6.7-8.4c0-1.2,0-2.2,0-2.9
     c-1.4-2.7-2.7-5.2-3.9-7.5c-1.6-0.8-3.1-1.5-4.3-2.1c-0.8-4-3-7.6-2.4-11.7c-1.7-0.9-0.1-3.6-2.9-4.5c-0.5,0-1.6-0.1-3.4-0.2
     c-0.3-0.5-0.9-1.4-1.3-2.1c-4,0.7-7.3-1.1-10.8-1.2c-0.4,0-0.6-0.9-1.3-0.7c-1-1-2.2-1.9-3.1-3c-0.2-0.3-0.2-1.1-0.7-1.1
     c-3.6,0.3-4-3-5.7-5.1c1.4-2.6,2.7-5.4,4.3-8.4c0-4.1,0-8.6,0-13.1c2.4-0.2,3.1-3.8,6.2-2.5c0-2.3,0-4.1,0-5.8
@@ -107,7 +110,7 @@ const MeghalayaMap = ({ activePathIndex }: { activePathIndex?: number | null }) 
     c6.6,0,12.8,0,19.6,0c0.3-0.5,0.9-1.4,1.4-2.1c1.3,0,2.3,0,3.2,0c1-0.9,1.9-1.7,1.3-3.8C364.4,342.2,363.2,341,362,339.8z"></path>
             </Link>
             <Link href="/meghalaya/west-khasi-hills">
-                <path className={`transition duration-500 fill-gray-100 sm:hover:fill-green-300 ${activePathIndex === 5 ? 'fill-green-300 sm:fill-gray-100' : ''}`} d="M523.4,161.2c-0.3-0.6-0.3-1.3-0.3-1.8c0-0.3,0-0.5-0.1-0.7c-0.9-0.8-1.2-1.8-1.4-2.6c-0.2-0.8-0.3-0.8-0.5-0.9
+                <path className={`transition duration-500 sm:hover:fill-green-300 sm:hover:stroke-muted ${(activePathIndex === 5) ? 'fill-[#86efac] sm:fill-[#DBD2C9]' : 'fill-[#DBD2C9]'}`} d="M523.4,161.2c-0.3-0.6-0.3-1.3-0.3-1.8c0-0.3,0-0.5-0.1-0.7c-0.9-0.8-1.2-1.8-1.4-2.6c-0.2-0.8-0.3-0.8-0.5-0.9
     c-0.2-0.1-0.3-0.1-0.4-0.3c-1.2-1-1.9-2.3-2.7-3.5c-0.3-0.6-0.7-1.1-1-1.5l0,0c0,0-0.1-0.1-0.2-0.2c-0.1-0.1-0.1-0.2-0.2-0.2l0,0
     c-0.2-0.2-0.4-0.4-0.6-0.6l0,0c0,0-0.1,0-0.1-0.1c-0.2-0.1-0.3-0.3-0.5-0.3c0,0,0,0,0,0c-0.2-0.1-0.5-0.2-0.8-0.3
     c-2.7-0.5-2.7-3.2-2.7-4.7c0-0.3,0-0.7,0-1c-0.1,0-0.1,0-0.2,0.1c-0.7,0.2-1.5-0.1-1.8-0.8c-0.7-1.4,0-2.7,0.5-3.6
@@ -141,7 +144,7 @@ const MeghalayaMap = ({ activePathIndex }: { activePathIndex?: number | null }) 
     c0.1-0.1,0.2-0.1,0.2-0.1C523.3,162.7,523.2,161.9,523.4,161.2z"></path>
             </Link>
             <Link href="/meghalaya/eastern-west-khasi-hills">
-                <path className={`transition duration-500 fill-gray-100 sm:hover:fill-green-300 ${activePathIndex === 6 ? 'fill-green-300 sm:fill-gray-100' : ''}`} d="M634.5,149.2c-1.6-0.4-3.1-1.1-4.4-2.2c-1.7,0-3.4,0-5.1,0c-1.1-0.8-2.6-1.3-3.2-2.3c-1.4-2.1-2.5-4.5-3.5-6.8
+                <path className={`transition duration-500 sm:hover:fill-green-300 sm:hover:stroke-muted ${(activePathIndex === 6) ? 'fill-[#86efac] sm:fill-[#EEE4D8]' : 'fill-[#EEE4D8]'}`} d="M634.5,149.2c-1.6-0.4-3.1-1.1-4.4-2.2c-1.7,0-3.4,0-5.1,0c-1.1-0.8-2.6-1.3-3.2-2.3c-1.4-2.1-2.5-4.5-3.5-6.8
     c-0.3-0.7-0.4-1.9,0-2.5c1.4-2.1,0.5-3.8,0.2-6c-0.5-2.7-2-4.8-2.4-6.3c-1.9-2-3.7-2.3-5.7-2c-1.9,1.7-3.4,4.1-7.3,5.1
     c0.1,0-0.9,0.1-1.9,0c-4.3-0.4-8.9,1.3-12.7-2c-0.4-0.3-1.3,0-2,0c-1.7,0-3.5,0-5.1,0c-3.4-2.1-3.4-2.1-6.5-2.1
     c-3.5,0.1-7,0.1-9.8-2.3c-3.7,2.8-8,3.3-11.9,4.7c-2.1,0.7-3.7,0.6-5.7,0.2c-3.8-0.8-7.6-1.3-11.3,0.5c-5,2.4-9.9,2.3-14.8,0
@@ -173,7 +176,7 @@ const MeghalayaMap = ({ activePathIndex }: { activePathIndex?: number | null }) 
     L515.6,127.7z"></path>
             </Link>
             <Link href="/meghalaya/south-west-khasi-hills">
-                <path className={`transition duration-500 fill-gray-100 sm:hover:fill-green-300 ${activePathIndex === 7 ? 'fill-green-300 sm:fill-gray-100' : ''}`} d="M498.6,332.6c-0.2-2.5-2.1-4.7-0.8-7.3c0.6-1.5,1.4-2.9,1.9-4.4c1.3-3.4,1.8-7.2,4-10.3
+                <path className={`transition duration-500 sm:hover:fill-green-300 sm:hover:stroke-muted ${(activePathIndex === 7) ? 'fill-[#86efac] sm:fill-[#E8DED2]' : 'fill-[#E8DED2]'}`} d="M498.6,332.6c-0.2-2.5-2.1-4.7-0.8-7.3c0.6-1.5,1.4-2.9,1.9-4.4c1.3-3.4,1.8-7.2,4-10.3
     c1.4-2.1,4.1-6.2,5.1-6.4c2.3-0.5,3.6-2.9,5.9-3.3c1.2-2.6,5-1.4,5.9-3.8c1.8-0.8,3.6,0.4,5.1-1c1.9-1.7,3.3,1.2,5.1,0.7
     c1.8-0.5,3.1,0.9,4.9,1.1c1.1-0.5,2.2-1.1,3.3-1.7c0-0.6-0.1-1.1,0.4-1.5c3.5-0.2,6.8-2,10.3-1c1-1.4,3.3-1.1,3.7-2.7
     c0.6-2.9,2-5.6,0.9-8.8c-1.4-3.9-2.6-7.9-3.8-11.9c-1.2-3.7-1.1-4.3,0.7-8.2c0.2-0.4,0.1-1.1,0.4-1.4c1.5-1.4,0.9-3,0.7-4.7
@@ -194,10 +197,10 @@ const MeghalayaMap = ({ activePathIndex }: { activePathIndex?: number | null }) 
     c2,0,4,0,6.1,0c3.8,3.4,7.6,2.1,10.5,0.2c2.2-0.5,3.2,1.6,4.5,0.8c2.4-1.5,5-0.6,7.4-1c2.5-0.4,5-1.3,6.9-1.7
     c4.4,0.7,8.2,2.1,12.2,1.8c4-3.4,4-3.4,10.6-2c1.3,2.6,5.2,2.9,6.2,6.1c0.9,0.2,1.4-0.3,1.9-0.9c1.6,1.7,3.8,0.4,5.6,1.1
     c1.1,1.7,3,2.1,4.6,3c1.8-0.7,3.2-2.4,5.7-2.1c0.8,1,1.8,2.2,2.6,3.1c3.3,0,6.1,0,7.9,0c2,0.4,2.2,2.2,3.7,2.1
-    c2.1-1.9,2.7-4.7,1.7-6.7C498.1,337.5,498.8,335.1,498.6,332.6z"></path>
+                c2.1-1.9,2.7-4.7,1.7-6.7C498.1,337.5,498.8,335.1,498.6,332.6z"></path>
             </Link>
             <Link href="/meghalaya/ri-bhoi">
-                <path className={`transition duration-500 fill-gray-100 sm:hover:fill-green-300 ${activePathIndex === 8 ? 'fill-green-300 sm:fill-gray-100' : ''}`} d="M495.2,116.1c0.6,0.9-0.3,2.1,0.7,2.9c5.2,3.4,11,3.1,16.7,3.1c0.8,0.8,1.4,1.4,2.1,2.1c1,0,2,0,3.1,0
+                <path className={`transition duration-500 sm:hover:fill-green-300 sm:hover:stroke-muted ${(activePathIndex === 8) ? 'fill-[#86efac] sm:fill-[#EDE6DE]' : 'fill-[#EDE6DE]'}`} d="M495.2,116.1c0.6,0.9-0.3,2.1,0.7,2.9c5.2,3.4,11,3.1,16.7,3.1c0.8,0.8,1.4,1.4,2.1,2.1c1,0,2,0,3.1,0
     c0.7-0.6,1.4-1.4,2-1.9c2.8-0.8,4.6,0.8,6.5,1.8c2.2,0,4.3,0,6.4,0c0.5-1.3,2.3-0.7,2.8-1.9c2.5,0.3,4.7-2.6,7.5-0.2
     c1.1,0.9,3.2,0.2,4.7-1.3c1.6,2.4,3.8,1.1,5.5,1.5c0.8-0.8,1.4-1.4,2.2-2.2c1.3,0,2.8,0,4.4,0c0.6-0.7,1.1-1.4,1.5-1.8
     c5.6-0.9,10.7,1.6,16,0.9c0.3,0,0.7,0,1,0.1c3.9,1.6,7.8,3.5,12.3,3c1.6,1.9,4.1,0.3,5.8,1.1c2,1,3.8,1,5.1,0.9
@@ -228,7 +231,7 @@ const MeghalayaMap = ({ activePathIndex }: { activePathIndex?: number | null }) 
     c-5.6-0.4-11.1,1.8-16.7,1c-2.7,1.2-6.1,1.2-7.7,3.7C493.2,116.3,494.8,115.4,495.2,116.1z"></path>
             </Link>
             <Link href="/meghalaya/east-khasi-hills">
-                <path className={`transition duration-500 fill-gray-100 sm:hover:fill-green-300 ${activePathIndex === 9 ? 'fill-green-300 sm:fill-gray-100' : ''}`} d="M678.5,306.1c0.6-2.4,0.1-5.2,0.1-7.9c1.6-0.6,1.5-2.8,3.1-3.5c1.6-2.1,2.6-4.6,4.7-6.2c0.8,0,1.7,0,2.6,0
+                <path className={`transition duration-500 sm:hover:fill-green-300 sm:hover:stroke-muted ${(activePathIndex === 9) ? 'fill-[#86efac] sm:fill-[#D2C7BC]' : 'fill-[#D2C7BC]'}`} d="M678.5,306.1c0.6-2.4,0.1-5.2,0.1-7.9c1.6-0.6,1.5-2.8,3.1-3.5c1.6-2.1,2.6-4.6,4.7-6.2c0.8,0,1.7,0,2.6,0
     c0.7,0,1.1-0.3,1-1c0.2-1.7,1.6-0.8,2.7-1.2c1.8-1.7,3.5-4.2,7.1-4c0.7,0.6,1.6,1.4,2.4,2.2c1.1,0,2.1,0,3.3,0
     c1.2,1.3,2.5,2.7,3.6,4c1.6,0,3,0,4.4,0c1.3-2,4.2-2.5,4.5-5.4c-0.7-1.3-1.4-2.5-2.1-3.8c0-4.9,0-9.7,0-14.6c0-1.1-0.1-2.2-0.5-3.4
     c-1-3-1.1-6.2,0.6-9.4c-0.3-0.5-1.1-1-1-1.5c0.4-4.3-1.5-8.3-1.2-12.6c0.3-4.1,0.1-8.3,0.1-12.5c0-0.9,0.3-1.9,0-2.6
@@ -252,7 +255,7 @@ const MeghalayaMap = ({ activePathIndex }: { activePathIndex?: number | null }) 
     c3.3,2,3.3,2,6.7,1.9c-0.1-4.4,4.9-2.2,6.4-4.9c-1-1.9-2-3.9-3.3-6.3C678.1,320.4,676.7,313.2,678.5,306.1z"></path>
             </Link>
             <Link href="/meghalaya/west-jaintia-hills">
-                <path className={`transition duration-500 fill-gray-100 sm:hover:fill-green-300 ${activePathIndex === 10 ? 'fill-green-300 sm:fill-gray-100' : ''}`} d="M738.9,348.9c1,0,2.1,0,3.1,0c-0.3-2.4,2.8-1.2,3.2-3.3c0.3-1.4,2.1-2.1,3-3.1c1.3-1.4,3.3-2.7,3.1-5.2
+                <path className={`transition duration-500 sm:hover:fill-green-300 sm:hover:stroke-muted ${(activePathIndex === 10) ? 'fill-[#86efac] sm:fill-[#DAD0C7]' : 'fill-[#DAD0C7]'}`} d="M738.9,348.9c1,0,2.1,0,3.1,0c-0.3-2.4,2.8-1.2,3.2-3.3c0.3-1.4,2.1-2.1,3-3.1c1.3-1.4,3.3-2.7,3.1-5.2
     c0-0.5-0.2-1.2,0.1-1.5c2.5-3.4,1.9-7.3,2-11.1c-1.7-3.6-4.4-6.1-7.8-8.1c-1-0.6-3.1-3.1-3.7-4.1c0.6-1.1,1.1-2.2,1.1-3.7
     c0-3-0.2-5.9,0.8-9c0.8-2.3-0.7-5.1-1.7-7.5c-1.5-3.4-2.9-6.8-4.4-10.1c-1-2.2-1.7-4.2-0.3-6.5c0.5-0.8,0.3-2,0.4-3.2
     c1.4-3,5-3.1,7.6-4.7c1.7-1.1,4-1.1,6-1.8c1.9-0.7,3.8-1.7,5.6-2.6c2-2.5,2-6.1,4.7-8.8c0-0.9,0-2,0-3c0.8-0.8,1.4-1.4,2-2
@@ -276,7 +279,7 @@ const MeghalayaMap = ({ activePathIndex }: { activePathIndex?: number | null }) 
     c1.3,0,2.8,0,4.1,0C737.4,350.1,737.8,349,738.9,348.9z"></path>
             </Link>
             <Link href="/meghalaya/east-jaintia-hills">
-                <path className={`transition duration-500 fill-gray-100 sm:hover:fill-green-300 ${activePathIndex === 11 ? 'fill-green-300 sm:fill-gray-100' : ''}`} d="M917.5,321.7c-4.3-1.3-5.5-4.7-3.8-8.8c1.3-3.2,2.7-6.3,5.4-8.5c-0.9-4.9-2.5-9.4-0.1-14.2
+                <path className={`transition duration-500 sm:hover:fill-green-300 sm:hover:stroke-muted ${(activePathIndex === 11) ? 'fill-[#86efac] sm:fill-[#EDE6DE]' : 'fill-[#EDE6DE]'}`} d="M917.5,321.7c-4.3-1.3-5.5-4.7-3.8-8.8c1.3-3.2,2.7-6.3,5.4-8.5c-0.9-4.9-2.5-9.4-0.1-14.2
     c-0.8-1.3-2.7-2-2.5-3.9c-3,0.3-4.7-1.9-6.8-2.4c-0.5-1.6-0.9-3-2.2-3.8c-1.4-1-2.2-2.2-2.2-3.9c0-1.5,0.5-3.1-0.4-4.4
     c-1.8,0-3.5,0-5.3,0c-0.7-1.3-2.4-1.7-2.7-3.6c-0.1-1-1.7-2.5-2.4-2.4c-2.6,0.3-3.6-2.3-5.7-2.8c-1.1-0.3-2-1.4-3-1.5
     c-2.7-0.1-3.6-1.8-4.7-3.8c-0.4-0.8-0.2-2.1-1.2-2.4c-1.2,0-2.2,0-4.1,0c-0.2,0.4-0.7,1.4-1,2c-2.8,0-5.2,0.4-7-1.8

@@ -8,6 +8,8 @@ import { useMediaQuery } from 'usehooks-ts'
 
 export const DirectionAwareHover = ({
   name,
+  hover = true,
+  alt,
   isPriority = false,
   imageUrl,
   imgBlurDataUrl,
@@ -18,6 +20,7 @@ export const DirectionAwareHover = ({
 }: {
   name: string;
   isPriority?:boolean;
+  alt?:string;
   imageUrl: string;
   imgBlurDataUrl?: string;
   children: React.ReactNode | string;
@@ -26,7 +29,7 @@ export const DirectionAwareHover = ({
   imageClassName?: string;
   className?: string;
 }) => {
-  const isDesktop = useMediaQuery("(min-width: 768px)")
+  const isDesktop = useMediaQuery("(min-width: 425px)")
 
   const ref = useRef<HTMLDivElement>(null);
   const [direction, setDirection] = useState<
@@ -94,7 +97,7 @@ export const DirectionAwareHover = ({
             }}
           >
             <Image
-              alt={name}
+              alt={alt || ""}
               title={name}
               className={cn(
                 "h-full w-full object-cover object-center scale-100 sm:scale-[1.15] rounded-t-[11px]",
@@ -110,12 +113,12 @@ export const DirectionAwareHover = ({
             />
           </motion.div>
           <motion.div
-            variants={isDesktop ? textVariants : mobile}
+            variants={(isDesktop) ? textVariants : mobile}
             transition={{
               duration: 0.5,
               ease: "easeOut",
             }}
-            initial={true} animate={{ opacity: isDesktop ? 0 : 1, transform: 'none' }}
+            initial={true} animate={{ opacity: (isDesktop && hover) ? 0 : 1, transform: 'none' }}
             className={cn(
               "text-white absolute bottom-4 left-4 z-40",
               childrenClassName

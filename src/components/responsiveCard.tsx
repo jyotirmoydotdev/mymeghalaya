@@ -10,13 +10,13 @@ import { cn } from "@/lib/utils";
 import { handleClick } from '@/functions/haptic'
 import { GoArrowRight } from 'react-icons/go'
 
-const ResponsiveCard = ({ i, url, imgUrl, imgBlurDataUrl, name, des, icon, imgMsg, className, grid }: { i: number, imgBlurDataUrl?:string, url: string, imgUrl: string, name?: string, des: string, icon?: ReactNode, imgMsg?: string, className?:string, grid?: boolean }) => {
-  const [button, setbutton] = useState(false)
-  return (
+const ResponsiveCard = ({ i, url, imgUrl, imgBlurDataUrl, name, alt, des, icon, imgMsg, className, grid }: { i: number, imgBlurDataUrl?:string, alt?:string, url: string, imgUrl: string, name?: string, des: string, icon?: ReactNode, imgMsg?: string, className?:string, grid?: boolean }) => {
+const [button, setbutton] = useState(false)
+return (
     <Link href={url} key={i}  className='transform active:scale-95 transition-all group' onClick={handleClick}>
       <div className={cn("grid grid-cols-1 sm:grid-cols-1 rounded-xl text-card-foreground w-[169px] sm:w-full",className)}>
         <div className="relative flex items-center justify-start sm:justify-center h-24 sm:h-52">
-          <DirectionAwareHover imageUrl={imgUrl} imgBlurDataUrl={imgBlurDataUrl} name={name as string} className='rounded-[11px] sm:rounded-xl h-24 sm:h-52'>
+          <DirectionAwareHover imageUrl={imgUrl} alt={alt} imgBlurDataUrl={imgBlurDataUrl} name={name as string} className='rounded-[11px] sm:rounded-xl h-24 sm:h-52'>
             <p className="font-normal hidden line-clamp-1 sm:font-bold sm:flex gap-3 items-center text-xs sm:text-xl">{imgMsg ? imgMsg : <>view <HiArrowLongRight /></>} </p>
           </DirectionAwareHover>
         </div>
@@ -34,7 +34,7 @@ const ResponsiveCard = ({ i, url, imgUrl, imgBlurDataUrl, name, des, icon, imgMs
               {button ? <FaBookmark className='fill-green-500' /> : <CiBookmark className='fill-green-900' />}
             </button>
           </div>
-          <div className="text-[10px] line-clamp-2 sm:line-clamp-2 sm:text-sm text-muted-foreground">{des}</div>
+          <div className="text-[10px] text-wrap line-clamp-2 sm:text-sm text-muted-foreground">{des}</div>
           <div className="flex gap-2 items-center text-xs text-green-800 font-medium group-hover:font-bold group-hover:gap-3 transition-all sm:text-sm">
             <div className="">
             Learn more

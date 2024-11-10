@@ -10,20 +10,22 @@ import { NavBarDesktopData as data } from "@/staticData/layout/navBarData";
 import Logo from "./logo";
 import AuthButton from "../authButton";
 import { BiSupport } from "react-icons/bi";
+import { cn } from "@/lib/utils";
 
 const Navbar = async ({
   Title,
-  enableBackButton
+  enableBackButton,
+  className
 }: {
   Title?: string;
-  enableBackButton?: boolean
+  enableBackButton?: boolean;
+  className?:string;
 }) => {
   return (
-    <div className="bg-white">
-
+    <div>
       {/* Nav Bar Desktop */}
       <div className="hidden md:block">
-        <div className="py-5 px-5 md:px-10 lg:px-12 flex justify-between items-center">
+        <div className={cn("py-5 px-5 md:px-10 lg:px-12 flex justify-between items-center", className)}>
           <Logo/>
           <div className="flex items-center">
             {
@@ -36,7 +38,8 @@ const Navbar = async ({
               ))
             }
             <Link href={'/search'} className="px-2">
-              <Button variant={'outline'} size={'icon'} className="rounded-full">
+              <Button variant={'outline'} size={"sm"} className="rounded-full">
+                Search
                 <CiSearch className="size-4 stroke-2" />
               </Button>
             </Link>

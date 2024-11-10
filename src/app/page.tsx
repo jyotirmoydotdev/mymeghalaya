@@ -12,13 +12,13 @@ export default function Home() {
         false?(
           <UserHome/>          
         ):(
-          <>
-          <Navbar/>
-          <HeroSection />
-          <MeghalayaSection/>
-          <Destination/>
-          <Footer/>
-          </>
+          <div>
+            <Navbar/>
+            <HeroSection />
+            <MeghalayaSection/>
+            <Destination/>
+            <Footer/>
+          </div>
         )
       }
     </main>
