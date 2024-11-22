@@ -30,16 +30,7 @@ import { Button } from '@/components/ui/button'
 import Loading from './loading'
 
 // Types and Functions
-import { LocationDataType } from '@/types/locationDataTypes'
 import Markdown from 'react-markdown'
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb"
 import Breadcrumbs from '@/components/breadcrumbs'
 import { DestinationDataType } from '@/types/destinationDataType'
 import { supabaseFetch } from '@/libs/supabaseFetch'
@@ -160,9 +151,21 @@ const Pages = () => {
       </Carousel>
 
       {/* Travel Information */}
-      <div className="sm:mt-10 mt-5 relative">
+      <div className="sm:mt-10 mt-0 relative">
         <div className="text-lg tracking-tight sm:text-4xl font-medium font-sans text-gray-700 hidden sm:block">Informations</div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 mt-2 text-xs sm:text-sm font-medium gap-5 max-w-5xl w-full">
+        <div className="grid grid-cols-1 sm:grid-cols-2 mt-0 text-xs sm:text-sm font-medium gap-5 max-w-5xl w-full">
+
+          <div onClick={() => setAboutState(!aboutState)} className=" transition-all duration-500 ease-in-out pb-2">
+            <div className={`overflow-hidden transition-all ${aboutState ? 'h-full sm:max-h-full' : 'max-h-[4.5rem] sm:max-h-[23rem]'} relative`}>
+              <Markdown className={"blog-content font-normal leading-snug sm:leading-loose text-left text-sm sm:text-base"}>
+                {fetchDestination.data.destination.description}
+              </Markdown>
+              {!aboutState && (
+                <div className="absolute bottom-0 left-0 right-0 h-10 bg-gradient-to-t from-white to-transparent pointer-events-none"></div>
+              )}
+            </div>
+          </div>
+
           <Tabs defaultValue="timing" className="bg-white self-start sticky top-0 sm:pt-2">
             <TabsList className="grid w-full grid-cols-4 text-xs sm:text-base">
               <TabsTrigger className="flex gap-1" value="timing">  Timing</TabsTrigger>
@@ -394,21 +397,6 @@ const Pages = () => {
               </div>
             </TabsContent>
           </Tabs>
-          <div className="flex flex-col">
-            <div className=" pt-1 text-lg">Description</div>
-            <div onClick={() => setAboutState(!aboutState)} className="relative transition-all duration-500 ease-in-out">
-              <div className={`overflow-hidden tracking-wide text-pretty font-sans text-gray-700 transition-all
-                 ${aboutState ? 'h-full sm:max-h-full' : 'max-h-[3.5rem]'} sm:max-h-[20rem] relative`}>
-                <Markdown className={"blog-content text-sm"}>
-                  {fetchDestination.data.destination.description}
-                </Markdown>
-                {!aboutState && (
-                  <div className="absolute bottom-0 left-0 right-0 h-10 bg-gradient-to-t from-white to-transparent pointer-events-none"></div>
-                )}
-              </div>
-            </div>
-
-          </div>
         </div>
       </div>
 

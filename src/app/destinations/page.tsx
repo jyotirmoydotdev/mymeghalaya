@@ -38,7 +38,7 @@ const Page = () => {
     refetchInterval: false,
   })
 
-  const totalDestinations = useQuery({
+  const totalDestinationCount = useQuery({
     queryKey: ['totalDestinations'],
     queryFn: async () => {
       const res = await axios.get('/api/total-destinations')
@@ -72,7 +72,7 @@ const Page = () => {
         <div className="rounded-lg font-sans flex gap-2 items-center pt-3 py-2 px-3 ">
           <div className={`font-semibold text-base sm:text-3xl`}>Destinations</div>
           <div className="text-sm sm:text-base">
-            ( {totalDestinations.data ? totalDestinations.data.count : "0"} )
+            ( {totalDestinationCount.data ? totalDestinationCount.data.count : "0"} )
           </div>
         </div>
         <div className="px-3">

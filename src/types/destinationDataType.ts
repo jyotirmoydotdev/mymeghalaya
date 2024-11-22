@@ -5,7 +5,7 @@ export interface DestinationDataType {
     last_updated?: string; // Timestamp of the last update to this destination's information (ISO 8601 format)
     slug: string; // URL-friendly identifier for the destination
     name: string; // Name of the destination
-    tagline?: string; // Short description to display on cards
+    tagline?: string; // Short description to display on cards (10 - 15 words)
     description?: string; // Detailed description for the Description Section
     highlights?: {
         name: string; // highlights name

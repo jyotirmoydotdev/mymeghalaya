@@ -4,7 +4,7 @@ const config = {
     domainName: "mymeghalaya.in",
     supportMail: "care.jyotirmoy@gmail.com",
     auth:{
-        loginUrl: "/signin",
+        loginUrl: "/login",
         callbackurl: "/home"
     }
 }

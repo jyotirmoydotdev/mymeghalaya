@@ -9,15 +9,17 @@ export default function Home() {
   return (
     <main>
       {
-        false?(
-          <UserHome/>          
-        ):(
-          <div>
-            <Navbar/>
-            <HeroSection />
-            <MeghalayaSection/>
-            <Destination/>
-            <Footer/>
+        false ? (
+          <UserHome />
+        ) : (
+          <div className='flex min-h-screen flex-col bg-background'>
+            <div className="mx-auto w-full border-border/40 dark:border-border min-[1800px]:max-w-[1536px] min-[1800px]:border-x">
+              <Navbar />
+              <HeroSection />
+              <MeghalayaSection />
+              {/* <Destination/> */}
+              <Footer />
+            </div>
           </div>
         )
       }

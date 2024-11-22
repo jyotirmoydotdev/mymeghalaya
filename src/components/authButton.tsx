@@ -3,6 +3,7 @@ import React from 'react'
 import RightSheet from './rightSheet';
 import { Button } from './ui/button';
 import Link from 'next/link';
+import { CiUser } from 'react-icons/ci';
 
 const AuthButton = async () => {
   const {
@@ -10,7 +11,7 @@ const AuthButton = async () => {
   } = await createClient().auth.getUser();
   return (user) ? <RightSheet /> : (
     <Link href={"/login"}>
-      <Button className='rounded-full' size={'sm'} variant={'outline'}>
+      <Button className='h-8 rounded-md px-3 text-xs  ' variant={'outline'}>
         Log in
       </Button>
     </Link>

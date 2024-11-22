@@ -14,14 +14,14 @@ const Logo = () => {
             height={500}
             alt="MyMeghalaya Logo"
             priority
-            className="h-full w-16 "
+            className="h-full w-10 "
           />
-          <div className="flex items-baseline text-gray-500 pl-2 font-black font-mono" >
-            <div className="text-3xl">M</div>
-            <div className="text-2xl">Y</div>
-            <div className="text-3xl">M</div>
-            <div className="text-2xl tracking-tight">EGHALAYA</div>
-            <div className="text-sm font-light pl-1 self-start" style={{ fontFamily: "sans-serif" }}>IN</div>
+          <div className="flex items-baseline text-emerald-950 pl-2 font-bold " >
+            <div className="text-base">M</div>
+            <div className="text-base">Y</div>
+            <div className="text-base">M</div>
+            <div className="text-base">EGHALAYA</div>
+            <div className="text-xs font-light pl-1 self-start" style={{ fontFamily: "sans-serif" }}>IN</div>
           </div>
         </Link>
       </div>
@@ -38,7 +38,7 @@ const Logo = () => {
             className="h-full w-12"
 
           />
-          <div className="flex items-baseline text-gray-600 font-bold  pl-1" >
+          <div className="flex items-baseline text-emerald-950 font-bold  pl-1" >
             <div className="">M</div>
             <div className="text-sm">Y</div>
             <div className="">M</div>

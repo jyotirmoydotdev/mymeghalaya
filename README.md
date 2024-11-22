@@ -1,3 +1,14 @@
+# TODO
+
+- [] [Protomaps](https://docs.protomaps.com/pmtiles/maplibre) slefhost
+- [] Render with [react-map-gl](https://visgl.github.io/react-map-gl/docs)
+
+## Referance 
+
+- [Self-host Maps with Protomaps and Supabase Storage](https://youtu.be/l7QBpiLRwJc?si=LirN_7ngDc_whoB1)
+- [FREE maps for any app - replace Google maps TODAY](https://youtu.be/UAQogFwyna0?si=qufSQZdibqa4-z0a)
+
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
