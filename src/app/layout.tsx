@@ -4,16 +4,13 @@ import "./globals.css"
 import { App } from "./app";
 import { Toaster } from "@/components/ui/toaster";
 import { Analytics } from '@vercel/analytics/react';
-import Navbar from "@/components/layout/navbar";
-import Footer from "@/components/layout/footer";
 import MobileNavBar from "@/components/layout/mobile-navbar";
-import { getSEOTags } from "@/libs/seo";
-import AcceptCookies from "@/components/acceptCookies";
-import Transition from "@/components/transition";
+import { getSEOTags } from "@/lib/seo";
+import OneTapComponent from "@/components/oneTapComponent";
+import Script from "next/script";
+import { GoogleAnalytics } from '@next/third-parties/google'
 
 const inter = Inter({ subsets: ["latin"] });
-
-<link rel="modulepreload" as="script" href="/assets/ArtPlum-DSfwBYUK.js"></link>
 
 export const metadata = getSEOTags({
   canonicalUrlRelative: "/",
@@ -24,7 +21,6 @@ export const viewport = {
   width: "device-width",
   initialScale: 1,
 }
-
 
 export default function RootLayout({
   children,
@@ -42,6 +38,7 @@ export default function RootLayout({
         <meta name="mobile-web-app-capable" content="yes" />
         <link rel="manifest" href="/site.webmanifest" />
         <body className={`${inter.className} relative no-scrollbar`}>
+          <GoogleAnalytics gaId="G-P939YRC5EV" />
           {children}
           <MobileNavBar />
           <Analytics />
