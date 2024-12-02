@@ -10,6 +10,7 @@ import MobileNavBar from "@/components/layout/mobile-navbar";
 import { getSEOTags } from "@/libs/seo";
 import AcceptCookies from "@/components/acceptCookies";
 import Transition from "@/components/transition";
+import { GoogleAnalytics } from "@next/third-parties/google"
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -42,6 +43,7 @@ export default function RootLayout({
         <meta name="mobile-web-app-capable" content="yes" />
         <link rel="manifest" href="/site.webmanifest" />
         <body className={`${inter.className} relative no-scrollbar`}>
+          <GoogleAnalytics gaId="G-P939YRC5EV" />
           {children}
           <MobileNavBar />
           <Analytics />
