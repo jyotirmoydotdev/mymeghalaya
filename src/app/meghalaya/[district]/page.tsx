@@ -14,7 +14,7 @@ import Markdown from 'react-markdown'
 import ResponsiveCard from '@/components/responsiveCard'
 import Breadcrumbs from '@/components/breadcrumbs'
 import { DestinationDataType } from '@/types/destinationDataType'
-import { supabaseFetch } from '@/libs/supabaseFetch'
+import { supabaseUrl } from '@/lib/supabaseUrl'
 
 const Page = () => {
   const { district } = useParams();
@@ -27,7 +27,7 @@ const Page = () => {
         destinationData: DestinationDataType[];
       }
     }> => {
-      const response = await axios.get('/api/district', {
+      const response = await axios.get('/api/v1/district', {
         params: {
           id: district,
         }
@@ -50,12 +50,8 @@ const Page = () => {
         <Breadcrumbs
           breadcrumbs={[
             {
-              label: "Meghalaya",
-              link: "/meghalaya"
-            },
-            {
               label: "Districts",
-              link: "/destinations#districts"
+              link: "/search/districts"
             }
           ]}
           breadcrumbPage={fetchDistrictData.data.data.districtData.name}
@@ -100,9 +96,11 @@ const Page = () => {
                     <ResponsiveCard
                       key={i}
                       i={i}
+                      rating={item.rating}
+                      created_at={item.created_at}
                       url={`/destinations/${item.slug}`}
-                      imgUrl={supabaseFetch(item.images[0].imageUrl)}
-                      imgBlurDataUrl={item.images[0].imageBlurDataUrl}
+                      imgUrl={supabaseUrl(item.images[0].image_url)}
+                      imgBlurDataUrl={item.images[0].image_blur_data_url}
                       name={item.name as string}
                       des={item.tagline as string}
                       className='w-full'

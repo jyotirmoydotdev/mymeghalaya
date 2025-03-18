@@ -1,11 +1,23 @@
 import React from 'react'
 
-import { getSEOTags } from '@/libs/seo';
+import { getSEOTags } from '@/lib/seo';
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
 import AppSidebar from '@/components/app-sidebar';
 import config from '@/config';
 import Navbar from '@/components/layout/navbar';
 import Footer from '@/components/layout/footer';
+import { Checkbox } from '@/components/ui/checkbox';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion"
+import SearchBar from './searchBar';
+import Filter from './filter';
+import MapComponent from '@/components/Map/MapComponent';
+import Menu from '@/components/menu';
+
 
 export const metadata = getSEOTags({
   title: `Search for destinations, district and more.`,
@@ -18,20 +30,22 @@ const layout = ({
   children: React.ReactNode;
 }>) => {
   return (
-    <div className='relative flex min-h-screen flex-col bg-background'>
-      <div className="mx-auto w-full border-border/40 dark:border-border min-[1800px]:max-w-[1536px] min-[1800px]:border-x">
+    <>
+      <div className=" static sm:sticky top-0 z-10 container px-0 max-w-screen-2xl">
         <Navbar enableBackButton={true} Title='Search' />
-        <div className="flex-1">
-          <div className="container flex-1 items-start md:grid md:grid-cols-[220px_minmax(0,1fr)] md:gap-6 lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-10">
-            <aside className="fixed top-14 z-30 hidden h-[calc(100vh-3.5rem)] w-full shrink-0 border-r border-border/40 dark:border-border md:sticky md:block">
-            </aside>
-
+      </div>
+      <div className="max-w-screen-2xl mx-auto px-0 sm:px-6 md:px-8 relative flex">
+        <div className="hidden lg:block h-[calc(100vh-3.5rem)] w-[19rem] pt-3 pb-10 pr-6 overflow-y-auto ">
+          <Menu />
+        </div>
+        <div className="h-[calc(100vh-3.5rem)] overflow-visible sm:overflow-y-auto w-full no-scrollbar pl-0 lg:pl-[1rem] relative">
+          <SearchBar />
+          <div className="pt-[0.5rem] sm:pt-[1rem]">
+            {children}
           </div>
         </div>
-        {/* {children} */}
-        <Footer />
       </div>
-    </div>
+    </>
   )
 }
 

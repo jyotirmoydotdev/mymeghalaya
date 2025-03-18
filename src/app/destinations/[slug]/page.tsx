@@ -33,7 +33,7 @@ import Loading from './loading'
 import Markdown from 'react-markdown'
 import Breadcrumbs from '@/components/breadcrumbs'
 import { DestinationDataType } from '@/types/destinationDataType'
-import { supabaseFetch } from '@/libs/supabaseFetch'
+import { supabaseUrl } from '@/lib/supabaseUrl'
 import { GiWinterGloves } from "react-icons/gi";
 
 
@@ -48,12 +48,58 @@ const Pages = () => {
     return queryClient.getQueryData([key]);
   };
 
-  const convertTo12HourFormat = (time: string) => {
-    const [hour, minute] = time.split(':').map(Number); // Split and convert to numbers
-    const ampm = hour >= 12 ? 'PM' : 'AM';
-    const formattedHour = hour % 12 || 12; // Convert 0 to 12 for midnight
-    return `${formattedHour}:${minute.toString().padStart(2, '0')} ${ampm}`;
+  const convertTo12HourFormat = (timeRange: string): string => {
+    // Split the input into start and end times
+    const [start, end] = timeRange.split('-');
+  
+    // Helper function to convert a single time string
+    const formatTime = (time: string): string => {
+      const [hour, minute] = time.split(':').map(Number);
+      const ampm = hour >= 12 ? 'PM' : 'AM';
+      const formattedHour = hour % 12 || 12; // Convert 0 to 12 for midnight
+      return `${formattedHour}:${minute.toString().padStart(2, '0')} ${ampm}`;
+    };
+  
+    // Convert start and end times
+    const formattedStart = formatTime(start);
+    const formattedEnd = formatTime(end);
+  
+    return `${formattedStart}-${formattedEnd}`;
+  };
+
+  const convertToDay = (day: number) => {
+    switch (day) {
+      case 0:
+        return "Monday"
+        break;
+      case 1:
+        return "Tuesday";
+        break;
+      case 2:
+        return "Wednesday";
+        break;
+      case 3:
+        return "Thurday";
+        break;
+      case 4:
+        return "Firday";
+        break;
+      case 5:
+        return "Saturday ";
+        break;
+      case 6:
+        return "Sunday";
+        break;
+      default:
+        break;
+    }
   }
+
+  const sortOrder: Record<string, number> = {
+    all: 0,
+    Indians: 1,
+    foreigner: 2,
+  };
 
   const fetchDestination = useQuery({
     queryKey: [`/destination/${slug}`],
@@ -63,7 +109,7 @@ const Pages = () => {
         return cache as Promise<{ destination: DestinationDataType, nearby_attractions: DestinationDataType[] }>;
       }
 
-      const response = await axios.get(`/api/destinations/${slug}`)
+      const response = await axios.get(`/api/v1/destinations/${slug}`)
       return response.data.data
     },
     refetchOnWindowFocus: false,
@@ -89,6 +135,19 @@ const Pages = () => {
     )
   }
 
+  const sortTicketsByVisitor = (tickets: Array<{ visitor: string; [key: string]: any }>) => {
+    const sortOrder: Record<string, number> = {
+      all: 0,
+      indians: 1,
+      foreigners: 2,
+    };
+  
+    return tickets.sort((a, b) => {
+      return (sortOrder[a.visitor] || 99) - (sortOrder[b.visitor] || 99);
+    });
+  }; 
+    
+
   return (
     <div className="py-4 container max-w-5xl p-4 no-scrollbar overflow-hidden lg:overflow-visible">
 
@@ -98,7 +157,7 @@ const Pages = () => {
           [
             {
               label: "Destinations",
-              link: "/destinations"
+              link: "/search/destinations"
             }
           ]
         }
@@ -139,7 +198,7 @@ const Pages = () => {
               <div className="p-1">
                 <Card>
                   <CardContent className="aspect-video p-0 object-cover ">
-                    <Image alt={image.imageTitle} width={500} height={500} loading={'lazy'} placeholder={'blur'} blurDataURL={image.imageBlurDataUrl} className='h-full w-full rounded-xl shadow-sm border border-muted object-cover' src={supabaseFetch(image.imageUrl)}></Image>
+                    <Image alt={image.image_title} width={500} height={500} loading={'lazy'} placeholder={'blur'} blurDataURL={image.image_blur_data_url} className='h-full w-full rounded-xl shadow-sm border border-muted object-cover' src={supabaseUrl(image.image_url)}></Image>
                   </CardContent>
                 </Card>
               </div>
@@ -185,75 +244,21 @@ const Pages = () => {
                   </div>
                 ))} */}
                 {
-                  (fetchDestination.data.destination.timing?.all) && (
+                  (fetchDestination.data.destination.timing) ? (
                     <>
-                      {fetchDestination.data.destination.timing.all.map((item, i) => (
+                      {fetchDestination.data.destination.timing.map((item, i) => (
                         <div className="flex justify-between pb-2" key={i}>
                           <div className=" flex gap-2 items-center">
                             <IoTimeOutline />
-                            <div className="">{item.day}</div>
+                            <div className="">{convertToDay(i)}</div>
                           </div>
-                          <div className="flex gap-3">
-                            <div className="">{convertTo12HourFormat(item.time.open)}</div>
-                            -
-                            <div className="">{convertTo12HourFormat(item.time.close)}</div>
-                          </div>
+                          <div className="">{convertTo12HourFormat(item)}</div>
                         </div>
                       ))}
                     </>
-                  )
-                }
-                {
-                  ((fetchDestination.data.destination.timing?.summer) && (new Date().getMonth() >= 2 && new Date().getMonth() <= 7)) && (
+                  ) : (
                     <>
-                      <div className="text-base flex gap-2 items-center border-b pb-2">
-                        <div className="">
-                          <MdSunny />
-                        </div>
-                        <div className="">
-                          Summer
-                        </div>
-                      </div>
-                      {fetchDestination.data.destination.timing.summer.map((item, i) => (
-                        <div className="flex justify-between pb-2" key={i}>
-                          <div className=" flex gap-2 items-center">
-                            <IoTimeOutline />
-                            <div className="">{item.day}</div>
-                          </div>
-                          <div className="flex gap-3">
-                            <div className="">{convertTo12HourFormat(item.time.open)}</div>
-                            -
-                            <div className="">{convertTo12HourFormat(item.time.close)}</div>
-                          </div>
-                        </div>
-                      ))}
-                    </>
-                  )
-                }
-                {
-                  ((fetchDestination.data.destination.timing?.winter) && (new Date().getMonth() >= 8) || (new Date().getMonth() <= 1)) && (
-                    <>
-                      <div className="text-base flex gap-2 items-center border-b pb-2">
-                        <div className="">
-                          <GiWinterGloves />
-                        </div>
-                        <div className="">
-                          Winter
-                        </div>
-                      </div>
-                      {fetchDestination.data.destination.timing?.winter.map((item, i) => (
-                        <div className="flex justify-between pb-2" key={i}>
-                          <div className=" flex gap-2 items-center">
-                            <IoTimeOutline />
-                            <div className="">{item.day}</div>
-                          </div>
-                          <div className="flex gap-3">
-                            <div className="">{convertTo12HourFormat(item.time.open)}</div>
-                            -
-                            <div className="">{convertTo12HourFormat(item.time.close)}</div>
-                          </div>
-                        </div>
-                      ))}
+                      No timing avilable
                     </>
                   )
                 }
@@ -262,71 +267,27 @@ const Pages = () => {
             <TabsContent value="ticket">
               <div className="flex flex-col gap-2">
                 {
-                  fetchDestination.data.destination.ticket?.all ? (
+                  fetchDestination.data.destination.tickets? (
                     <div className="flex flex-col p-5 shadow-sm rounded-md gap-3 border">
-                      <div className="text-base flex gap-2 items-center border-b pb-2">
+                      {/* <div className="text-base flex gap-2 items-center border-b pb-2">
                         <div className="">
                           <MdGroups2 />
                         </div>
                         <div className="">
                           All
                         </div>
-                      </div>
+                      </div> */}
                       {
-                        fetchDestination.data.destination.ticket.all.map((item, i) => (
-                          <div className="text-xs sm:text-sm flex gap-2 items-center" key={i}>
-                            <PiTicketThin size={20} className="hover:scale-150 transition" />
+                        sortTicketsByVisitor(fetchDestination.data.destination.tickets).map((item, i) => (
+                          <div className="text-xs pb-2 sm:text-sm flex gap-2 items-center" key={i}>
+                            {/* <PiTicketThin size={20} className="hover:scale-150 transition" /> */}
+                            {
+                              item.visitor == "all" ? <MdGroups2 size={20} className="hover:scale-150 transition" /> : <>{ item.visitor == "indians"? "🇮🇳": "🌎"}</>
+                            }
+                            <div className=" capitalize">{item.visitor}</div>
                             <div key={i} className="flex justify-between w-full">
-                              <div className="">{item.type}</div>
-                              <div className="">{item.price}</div>
-                            </div>
-                          </div>
-                        ))
-                      }
-                    </div>
-                  ) : (<></>)
-                }
-                {
-                  fetchDestination.data.destination.ticket?.indians ? (
-                    <div className="flex flex-col p-5 shadow-sm rounded-md gap-3 border">
-                      <div className="text-base flex gap-2 items-center border-b pb-2">
-                        <div className="">
-                          🇮🇳
-                        </div>
-                        <div className="">
-                          Indians
-                        </div>
-                      </div>
-                      {
-                        fetchDestination.data.destination.ticket.indians.map((item, i) => (
-                          <div className="text-xs sm:text-sm flex gap-2 items-center" key={i}>
-                            <PiTicketThin size={20} className="hover:scale-150 transition" />
-                            <div key={i} className="flex justify-between w-full">
-                              <div className="">{item.type}</div>
-                              <div className="">{item.price}</div>
-                            </div>
-                          </div>
-                        ))
-                      }
-                    </div>
-                  ) : (<></>)
-                }
-                {
-                  fetchDestination.data.destination.ticket?.foreigners ? (
-                    <div className="flex flex-col p-5 shadow-sm rounded-md gap-3 border">
-                      <div className="text-base flex gap-2 items-center border-b pb-2">
-                        <FcGlobe />
-                        <div className="">
-                          Foreigners
-                        </div>
-                      </div>
-                      {
-                        fetchDestination.data.destination.ticket.foreigners.map((item, i) => (
-                          <div className="text-xs sm:text-sm flex gap-2 items-center" key={i}>
-                            <PiTicketThin size={20} className="hover:scale-150 transition" />
-                            <div key={i} className="flex justify-between w-full">
-                              <div className="">{item.type}</div>
-                              <div className="">{item.price}</div>
+                              <div className=" capitalize">{item.type}</div>
+                              <div className="">₹{item.price}</div>
                             </div>
                           </div>
                         ))
@@ -368,15 +329,15 @@ const Pages = () => {
               </div>
               <div className="flex justify-around pb-3 pt-5 border shadow-sm rounded-md">
                 <div className="flex flex-col justify-center items-center gap-2">
-                  <div className={`px-4 py-3 shadow-sm rounded-sm border ${fetchDestination.data.destination.transport?.road ? "bg-green-100" : "bg-red-100"}`}><FaRoad /></div>
+                  <div className={`px-4 py-3 shadow-sm rounded-sm border ${fetchDestination.data.destination.transport[0] ? "bg-green-100" : "bg-red-100"}`}><FaRoad /></div>
                   <div className="text-xs">Road</div>
                 </div>
                 <div className="flex flex-col justify-center items-center gap-2">
-                  <div className={`px-4 py-3 shadow-sm rounded-sm border ${fetchDestination.data.destination.transport?.airport ? "bg-green-100" : "bg-red-100"}`}><FaPlane /></div>
-                  <div className="text-xs">Airport</div>
+                  <div className={`px-4 py-3 shadow-sm rounded-sm border ${fetchDestination.data.destination.transport[1] ? "bg-green-100" : "bg-red-100"}`}><FaPlane /></div>
+                  <div className="text-xs">Air</div>
                 </div>
                 <div className="flex flex-col justify-center items-center gap-2">
-                  <div className={`px-4 py-3 shadow-sm rounded-sm border ${fetchDestination.data.destination.transport?.water ? "bg-green-100" : "bg-red-100"}`}><FaSailboat /></div>
+                  <div className={`px-4 py-3 shadow-sm rounded-sm border ${fetchDestination.data.destination.transport[2] ? "bg-green-100" : "bg-red-100"}`}><FaSailboat /></div>
                   <div className="text-xs">Water</div>
                 </div>
               </div>
@@ -384,12 +345,12 @@ const Pages = () => {
             <TabsContent value="parking">
               <div className="flex flex-col p-5 shadow-sm rounded-md gap-3 border">
                 {
-                  fetchDestination.data.destination.parking?.map((item, i) => (
+                  fetchDestination.data.destination.parkings?.map((item, i) => (
                     <div className="text-xs sm:text-sm flex gap-2 items-center" key={i}>
                       <CiParking1 size={20} className="hover:scale-150 transition" />
                       <div key={i} className="flex justify-between w-full">
-                        <div className="">{item.type}</div>
-                        <div className="">{item.price}</div>
+                        <div className=" capitalize">{item.type}</div>
+                        <div className="">₹{item.price}</div>
                       </div>
                     </div>
                   ))
@@ -409,17 +370,18 @@ const Pages = () => {
             <div className="flex flex-col">
               <div className="text-lg tracking-tight sm:text-4xl font-medium font-sans text-gray-700 pb-2">Nearby</div>
               <div className="flex justify-center">
-                <div className='flex sm:grid sm:grid-cols-2 md:grid-cols-3 gap-3 w-full pb-5 pt-2 overflow-x-scroll no-scrollbar'>
-                  <div className="h-full px-3 py-5 bg-gray-100 flex justify-center items-center rounded-xl  sm:hidden"><GoArrowRight /></div>
+                <div className='flex sm:grid sm:grid-cols-2 md:grid-cols-3 gap-1 w-full pb-5 pt-2 overflow-x-scroll no-scrollbar'>
                   {
                     fetchDestination.data.nearby_attractions?.map((item, i) => (
                       <ResponsiveCard
                         key={i}
                         i={i}
+                        created_at={item.created_at}
+                        rating={item.rating}
                         url={`/destinations/${item.slug}`}
                         icon={<CiLocationOn />}
-                        imgUrl={supabaseFetch(item.images[0].imageUrl)}
-                        imgBlurDataUrl={item.images[0].imageBlurDataUrl}
+                        imgUrl={supabaseUrl(item.images[0].image_url)}
+                        imgBlurDataUrl={item.images[0].image_blur_data_url}
                         name={item.name as string}
                         des={item.tagline as string}
                       />

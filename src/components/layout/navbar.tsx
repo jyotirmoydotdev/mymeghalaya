@@ -13,6 +13,7 @@ import { BiSupport } from "react-icons/bi";
 import { cn } from "@/lib/utils";
 import { Input } from "../ui/input";
 import SearchInput from "../searchInput";
+import { GoBell } from "react-icons/go";
 
 const Navbar = async ({
   Title,
@@ -26,47 +27,43 @@ const Navbar = async ({
   return (
     <div>
       {/* Nav Bar Desktop */}
-      <div className="flex h-14 items-center px-4">
-        <div className="hidden md:block sticky top-0 z-50 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 dark:border-border" >
-          <div className={cn("py-5 px-5 md:px-10 lg:px-12 flex justify-between items-center", className)}>
-            <Logo />
-            <SearchInput/>
-            <div className="flex items-center">
-              {
-                data.links.map((item, i) => (
-                  <Link href={item.link} key={i}>
-                    <Button variant={'ghost'} >
-                      {item.name}
-                    </Button>
-                  </Link>
-                ))
-              }
-              <Link href={'/search'} className="px-2">
-                {/* <Button variant={'ghost'} className="">
-                  Search
-                  <CiSearch className="size-4 stroke-2" />
-                </Button> */}
-              </Link>
-              <AuthButton />
+      <div className="h-14 items-center px-4 sm:px-8 hidden md:block w-full bg-white" >
+        <div className={cn("pt-3 flex justify-between items-center", className)}>
+          <Logo />
+          <div className="inline-flex gap-2 items-center">
+            {/* {
+              data.links?.map((item, i) => (
+                <Link href={item.link} key={i}>
+                  <Button variant={'ghost'} >
+                    {item.name}
+                  </Button>
+                </Link>
+              ))
+            } */}
+            <SearchInput />
+            <div className="bg-accent p-[6px] border rounded-full shadow-sm">
+              <GoBell className="size-5"/>
             </div>
+            <AuthButton />
           </div>
         </div>
       </div>
 
       {/* Nav Bar Mobile */}
-      <div className="md:hidden block relative">
-        <div className="py-3 px-5 md:px-12 lg:px-28 flex justify-between items-center ">
+      <div className=" md:hidden relative">
+        <div className="py-3 px-5 md:px-12 lg:px-28 flex h-[72px] justify-between items-center border-b">
+          <div className="flex gap-3 items-center">
           {enableBackButton ? (
             <BackButton />
           ) : <></>}
           {Title ? (
-            <div className="font-semibold">
+            <div className="font-bold text-xl text-[#363737]">
               {Title}
             </div>
           ) : (
             <Link href={"/"} className="flex items-center">
               <Image
-                src={"/logo.webp"}
+                src={"/logo.svg"}
                 width={500}
                 height={500}
                 alt="MyMeghalaya Logo"
@@ -76,8 +73,14 @@ const Navbar = async ({
             </Link>
           )
           }
-          {/* <RightSheet /> */}
-          <AuthButton />
+          </div>
+          <div className="flex gap-2 items-center justify-center">
+            <SearchInput/>
+            <div className="bg-accent p-[6px] border rounded-full shadow-sm">
+              <GoBell className="size-5"/>
+            </div>
+            <AuthButton />
+          </div>
         </div>
       </div>
     </div>

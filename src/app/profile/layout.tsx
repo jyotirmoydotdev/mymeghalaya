@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { getSEOTags } from '@/libs/seo';
+import { getSEOTags } from '@/lib/seo';
 import config from '@/config';
 import Navbar from '@/components/layout/navbar';
 import { createClient } from '@/utils/supabase/server';
@@ -17,11 +17,12 @@ const layout = async ({
 }: Readonly<{
   children: React.ReactNode;
 }>) => {
+  const supabase = await createClient();
+
   const {
     data: { user },
-  } = await createClient().auth.getUser();
-
-  if (user === null) {
+  } = await supabase.auth.getUser();
+   if (user === null) {
     return redirect('/login')
   }
 

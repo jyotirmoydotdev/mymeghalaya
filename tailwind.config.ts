@@ -2,6 +2,13 @@ import type { Config } from "tailwindcss"
 
 const config = {
   darkMode: ["class"],
+  compilerOptions: {
+    jsx: "react-jsx", // Make sure this is set to react-jsx for newer versions of React
+    moduleResolution: "node",
+    esModuleInterop: true,
+    allowJs: true,
+    skipLibCheck: true
+  },
   content: [
     './pages/**/*.{ts,tsx}',
     './components/**/*.{ts,tsx}',
@@ -11,7 +18,7 @@ const config = {
   prefix: "",
   theme: {
   	container: {
-  		center: 'true',
+  		center: true,
   		padding: '2rem',
   		screens: {
   			'2xl': '1400px'
@@ -121,6 +128,10 @@ const config = {
   		}
   	}
   },
+	// "compilerOptions": {
+	//   "typeRoots": ["./types", "./node_modules/@types"]
+	// },
+	
   plugins: [require("tailwindcss-animate")],
 } satisfies Config
 

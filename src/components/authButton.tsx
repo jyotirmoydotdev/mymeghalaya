@@ -6,9 +6,12 @@ import Link from 'next/link';
 import { CiUser } from 'react-icons/ci';
 
 const AuthButton = async () => {
+  const supabase = await createClient();
+
   const {
     data: { user },
-  } = await createClient().auth.getUser();
+  } = await supabase.auth.getUser();
+  
   return (user) ? <RightSheet /> : (
     <Link href={"/login"}>
       <Button className='h-8 rounded-md px-3 text-xs  ' variant={'outline'}>

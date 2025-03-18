@@ -8,8 +8,8 @@ import { useRouter } from 'next/navigation'
 const BackButton = () => {
     const route = useRouter();
     return (
-        <Button size={'icon'} className="size-7 " variant={'ghost'} onClick={() => route.back()}>
-            <BsChevronLeft className="siz-3" />
+        <Button size={'icon'} className="size-8 rounded-full border shadow-none" variant={'secondary'} onClick={() => route.back()}>
+            <BsChevronLeft className="size-5 stroke-1" />
         </Button>
     )
 }

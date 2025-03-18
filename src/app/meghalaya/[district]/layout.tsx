@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { getSEOTags } from '@/libs/seo';
+import { getSEOTags } from '@/lib/seo';
 
 export const metadata = getSEOTags({
   title: `District Details`,

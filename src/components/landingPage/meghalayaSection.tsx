@@ -20,6 +20,8 @@ import {
 import { Button } from '../ui/button'
 import Autoplay from 'embla-carousel-autoplay'
 import { MdArrowOutward } from 'react-icons/md'
+import DistrictCard from '../districtCard'
+import { LiaMapMarkedAltSolid } from 'react-icons/lia'
 
 
 const MeghalayaSection = () => {
@@ -69,26 +71,26 @@ const MeghalayaSection = () => {
                         }}
                         plugins={[
                             Autoplay({
-                                delay: 2000,
+                                delay: 3000,
                             }),
                         ]}>
                         {/* <div className=" absolute w-14 h-full bg-gradient-to-r from-white to-transparent left-0 z-30 pointer-events-none"></div> */}
-                        <div className=" absolute w-14 h-full bg-gradient-to-l from-white to-transparent right-0 z-40 pointer-events-none"></div>
+                        <div className=" absolute w-14 h-full bg-gradient-to-l from-white to-transparent right-0 z-10 pointer-events-none"></div>
                         <CarouselContent className=''>
                             {data.map((district, i) => (
                                 <CarouselItem className='basis-auto snap-center' key={i}>
-                                    <ResponsiveCard
-                                        i={i}
-                                        imgUrl={district.img.url}
-                                        alt={district.name}
-                                        imgBlurDataUrl={district.img.blurDataUrl}
-                                        imgMsg={district.name}
-                                        des={district.about.slice(0, 60)}
+                                    <DistrictCard
+                                        key={i}
+                                        name={district.name}
+                                        imageUrl={district.img.url}
+                                        imageTitle={district.name}
+                                        imageBlurData={district.img.blurDataUrl}
+                                        description={district.about.slice(0, 120)}
                                         url={`/meghalaya/${district.id}`}
                                         className='max-w-[350px]'
-                                        icon={<CiLocationOn />}
+                                        icon={< LiaMapMarkedAltSolid/>}
                                     >
-                                    </ResponsiveCard>
+                                    </DistrictCard>
                                 </CarouselItem>
                             ))}
                         </CarouselContent>
@@ -106,7 +108,7 @@ const MeghalayaSection = () => {
                                     key={i}
                                     data-index={i}
                                     ref={(el) => { (cardRefs.current[i] = el) }}
-                                    className={`${activePathIndex === i ? 'border transition-all duration-500 rounded-[13px] border-green-500 scale-105' : 'border rounded-[13px] border-white'}`} // Apply border radius conditionally
+                                    className={`${activePathIndex === i ? 'transition-all duration-500 rounded-sm  scale-105 bg-gray-50' : 'bg-white'}`} // Apply border radius conditionally
                                 >
                                     <ResponsiveCard
                                         i={i}
@@ -116,7 +118,7 @@ const MeghalayaSection = () => {
                                         imgMsg={district.name}
                                         des={district.about.slice(0, 60)}
                                         url={`/meghalaya/${district.id}`}
-                                        className='sm:w-[332px] snap-center'
+                                        className='sm:w-[332px] snap-center '
                                         icon={<CiLocationOn />}
                                     >
                                     </ResponsiveCard>
@@ -130,7 +132,7 @@ const MeghalayaSection = () => {
                     </div>
                 </div>
             </div>
-            <div className="text-xl sm:text-4xl font-black text-gray-500 uppercase text-left hyphens-auto sm:text-justify px-0 py-4 sm:p-[3rem] indent-20 sm:indent-96">Meghalaya, known as the 'abode of clouds', is a mesmerizing state in northeast India, rich in natural beauty and cultural heritage. Carved from Assam on January 21, 1972, it comprises the United Khasi, Jaintia Hills, and Garo Hills.<Link href='/meghalaya' className="text-sky-400 "> read more <MdArrowOutward className=' inline-flex w-fit'/></Link> </div>
+            <div className="text-xl sm:text-4xl font-black text-gray-500 uppercase  hyphens-auto text-justify px-0 py-4 sm:p-[3rem] indent-20 sm:indent-96">Meghalaya, known as the &lsquo;abode of clouds&lsquo;, is a mesmerizing state in northeast India, rich in natural beauty and cultural heritage. Carved from Assam on January 21, 1972, it comprises the United Khasi, Jaintia Hills, and Garo Hills.<Link href='/meghalaya' className="text-sky-400 "> read more <MdArrowOutward className=' inline-flex w-fit'/></Link> </div>
         </div>
         // </div>
     )

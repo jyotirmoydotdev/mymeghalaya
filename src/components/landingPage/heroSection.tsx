@@ -49,34 +49,47 @@ const HeroSection = () => {
                             }}
                             plugins={[
                                 Autoplay({
-                                    delay: 2000,
+                                    delay: 3000,
                                 }),
                             ]}
                         >
                             <CarouselContent className=' h-full aspect-square '>
                                 <CarouselItem className=''>
-                                    <Image src={data.images.img1.imgUrl} loading='lazy' placeholder='blur' blurDataURL={data.images.img1.imageBlurDataUrl} width={500} height={500} alt='' className='rounded-2xl object-cover h-full w-full'></Image>
+                                    <div className="border-2 border-muted rounded-2xl aspect-square">
+                                        <Image src={data.images.img1.imgUrl} loading='lazy' placeholder='blur' blurDataURL={data.images.img1.imageBlurDataUrl} width={500} height={500} alt='' className='rounded-2xl object-cover h-full w-full border-white border-4'></Image>
+                                    </div>
                                 </CarouselItem>
                                 <CarouselItem className=''>
-                                    <Image src={data.images.img2.imgUrl} loading='lazy' placeholder='blur' blurDataURL={data.images.img2.imageBlurDataUrl} width={500} height={500} alt='' className='rounded-2xl object-cover h-full w-full'></Image>
+                                    <div className="border-2 border-muted rounded-2xl aspect-square">
+                                        <Image src={data.images.img2.imgUrl} loading='lazy' placeholder='blur' blurDataURL={data.images.img2.imageBlurDataUrl} width={500} height={500} alt='' className='rounded-2xl object-cover h-full w-full border-white border-4'></Image>
+                                    </div>
                                 </CarouselItem>
                                 <CarouselItem className=''>
-                                    <Image src={data.images.img3.imgUrl} loading='lazy' placeholder='blur' blurDataURL={data.images.img3.imageBlurDataUrl} width={500} height={500} alt='' className='rounded-2xl object-cover h-full w-full'></Image>
+                                    <div className="border-2 border-muted rounded-2xl aspect-square">
+                                        <Image src={data.images.img3.imgUrl} loading='lazy' placeholder='blur' blurDataURL={data.images.img3.imageBlurDataUrl} width={500} height={500} alt='' className='rounded-2xl object-cover h-full w-full border-white border-4'></Image>
+                                    </div>
                                 </CarouselItem>
                                 <CarouselItem className=''>
-                                    <Image src={data.images.img4.imgUrl} loading='lazy' placeholder='blur' blurDataURL={data.images.img4.imageBlurDataUrl} width={500} height={500} alt='' className='rounded-2xl object-cover h-full w-full'></Image>
+                                    <div className="border-2 border-muted rounded-2xl aspect-square">
+                                        <Image src={data.images.img4.imgUrl} loading='lazy' placeholder='blur' blurDataURL={data.images.img4.imageBlurDataUrl} width={500} height={500} alt='' className='rounded-2xl object-cover h-full w-full border-white border-4'></Image>
+                                    </div>
                                 </CarouselItem>
                             </CarouselContent>
                         </Carousel>
-                        <div className="flex py-2 px-3 rounded-full justify-end right-3 bottom-3 absolute gap-2 text-gray-200 text-xs backdrop-blur-md w-fit">
-                            {current} / {count}
+                        <div className="inset-x-0 bottom-7 sm:bottom-10 absolute">
+                            <div className="w-full flex justify-center gap-1 py-2">
+                                {Array.from({ length: count }).map((_, index) => (
+                                    <div key={index} className={`h-2 rounded-full transition-all duration-300 backdrop-blur-md bg-white/30 ${((index + 1) === current ? "w-8" : "w-4")}`}></div>
+                                ))}
+                            </div>
                         </div>
                     </div>
 
-                    <div className="flex flex-col gap-3 sm:gap-6 h-full justify-center pl-0 sm:pl-16">
+                    <div className="flex flex-col gap-4 sm:gap-6 h-full justify-center pl-0 sm:pl-16">
                         {/* bg-clip-text bg-gradient-to-r from-emerald-800 to-emerald-400 text-transparent */}
-                        <div className="pb-2 text-xl sm:text-5xl font-medium text-gray-700">
-                            Capture your perfect memories in <span className='font-semibold text-emerald-500 '>Meghalaya</span>'s Cloud Abode
+                        <div className=" text-3xl sm:text-6xl font-bold text-gray-700">
+                            Discover the <div className='font-semibold text-emerald-500 '>Scotland of the East </div>
+                            {/* <span className='font-semibold text-emerald-500 '>Meghalaya</span>'s Cloud Abode */}
                         </div>
                         <div className="text-gray-500 text-xs sm:text-base pl-0 sm:pl-4 ">Build your next unforgettable memory in Meghalaya with MyMeghalaya the ultimate one-stop guide to exploring the wonders of this breathtaking destination.</div>
                         <div className="flex flex-col pl-0 sm:pl-4 gap-2 text-xs sm:text-base pb-2">
@@ -93,12 +106,6 @@ const HeroSection = () => {
                                 <div className="">Your trusted companion for exploring Meghalaya</div>
                             </div>
                         </div>
-                        <div className=" flex gap-4 pl-0 sm:pl-4">
-                            <Link href={'/login'}>
-                                <Button size={'lg'} className='w-fit font-black py-6 rounded-lg active:scale-105 hover:scale-105 transition-all bg-emerald-500 hover:bg-emerald-600'>JOIN NOW</Button>
-                            </Link>
-                            {/* <Button className='w-fit font-black py-5 rounded-lg active:scale-105 hover:scale-105 transition-all text-gray-500' variant={'outline'}>EXPLORE</Button> */}
-                        </div>
                         {/* <div className="flex items-center gap-3 pl-0 sm:pl-4 text-xs sm:text-sm">
                             <div className="flex -space-x-2">
                                 <div className=" size-6 sm:size-8 bg-gray-500 rounded-full border-2 border-white"></div>
@@ -107,6 +114,18 @@ const HeroSection = () => {
                             </div>
                             Trusted By 100K Peoples
                         </div> */}
+                        <div className=" flex gap-4 pl-0 sm:pl-4">
+                            <Button size={'default'} className='w-fit text-sm sm:text-base font-bold py-6 rounded-lg active:scale-105 hover:scale-105 transition-all bg-emerald-500 hover:bg-emerald-600' asChild>
+                                <Link href={'/home'}>
+                                    Explore More
+                                </Link>
+                            </Button>
+                            <Button className='w-fit text-sm sm:text-base font-bold py-6 rounded-lg active:scale-105 hover:scale-105 transition-all text-emerald-600 hover:text-emerald-600' variant={'outline'} asChild>
+                                <Link href={'/login'}>
+                                    Join Now
+                                </Link>
+                            </Button>
+                        </div>
                     </div>
                 </div>
             </div>

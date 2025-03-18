@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { getSEOTags } from '@/libs/seo';
+import { getSEOTags } from '@/lib/seo';
 import Navbar from '@/components/layout/navbar';
 import Footer from '@/components/layout/footer';
 

@@ -11,18 +11,20 @@ import { FaLocationDot } from 'react-icons/fa6'
 import { handleClick } from '@/functions/haptic'
 import { RiSearch2Fill } from 'react-icons/ri'
 import CiUserFill from '@/staticData/CiUserFill'
+import { BsSuitcase2, BsSuitcase2Fill } from 'react-icons/bs'
 
 const MobileNavBar = () => {
     const path = usePathname();
-    const isHomeActive = path === '/'
+    const isHomeActive = path.includes('/home')
     const isDestinationActive = path.includes('/destinations') || path.includes('/meghalaya')
     const isSearchActive = path.includes('/search') 
     const isProfileActive = path.includes('/profile') ||  path.includes('/login') 
 
     return (
         <div className=" relative block sm:hidden">
-            <div className=" py-4 w-full bg-gray-50 shadow-lg fixed bottom-0 grid grid-cols-4 z-50 border-t">
-                <Link href="/" className="flex justify-center transform active:scale-75 transition-all items-center flex-col" onClick={handleClick}>
+            <div className=" py-[0.625rem] w-full backdrop-blur-sm  shadow-lg fixed bottom-0 grid grid-cols-3 z-50 ">
+                <div className=" w-full h-full bg-white absolute opacity-70"></div>
+                <Link href="/home" className="flex justify-center transform active:scale-75 transition-all items-center flex-col" onClick={handleClick}>
                     {isHomeActive ? (
                         <>
                         <GoHomeFill className="size-5" />
@@ -35,7 +37,7 @@ const MobileNavBar = () => {
                         </>
                     )}
                 </Link>
-                <Link href={'/destinations'} className="flex flex-col items-center justify-center transform active:scale-75 transition-all" onClick={handleClick}>
+                {/* <Link href={'/destinations'} className="flex flex-col items-center justify-center transform active:scale-75 transition-all" onClick={handleClick}>
                     {
                         isDestinationActive?(
                             <>
@@ -50,7 +52,21 @@ const MobileNavBar = () => {
                         )
                     }
                 </Link>
-
+                <Link href={'/destinations'} className="flex flex-col items-center justify-center transform active:scale-75 transition-all" onClick={handleClick}>
+                    {
+                        isDestinationActive?(
+                            <>
+                            <BsSuitcase2Fill className='size-5'/>
+                            <div className="text-[10px] font-semibold">Itinerary</div>
+                            </>
+                        ):(
+                            <>
+                            <BsSuitcase2 className=' size-5 stroke-gray-500'/>
+                            <div className="text-[10px] font-semibold text-gray-500">Itinerary</div>
+                            </>
+                        )
+                    }
+                </Link> */}
                 <Link href={'/search'} className="flex flex-col items-center justify-center transform active:scale-75 transition-all" onClick={handleClick}>
                 {
                     isSearchActive?(
@@ -81,11 +97,6 @@ const MobileNavBar = () => {
                     )
                 }
                 </Link>
-
-                {/* <div className="flex flex-col items-center justify-center">
-                    <CiCalendar className=" stroke-1 size-5 fill-gray-500 stroke-gray-500" />
-                    <div className="text-[10px] font-semibold text-gray-500">itinerary</div>
-                </div> */}
             </div>
         </div>
     )

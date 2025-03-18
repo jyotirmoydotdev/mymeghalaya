@@ -71,6 +71,7 @@ export const DirectionAwareHover = ({
     const d = Math.round(Math.atan2(y, x) / 1.57079633 + 5) % 4;
     return d;
   };
+  
   return (
     <motion.div
       onMouseEnter={handleMouseEnter}
@@ -100,7 +101,7 @@ export const DirectionAwareHover = ({
               alt={alt || ""}
               title={name}
               className={cn(
-                "h-full w-full object-cover object-center scale-100 sm:scale-[1.15] rounded-t-[11px]",
+                "h-full w-full object-cover object-center scale-100 sm:scale-[1.15]",
                 imageClassName
               )}
               width={500}
@@ -120,7 +121,7 @@ export const DirectionAwareHover = ({
             }}
             initial={true} animate={{ opacity: (isDesktop && hover) ? 0 : 1, transform: 'none' }}
             className={cn(
-              "text-white absolute bottom-4 left-4 z-40",
+              "text-white absolute bottom-4 right-4 z-40",
               childrenClassName
             )}
           >

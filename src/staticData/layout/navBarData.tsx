@@ -4,11 +4,15 @@ export const NavBarDesktopData = {
     links:[
         {
          name:"Home",
-         link: "/"
+         link: "/home"
         },
         {
             name: "Destinations",
-            link:"/destinations"
+            link:"/search/destinations"
+        },
+        {
+            name: "Districts",
+            link:"/search/districts"
         }
     ],
     search:{

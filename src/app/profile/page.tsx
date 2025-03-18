@@ -6,20 +6,21 @@ import { GoSignOut } from 'react-icons/go'
 import { createClient } from '@/utils/supabase/server';
 
 const page = async () => {
-    const {data: { user }} = await createClient().auth.getUser();
+    const supabase = await createClient();
+    const { data: { user } } = await supabase.auth.getUser();
     return (
         <div className='h-[90vh] px-4 container max-w-xl py-3 w-full '>
             <div className="flex flex-col gap-2">
-                <div className="flex flex-col gap-1 pb-2">
+                {/* <div className="flex flex-col gap-1 pb-2">
                     <div className="text-base font-semibold pl-1">Name</div>
                     <div className="rounded-md py-2 border shadow-sm text-sm px-3 text-gray-500 flex justify-between items-center">
                         <div className="">
-                            {user?user.user_metadata.full_name : "Your Name"}
+                            {user ? user.user_metadata.full_name : "Your Name"}
                         </div>
                         <div className=""><CiEdit /></div>
                     </div>
                     <div className='text-[10px] text-gray-500 px-1'>This is the name that will be displayed on your profile and in emails.</div>
-                </div>
+                </div> */}
                 <div className="flex flex-col gap-1 pb-2">
                     <div className="text-base font-semibold pl-1">Email</div>
                     <div className="rounded-md py-2 border shadow-sm text-sm px-3 text-gray-500 flex justify-between items-center">
@@ -38,12 +39,12 @@ const page = async () => {
                     </div>
                     <div className='text-[10px] text-gray-500 px-1'>You can @mention other users and organizations to link to them.</div>
                 </div>
-                <Button variant={'destructive'} className='flex gap-2 w-fit' disabled={user ? false : true}>
-                    <form action={signOutAction} className='flex gap-2 items-center justify-center'>
+                <form action={signOutAction} className='flex gap-2 w-full items-start justify-start'>
+                    <Button variant={'destructive'} className='flex gap-2 w-fit' disabled={user ? false : true}>
                         <GoSignOut />
                         Sign out
-                    </form>
-                </Button>
+                    </Button>
+                </form>
             </div>
         </div>
     )

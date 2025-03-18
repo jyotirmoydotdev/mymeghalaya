@@ -3,6 +3,29 @@
 - [] [Protomaps](https://docs.protomaps.com/pmtiles/maplibre) slefhost
 - [] Render with [react-map-gl](https://visgl.github.io/react-map-gl/docs)
 
+
+Option 2: Use a View for Easy Querying
+To make querying simpler, you can create a view that "joins" the images table with destinations based on the polymorphic relationship. Views behave like tables but are dynamically generated.
+
+Create the View:
+
+CREATE VIEW destination_images AS
+SELECT 
+    d.id AS destination_id,
+    d.name AS destination_name,
+    i.image_url,
+    i.image_title
+FROM destinations d
+JOIN images i
+ON i.entity_type = 'destination' AND i.entity_id = d.id;
+Querying the View:
+
+With this view, you can perform your original query:
+
+const { data, error } = await supabase
+  .from('destination_images')
+  .select('destination_name, image_url');
+
 ## Referance 
 
 - [Self-host Maps with Protomaps and Supabase Storage](https://youtu.be/l7QBpiLRwJc?si=LirN_7ngDc_whoB1)

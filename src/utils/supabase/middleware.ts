@@ -1,16 +1,11 @@
-import { createServerClient } from "@supabase/ssr";
-import { type NextRequest, NextResponse } from "next/server";
+import { createServerClient, type CookieOptions } from '@supabase/ssr'
+import { NextResponse, type NextRequest } from 'next/server'
 
-export const updateSession = async (request: NextRequest) => {
-  // This `try/catch` block is only here for the interactive tutorial.
-  // Feel free to remove once you have Supabase connected.
+export async function updateSession(request: NextRequest) {
   try {
-    // Create an unmodified response
-    let response = NextResponse.next({
-      request: {
-        headers: request.headers,
-      },
-    });
+    let supabaseResponse = NextResponse.next({
+      request,
+    })
 
     const supabase = createServerClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -18,37 +13,41 @@ export const updateSession = async (request: NextRequest) => {
       {
         cookies: {
           getAll() {
-            return request.cookies.getAll();
+            return request.cookies.getAll()
           },
           setAll(cookiesToSet) {
-            cookiesToSet.forEach(({ name, value }) =>
-              request.cookies.set(name, value),
-            );
-            response = NextResponse.next({
+            cookiesToSet.forEach(({ name, value, options }) => request.cookies.set(name, value))
+            supabaseResponse = NextResponse.next({
               request,
-            });
+            })
             cookiesToSet.forEach(({ name, value, options }) =>
-              response.cookies.set(name, value, options),
-            );
-          },
+              supabaseResponse.cookies.set(name, value, options)
+            )
+          }
         },
-      },
-    );
+      }
+    )
 
-    // This will refresh session if expired - required for Server Components
-    // https://supabase.com/docs/guides/auth/server-side/nextjs
+    // refreshing the auth token
     const user = await supabase.auth.getUser();
 
     // protected routes
-    if (request.nextUrl.pathname.startsWith("/destinations") && user.error) {
+    if (request.nextUrl.pathname.startsWith("/profile") && user.error) {
       return NextResponse.redirect(new URL("/login", request.url));
-    }
+    } 
 
-    if (request.nextUrl.pathname === "/" && !user.error) {
-      return NextResponse.redirect(new URL("/protected", request.url));
-    }
+    
+    // else if (request.nextUrl.pathname.startsWith("/search") && user.error) {
+    //   return NextResponse.redirect(new URL("/login", request.url));
+    // } else if (request.nextUrl.pathname.startsWith("/meghalaya") && user.error) {
+    //   return NextResponse.redirect(new URL("/login", request.url));
+    // } 
 
-    return response;
+    // else if (request.nextUrl.pathname.startsWith("/reset-password") && user.error) {
+    //   return NextResponse.redirect(new URL("/login", request.url));
+    // }
+
+    return supabaseResponse
   } catch (e) {
     // If you are here, a Supabase client could not be created!
     // This is likely because you have not set up environment variables.
@@ -59,4 +58,5 @@ export const updateSession = async (request: NextRequest) => {
       },
     });
   }
-};
+
+}

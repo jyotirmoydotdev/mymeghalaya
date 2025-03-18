@@ -19,37 +19,34 @@ import { FaRegCopyright } from 'react-icons/fa';
 import { createClient } from '@/utils/supabase/server';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { CiLocationOn, CiSearch } from 'react-icons/ci';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const RightSheet = async () => {
-  const { data: { user } } = await createClient().auth.getUser()
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser()
   return (
     <div>
-      <Sheet>
+      <Sheet >
         <Avatar>
           <SheetTrigger className='outline-none'>
-            <AvatarImage src={user?.user_metadata.avatar_url} alt={user?.user_metadata.full_name} className='rounded-full'/>
-            <AvatarFallback className="size-8 font-black text-sm sm:text-base text-gray-600">{user ? user?.email?.at(0)?.toUpperCase() : "J"}</AvatarFallback>
+            <AvatarImage src={user?.user_metadata.avatar_url} alt={user?.user_metadata.full_name} className='rounded-full' />
+            <AvatarFallback className=" shadow-none size-8 font-black text-sm sm:text-base rounded-full bg-accent text-gray-800 ">{user ? user?.email?.at(0)?.toUpperCase() : "U"}</AvatarFallback>
           </SheetTrigger>
         </Avatar>
         <SheetContent
-          className="w-[85%] h-full rounded-l-xl border-r-gray-400 shadow-lg flex flex-col "
+          className={`border-r-gray-400 shadow-lg flex flex-col rounded-l-xl`}
           side={"right"}
         >
           <div className=" flex flex-col justify-between h-full">
             <div className="">
-              <SheetHeader className="h-fit">
+              <SheetHeader className="h-fit" >
                 <SheetTitle className="text-left flex items-center gap-2">
                   <Avatar className="h-7 w-7 sm:h-8 sm:w-8 rounded-full">
                     <AvatarImage src={user?.user_metadata.avatar_url} />
                     <AvatarFallback className="font-black text-sm sm:text-base text-gray-600">{user ? user?.email?.at(0)?.toUpperCase() : "U"}</AvatarFallback>
                   </Avatar>
                   <div className="text-xs flex flex-col">
-                    <div className="">
-                      {user?.user_metadata.full_name || "Please Sign in"}
-                    </div>
-                    <div className="text-[10px] text-gray-500">
-                      {user?.email || "Please Sign in"}
-                    </div>
+                    {user?.email || "Please Sign in"}
                   </div>
                 </SheetTitle>
                 <SheetDescription></SheetDescription>
@@ -87,10 +84,16 @@ const RightSheet = async () => {
                   </Button>
                 </Link>
                 <div className="w-full border"></div>
-                <Link href={"/destinations"} className="flex items-center gap-2">
+                <Link href={"/search/destinations"} className="flex items-center gap-2">
                   <CiLocationOn />
                   <Button variant={"link"} className="pl-0">
                     Destinations
+                  </Button>
+                </Link>
+                <Link href={"/search/districts"} className="flex items-center gap-2">
+                  <CiLocationOn />
+                  <Button variant={"link"} className="pl-0">
+                    Districts
                   </Button>
                 </Link>
                 <Link href={"/search"} className="flex items-center gap-2">
