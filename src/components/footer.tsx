@@ -4,8 +4,8 @@ import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Baloo_2 } from "next/font/google";
-import { appconfig } from '@/appconfig';
-import { cn } from '@/src/lib/utils';
+import { appconfig } from '../../appconfig';
+import { cn } from '@/lib/utils';
 import { ThemeSwitcher } from './theme-switcher';
 
 
@@ -63,7 +63,7 @@ const Footer = () => {
     return (
         <div className="  pb-14 sm:pb-5 w-full">
             <div className='flex justify-center px-5 pt-10'>
-                <div className="grid grid-cols-1 sm:grid-cols-2 max-w-5xl w-full pb-5 sm:pb-10 border-b">
+                <div className="grid grid-cols-1 sm:grid-cols-2 max-w-7xl w-full pb-5 sm:pb-10 border-b">
                     <div className=' flex flex-col justify-between pb-0 sm:pb-5'>
                         <div className="flex flex-col" >
                             <div className="flex gap-2 items-center font-semibold">
@@ -103,7 +103,7 @@ const Footer = () => {
                 </div>
             </div>
             <div className="flex justify-center pt-5 text-sm text-gray-500">
-                <div className="flex justify-between max-w-5xl w-full pb-10 px-5 sm:px-0 gap-3">
+                <div className="flex items-center justify-between max-w-7xl w-full pb-10 px-5 sm:px-0 gap-3">
                     <div className="text-xs sm:text-sm">@2025 MyMeghalaya. All right reserved</div>
                     <div className="">
                         <ThemeSwitcher />
