@@ -69,7 +69,7 @@ const Page = (props: { searchParams: Promise<Message> }) => {
                         <div className="text-xs sm:text-base text-gray-500">Login to your account or Sign in to continue </div>
                     </div>
 
-                    <Button className='active:scale-90 transition-transform flex sm:px-9 sm:py-6 sm:text-base sm:gap-3' onClick={(e) => handleGoogleSignin(e)}>
+                    <Button className='active:scale-90 text-black transition-transform flex sm:px-9 sm:py-6 sm:text-base sm:gap-3' onClick={(e) => handleGoogleSignin(e)}>
                         <FaGoogle />
                         <div>
                             Sign in with Google

@@ -49,14 +49,7 @@ export default async function RootLayout({
         <link rel="manifest" href="/site.webmanifest" />
         <body className={`relative no-scrollbar`}>
             <ProgressLoad />
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="dark"
-            enableSystem
-            disableTransitionOnChange
-          >
             {children}
-          </ThemeProvider>
             <MobileNavBar />
             <Analytics />
             <Toaster />

@@ -38,7 +38,7 @@ export default async function page() {
                       </Link>
                     ))
                   }
-                  <Button size={'sm'} asChild>
+                  <Button size={'sm'} className="text-black" asChild>
                     <Link href={'/login'}>
                       Login
                     </Link>

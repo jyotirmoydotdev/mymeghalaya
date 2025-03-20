@@ -1,5 +1,5 @@
 import { supabaseUrl } from "@/lib/supabaseUrl";
-import { destinationsData, locationData } from "@/staticData/locationData";
+import { locationData } from "@/staticData/locationData";
 import { DestinationDataType } from "@/types/destinationDataType";
 import { LocationDataType } from "@/types/locationDataTypes";
 import { createClient } from "@/utils/supabase/server";
@@ -14,8 +14,14 @@ type SupabaseResponse<T> = {
 
 // Fetch the destination data 
 async function fetchDestinationBySlug(slug:string) {
-    const data = destinationsData.find((item)=>item.slug == slug)
-    return data
+    const supabase = await createClient();
+    const { data, error } = await supabase
+        .from('destinations_view')
+        .select("*")
+        .ilike('slug', slug);
+    if (error) throw new Error(error.message);
+    console.log("cant fetch")
+    return data;
 }
 
 // Fetch the destination description from the /markdowns-public folder
@@ -30,7 +36,13 @@ async function fetchDescription(url: string) {
 
 // Fetch the nearby atrractions 
 async function fetchOthers(nearby_attractions:string[]) {
-    return destinationsData.slice(0, 3);
+    const supabase = await createClient();
+    const { data, error } = await supabase
+        .from('destinations_view')
+        .select("id, name, images, tagline, slug, rating, created_at")
+        .in('slug', nearby_attractions);
+    if (error) throw new Error(error.message);
+    return data;
 }
 
 export async function GET(request:NextRequest, props: { params: Promise<{ slug: string }> }) {
@@ -43,18 +55,18 @@ export async function GET(request:NextRequest, props: { params: Promise<{ slug: 
         const destinationData = await fetchDestinationBySlug(slug);
 
         // Check if data exist, if not return a not oky response 
-        if (destinationData === undefined) {
+        if (destinationData.length === 0) {
             return NextResponse.json({ msg: "Destination not found", data:{destination : null, nearby: null} }, { status: 400 });
         }
 
         // store the destination in "destination"
-        const destination = destinationData;
+        const destination:DestinationDataType = destinationData[0];
 
         // fetch and store the neraby attractions in "nearby"
         const nearby = destination.nearby_attractions ? await fetchOthers(destination.nearby_attractions) : [];
 
         // fetch the description and store it in destination.description 
-        // const description = fetchDescription(destination.description)
+        // const description = fetchDescription(supabaseUrl(destination.description as string))
         // destination.description = (await description).toString();
 
         return NextResponse.json({ msg: "All Ok", data: { destination, nearby_attractions: nearby } }, { status: 200 });

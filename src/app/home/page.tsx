@@ -96,7 +96,7 @@ const Page = () => {
           <CarouselContent>
             <CarouselItem className=' sm:basis-1/2 '>
             <div className="relative rounded-lg w-full aspect-video">
-                <Image src={'http://127.0.0.1:54321/storage/v1/object/public/images-public/dawki.webp'} width={500} height={500} alt='' className='h-full w-full object-cover rounded-lg'></Image>
+                <Image src={'/images-public/dawki.webp'} width={500} height={500} alt='' className='h-full w-full object-cover rounded-lg'></Image>
                 <div className=" bottom-0 absolute p-3 sm:p-5 flex flex-col gap-2 w-full bg-gradient-to-t from-gray-700 to-transparent rounded-lg">
                   <div className="text-sm sm:text-lg font-bold text-gray-200">Dawki River</div>
                   <div className="text-xs sm:text-sm text-white">Top Destination - India&lsquo;s Cleanest River</div>
@@ -105,9 +105,9 @@ const Page = () => {
             </CarouselItem>
             <CarouselItem className='sm:basis-1/2 '>
               <div className="relative rounded-lg w-full aspect-video">
-                <Image src={'http://127.0.0.1:54321/storage/v1/object/public/images-public/living-double-decker-root-bridge.webp'} width={500} height={500} alt='' className='h-full w-full object-cover rounded-lg'></Image>
+                <Image src={'/images-public/daribokgre.webp'} width={500} height={500} alt='' className='h-full w-full object-cover rounded-lg'></Image>
                 <div className=" absolute bottom-0 p-3 sm:p-5 flex flex-col gap-2 w-full bg-gradient-to-t from-gray-700 to-transparent rounded-lg">
-                  <div className="text-sm sm:text-lg font-bold text-gray-200">Living Root Bridges</div>
+                  <div className="text-sm sm:text-lg font-bold text-gray-200">Daribokgre</div>
                   <div className="text-xs sm:text-sm text-white">Hidden Gems - Natural Wonders</div>
                 </div>
               </div>

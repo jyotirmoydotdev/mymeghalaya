@@ -47,7 +47,7 @@ const Menu = () => {
 
         <div className='py-2 px-3 font-semibold mb-2'>Explore</div>
 
-        <MenuButton title='Top' icon={<CiStar />} herf={'/search'}></MenuButton>
+        {/* <MenuButton title='Top' icon={<CiStar />} herf={'/search'}></MenuButton> */}
         <MenuButton title='Destinations' icon={<CiLocationOn />} herf={'/search/destinations'}></MenuButton>
         <MenuButton title='Districts' icon={<LiaMapMarkedAltSolid />} herf={'/search/districts'}></MenuButton>
         {/* <div className='flex gap-5 py-2 px-3 hover:bg-gray-100 items-center rounded-md'><IoBedOutline className='' />Hotels</div>

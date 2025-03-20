@@ -232,9 +232,9 @@ const Pages = () => {
               <TabsTrigger className="flex gap-1" value="parking"> Parking</TabsTrigger>
               <TabsTrigger className="flex gap-1" value="distance">Distance</TabsTrigger>
             </TabsList>
-            <TabsContent value="timing" className=''>
+            {/* <TabsContent value="timing" className=''>
               <div className="border flex flex-col p-5 gap-3 rounded-md shadow-sm text-xs sm:text-sm font-medium ">
-                {/* {fetchDestination.data.destination.timing?.map((item, i) => (
+                {fetchDestination.data.destination.timing?.map((item, i) => (
                   <div className="flex justify-between pb-2" key={i}>
                     <div className=" flex gap-2 items-center">
                       <IoTimeOutline />
@@ -242,7 +242,7 @@ const Pages = () => {
                     </div>
                     <div className="">{item.time}</div>
                   </div>
-                ))} */}
+                ))}
                 {
                   (fetchDestination.data.destination.timing) ? (
                     <>
@@ -263,7 +263,7 @@ const Pages = () => {
                   )
                 }
               </div>
-            </TabsContent>
+            </TabsContent> */}
             <TabsContent value="ticket">
               <div className="flex flex-col gap-2">
                 {
@@ -281,10 +281,10 @@ const Pages = () => {
                         sortTicketsByVisitor(fetchDestination.data.destination.tickets).map((item, i) => (
                           <div className="text-xs pb-2 sm:text-sm flex gap-2 items-center" key={i}>
                             {/* <PiTicketThin size={20} className="hover:scale-150 transition" /> */}
-                            {
+                            {/* {
                               item.visitor == "all" ? <MdGroups2 size={20} className="hover:scale-150 transition" /> : <>{ item.visitor == "indians"? "🇮🇳": "🌎"}</>
-                            }
-                            <div className=" capitalize">{item.visitor}</div>
+                            } */}
+                            {/* <div className=" capitalize">{item.visitor}</div> */}
                             <div key={i} className="flex justify-between w-full">
                               <div className=" capitalize">{item.type}</div>
                               <div className="">₹{item.price}</div>
