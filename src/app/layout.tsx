@@ -43,7 +43,7 @@ const defaultUrl = process.env.VERCEL_URL
 
 export const metadata = {
   metadataBase: new URL(defaultUrl),
-  title: appconfig.app,
+  title: "MyMeghalaya",
   description: appconfig.description,
 };
 

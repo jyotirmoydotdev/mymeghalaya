@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { addDays, format } from "date-fns"
+import { addDays, format, differenceInCalendarDays } from "date-fns"
 import { CalendarIcon } from "lucide-react"
 import { DateRange } from "react-day-picker"
 
@@ -18,19 +18,28 @@ export function DatePickerWithRange({
   className,
 }: React.HTMLAttributes<HTMLDivElement>) {
   const [date, setDate] = React.useState<DateRange | undefined>({
-    from: new Date(2022, 0, 20),
-    to: addDays(new Date(2022, 0, 20), 20),
-  })
+    from: new Date(),
+    to: addDays(new Date(), 3),
+  });
+
+  const [totalDays, setTotalDays] = React.useState(() =>
+    differenceInCalendarDays(date?.to!, date?.from!)
+  );
+
+  React.useEffect(() => {
+    setTotalDays(differenceInCalendarDays(date?.to!, date?.from!));
+  }, [date]);
 
   return (
     <div className={cn("grid gap-2", className)}>
       <Popover>
+        <div className=" flex w-full items-center gap-2">
         <PopoverTrigger asChild>
           <Button
             id="date"
             variant={"outline"}
             className={cn(
-              " justify-start text-left font-normal",
+              " justify-start text-left font-normal w-full",
               !date && "text-muted-foreground"
             )}
           >
@@ -49,6 +58,8 @@ export function DatePickerWithRange({
             )}
           </Button>
         </PopoverTrigger>
+        <Button variant={'outline'}>{totalDays}</Button>
+        </div>
         <PopoverContent className="w-auto p-0" align="start">
           <Calendar
             initialFocus
